@@ -33,7 +33,7 @@
                       <label for="subpackage" class="form-label">Subpackage</label>
                       <select class="form-control" id="subpackage" name="subpackage" value="{{ $mapping->subpackage ?? '' }}">
                         @foreach ($sub_packages as $sub_package)
-                        <option value="{{ $sub_package->id }}"  {{ isset($mapping) && $mapping->id == $sub_package->id ? 'selected' : ''}}>{{ $sub_package->sub_loan }}</option>                            
+                        <option value="{{ $sub_package->id }}"  {{ isset($mapping) && $mapping->loan_sub_package_id == $sub_package->id ? 'selected' : ''}}>{{ $sub_package->sub_loan }}</option>                            
                         @endforeach
                       </select>
                     </div>

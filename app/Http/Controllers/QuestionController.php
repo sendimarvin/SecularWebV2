@@ -97,7 +97,8 @@ class QuestionController extends Controller
 
 
     public function question_mappings () {
-        $mappings = DB::table('loanquestioncategory_loansubpackage')
+        $mappings = 
+        DB::table('loanquestioncategory_loansubpackage')
             ->select('loanquestioncategory_loansubpackage.id', 'loan_questions_category.category AS category', 'loan_sub_packages.sub_loan AS sub_loan')
             ->join('loan_questions_category', 'loan_questions_category.id', '=', 'loanquestioncategory_loansubpackage.loan_questions_category_id')
             ->join('loan_sub_packages', 'loan_sub_packages.id', '=', 'loanquestioncategory_loansubpackage.loan_sub_package_id')
