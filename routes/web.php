@@ -56,10 +56,6 @@ Route::get('/admins/delete/{id}', [UserController::class, 'destroy']);
 
 Route::get('/admins/edit/{id}', [UserController::class, 'edit']);
 
-Route::get('/terms', [SettingController::class, 'terms']);
-
-Route::get('/policy', [SettingController::class, 'policy']);
-
 // BEGON SECTION QUESTION CATEGORY ROUTES
 Route::get('/question/categories', [QuestionController::class, 'categories'])->name('/question/categories');
 
@@ -102,3 +98,11 @@ Route::get('/question/edit_question_mapping/{id}', [QuestionController::class, '
 Route::put('/question/update_question_mapping/{id}', [QuestionController::class, 'update_question_mapping'])->name('/question/update_question_mapping');
 
 Route::get('/question/delete_question_mapping/{id}', [QuestionController::class, 'delete_question_mapping']);
+
+Route::get('/terms', [SettingController::class, 'terms'])->name('/terms');
+
+Route::put('/update_terms/{id}', [SettingController::class, 'update_terms'])->name('/update_terms');
+
+Route::get('/policy', [SettingController::class, 'policy'])->name('/policy');
+
+Route::put('/update_policy/{id}', [SettingController::class, 'update_policy'])->name('/update_policy');
