@@ -68,8 +68,21 @@
                             </a>
                             <div class="collapse" id="collapseLayouts2" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="layout-static.html">Static Navigation</a>
-                                    <a class="nav-link" href="layout-sidenav-light.html">Light Sidenav</a>
+                                    <a class="nav-link" href="layout-static.html">Loan Applications</a>
+                                    <a class="nav-link" href="layout-sidenav-light.html">Pending Approvals</a>
+                                </nav>
+                            </div>
+
+                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePayments" aria-expanded="false" aria-controls="collapsePayments">
+                                <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                                Payments
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                            </a>
+                            <div class="collapse" id="collapsePayments" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav">
+                                    <a class="nav-link" href="layout-static.html">Application Fees</a>
+                                    <a class="nav-link" href="layout-sidenav-light.html">Loan Payments</a>
+                                    <a class="nav-link" href="layout-sidenav-light.html">Subscription</a>
                                 </nav>
                             </div>
 
@@ -106,6 +119,7 @@
                                 <nav class="sb-sidenav-menu-nested nav">
                                     <a class="nav-link" href="/terms">Terms</a>
                                     <a class="nav-link" href="/policy">Policy</a>
+                                    <a class="nav-link" href="/application_fee">Application Fee</a>
                                 </nav>
                             </div>
 

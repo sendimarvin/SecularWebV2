@@ -25,8 +25,6 @@ class SettingController extends Controller
         return redirect()->route('/terms');
     }
 
-
-
     public function policy() {
         $settings = DB::table('settings')->first();
         return view('pages/policy', compact('settings'));
@@ -41,6 +39,23 @@ class SettingController extends Controller
             ]);
     
         return redirect()->route('/policy');
+    }
+
+
+    public function application_fee() {
+        $settings = DB::table('settings')->first();
+        return view('pages/application_fee', compact('settings'));
+    }
+
+
+    public function update_application_fee (Request $request, $id) {
+        DB::table('settings')
+        ->where('id', $id)
+        ->update([
+            'application_fee' => base64_encode($request->policy)
+            ]);
+    
+        return redirect()->route('/application_fee');
     }
 
 }

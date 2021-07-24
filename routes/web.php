@@ -106,3 +106,7 @@ Route::put('/update_terms/{id}', [SettingController::class, 'update_terms'])->na
 Route::get('/policy', [SettingController::class, 'policy'])->name('/policy');
 
 Route::put('/update_policy/{id}', [SettingController::class, 'update_policy'])->name('/update_policy');
+
+Route::get('/application_fee', [SettingController::class, 'application_fee'])->name('/application_fee');
+
+Route::put('/update_application_fee/{id}', [SettingController::class, 'update_application_fee'])->name('/update_application_fee');
