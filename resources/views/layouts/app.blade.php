@@ -143,8 +143,8 @@
                             </a>
                             <div class="collapse" id="collapseloansetup" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="/terms">Packages</a>
-                                    <a class="nav-link" href="/policy">Sub-packages</a>
+                                    <a class="nav-link" href="/loans/packages">Packages</a>
+                                    <a class="nav-link" href="/loans/sub_packages">Sub-packages</a>
                                 </nav>
                             </div>
 

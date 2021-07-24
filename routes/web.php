@@ -5,6 +5,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\SubscriptionController;
+use App\Http\Controllers\LoanPackageController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -127,4 +128,34 @@ Route::get('/subscription/edit_subscription_package/{id}', [SubscriptionControll
 Route::put('/subscription/update_subscription_package/{id}', [SubscriptionController::class, 'update_subscription_package'])->name('/subscription/update_subscription_package');
 
 Route::get('/subscription/delete_subscription_package/{id}', [SubscriptionController::class, 'delete_subscription_package']);
+///////
+
+
+// BEGIN SECTION LoanPackage //
+Route::get('/loans/packages', [LoanPackageController::class, 'loanPackages'])->name('/loans/packages');
+
+Route::get('/loans/new_package', function () {
+    return view('pages/new_loan_package');
+})->name('/loans/new_package');
+
+Route::post('/loans/save_package', [LoanPackageController::class, 'create_package']);
+
+Route::get('/loans/edit_package/{id}', [LoanPackageController::class, 'edit_package']);
+
+Route::put('/loans/update_package/{id}', [LoanPackageController::class, 'update_package'])->name('/loans/update_package');
+
+Route::get('/loans/delete_package/{id}', [LoanPackageController::class, 'delete_package']);
+
+/////////////
+Route::get('/loans/sub_packages', [LoanPackageController::class, 'sub_packages'])->name('/loans/sub_packages');
+
+Route::get('/loans/new_sub_package', [LoanPackageController::class, 'new_sub_package'])->name('/loans/new_sub_package');
+
+Route::post('/loans/save_sub_package', [LoanPackageController::class, 'create_sub_package']);
+
+Route::get('/loans/edit_sub_package/{id}', [LoanPackageController::class, 'edit_sub_package']);
+
+Route::put('/loans/update_sub_package/{id}', [LoanPackageController::class, 'update_sub_package'])->name('/loans/update_sub_package');
+
+Route::get('/loans/delete_sub_package/{id}', [LoanPackageController::class, 'delete_sub_package']);
 ///////
