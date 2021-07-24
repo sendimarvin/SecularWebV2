@@ -61,7 +61,7 @@
 
                     <button type="submit" class="btn btn-primary">Submit</button>
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <a href="/loans/packages" class="btn btn-default">Cancel</a>
+                    <a href="/events" class="btn btn-default">Cancel</a>
                 </form>
             </div>
         </div>

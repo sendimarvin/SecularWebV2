@@ -7,6 +7,7 @@ use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\LoanPackageController;
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\FeedbackController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -177,3 +178,8 @@ Route::put('/events/update_event/{id}', [EventController::class, 'update_event']
 
 Route::get('/events/delete_event/{id}', [EventController::class, 'delete_event']);
 ////////////////
+
+
+//////////////FEEDBACK/////////////
+Route::get('/feedback', [FeedbackController::class, 'feedback'])->name('/feedback');
+//////////////////

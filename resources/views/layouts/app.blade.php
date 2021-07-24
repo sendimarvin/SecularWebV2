@@ -83,8 +83,15 @@
                                     <a class="nav-link" href="layout-static.html">Application Fees</a>
                                     <a class="nav-link" href="layout-sidenav-light.html">Loan Payments</a>
                                     <a class="nav-link" href="layout-sidenav-light.html">Subscription</a>
+                                    <a class="nav-link" href="layout-sidenav-light.html">Events</a>
+                                    <a class="nav-link" href="layout-sidenav-light.html">Disbursments</a>
                                 </nav>
                             </div>
+
+                            <a class="nav-link" href="/feedback">
+                                <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
+                                Feedback
+                            </a>
 
 
                             <div class="sb-sidenav-menu-heading">Settings</div>
@@ -97,36 +104,6 @@
                                 <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
                                 Events
                             </a>
-
-                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLocations" aria-expanded="false" aria-controls="collapseLocations">
-                                <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
-                                Locations
-                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                            </a>
-                            <div class="collapse" id="collapseLocations" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
-                                <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="/nationality">Nationalities</a>
-                                    <a class="nav-link" href="/country">Countries</a>
-                                    <a class="nav-link" href="/region">Regions</a>
-                                    <a class="nav-link" href="/district">Districts</a>
-                                    <a class="nav-link" href="/subcounty">Sub-county</a>
-                                    <a class="nav-link" href="/parish">Parish</a>
-                                    <a class="nav-link" href="/village">Village</a>
-                                </nav>
-                            </div>
-
-                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsetc" aria-expanded="false" aria-controls="collapsetc">
-                                <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
-                                General
-                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                            </a>
-                            <div class="collapse" id="collapsetc" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
-                                <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="/terms">Terms</a>
-                                    <a class="nav-link" href="/policy">Policy</a>
-                                    <a class="nav-link" href="/application_fee">Application Fee</a>
-                                </nav>
-                            </div>
 
                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseqa" aria-expanded="false" aria-controls="collapseqa">
                                 <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
@@ -150,6 +127,36 @@
                                 <nav class="sb-sidenav-menu-nested nav">
                                     <a class="nav-link" href="/loans/packages">Packages</a>
                                     <a class="nav-link" href="/loans/sub_packages">Sub-packages</a>
+                                </nav>
+                            </div>
+
+                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsetc" aria-expanded="false" aria-controls="collapsetc">
+                                <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                                Others
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                            </a>
+                            <div class="collapse" id="collapsetc" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav">
+                                    <a class="nav-link" href="/terms">Terms</a>
+                                    <a class="nav-link" href="/policy">Policy</a>
+                                    <a class="nav-link" href="/application_fee">Application Fee</a>
+                                </nav>
+                            </div>
+
+                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLocations" aria-expanded="false" aria-controls="collapseLocations">
+                                <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                                Locations
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                            </a>
+                            <div class="collapse" id="collapseLocations" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav">
+                                    <a class="nav-link" href="/nationality">Nationalities</a>
+                                    <a class="nav-link" href="/country">Countries</a>
+                                    <a class="nav-link" href="/region">Regions</a>
+                                    <a class="nav-link" href="/district">Districts</a>
+                                    <a class="nav-link" href="/subcounty">Sub-county</a>
+                                    <a class="nav-link" href="/parish">Parish</a>
+                                    <a class="nav-link" href="/village">Village</a>
                                 </nav>
                             </div>
 
