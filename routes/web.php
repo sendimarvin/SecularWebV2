@@ -6,6 +6,7 @@ use App\Http\Controllers\SettingController;
 use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\LoanPackageController;
+use App\Http\Controllers\EventController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -159,3 +160,20 @@ Route::put('/loans/update_sub_package/{id}', [LoanPackageController::class, 'upd
 
 Route::get('/loans/delete_sub_package/{id}', [LoanPackageController::class, 'delete_sub_package']);
 ///////
+
+
+///////EVENTS SECTION
+Route::get('/events', [EventController::class, 'events'])->name('/events');
+
+Route::get('/events/new_event', function () {
+    return view('pages/new_event');
+})->name('/events/new_event');
+
+Route::post('/events/save_event', [EventController::class, 'create_event']);
+
+Route::get('/events/edit_event/{id}', [EventController::class, 'edit_event']);
+
+Route::put('/events/update_event/{id}', [EventController::class, 'update_event'])->name('/events/update_event');
+
+Route::get('/events/delete_event/{id}', [EventController::class, 'delete_event']);
+////////////////
