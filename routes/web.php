@@ -8,6 +8,7 @@ use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\LoanPackageController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\FeedbackController;
+use App\Http\Controllers\LoanApplicationController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -182,4 +183,8 @@ Route::get('/events/delete_event/{id}', [EventController::class, 'delete_event']
 
 //////////////FEEDBACK/////////////
 Route::get('/feedback', [FeedbackController::class, 'feedback'])->name('/feedback');
+//////////////////
+
+//////////////Loan Applications/////////////
+Route::get('/loan_applications', [LoanApplicationController::class, 'loan_applications'])->name('/loan_applications');
 //////////////////
