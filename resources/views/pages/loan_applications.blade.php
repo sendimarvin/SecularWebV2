@@ -94,7 +94,9 @@
                     {
                         text: 'Review & Action',
                         action: function ( e, dt, node, config ) {
-                            window.location.href='/loan_applications/new_event'
+                            let row = $('#example').DataTable().row('.selected').data();
+                            let idtodelete = row[0];
+                            window.location.href='/loan_applications/review_loan/'+row[0]
                         }
                     },
                     // {

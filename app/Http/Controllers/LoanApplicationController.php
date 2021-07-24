@@ -24,4 +24,27 @@ class LoanApplicationController extends Controller
         return view('pages/loan_applications', compact('loan_applications'));
     }
 
+    public function review_loan ($id) {
+        $loan_application = DB::table('loan_applications')
+                ->where('id', $id)
+                ->first();
+        $user = DB::table('users')
+                ->where('id', $loan_application->user_id)
+                ->first();
+        $loan_sub_package = DB::table('loan_sub_packages')
+                ->where('id', $loan_application->subpackage_id)
+                ->first();
+        $loan_package = DB::table('loan_packages')
+                ->where('id', $loan_sub_package->loan_package_id)
+                ->first();
+        $subscription = DB::table('loan_packages')
+                ->where('id', $loan_sub_package->loan_package_id)
+                ->first();
+        $loan_application_fee_payment = DB::table('loan_application_fee_payments')
+                ->where('application_id', $loan_application->application_id)
+                ->first();
+        return view('pages/loan_application_review', compact('loan_application', 'user', 'loan_sub_package', 
+            'loan_package', 'subscription', 'loan_application_fee_payment'));
+    }
+
 }

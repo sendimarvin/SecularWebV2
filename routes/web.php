@@ -187,4 +187,9 @@ Route::get('/feedback', [FeedbackController::class, 'feedback'])->name('/feedbac
 
 //////////////Loan Applications/////////////
 Route::get('/loan_applications', [LoanApplicationController::class, 'loan_applications'])->name('/loan_applications');
+
+Route::get('/loan_applications/review_loan/{id}', [LoanApplicationController::class, 'review_loan']);
+
+Route::put('/loan_applications/update_loan_application/{id}', [LoanApplicationController::class, 'update_loan_application'])->name('/loan_applications/update_loan_application');
+
 //////////////////
