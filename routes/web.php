@@ -4,6 +4,7 @@ use App\Http\Controllers\AddressController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\QuestionController;
+use App\Http\Controllers\SubscriptionController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -110,3 +111,20 @@ Route::put('/update_policy/{id}', [SettingController::class, 'update_policy'])->
 Route::get('/application_fee', [SettingController::class, 'application_fee'])->name('/application_fee');
 
 Route::put('/update_application_fee/{id}', [SettingController::class, 'update_application_fee'])->name('/update_application_fee');
+
+
+// BEGIN SECTION SUBSCRIPTION //
+Route::get('/subscription/subscription_packages', [SubscriptionController::class, 'subscription_packages'])->name('/subscription/subscription_packages');
+
+Route::get('/subscription/new_subscription_package', function () {
+    return view('pages/new_subscription_package');
+})->name('/subscription/new_subscription_package');
+
+Route::post('/subscription/save_subscription_package', [SubscriptionController::class, 'create_subscription_package']);
+
+Route::get('/subscription/edit_subscription_package/{id}', [SubscriptionController::class, 'edit_subscription_package']);
+
+Route::put('/subscription/update_subscription_package/{id}', [SubscriptionController::class, 'update_subscription_package'])->name('/subscription/update_subscription_package');
+
+Route::get('/subscription/delete_subscription_package/{id}', [SubscriptionController::class, 'delete_subscription_package']);
+///////

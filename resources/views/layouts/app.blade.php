@@ -88,7 +88,7 @@
 
 
                             <div class="sb-sidenav-menu-heading">Settings</div>
-                            <a class="nav-link" href="charts.html">
+                            <a class="nav-link" href="/subscription/subscription_packages">
                                 <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
                                 Subscription
                             </a>
