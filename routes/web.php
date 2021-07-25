@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AddressController;
+use App\Http\Controllers\CustomAuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\QuestionController;
@@ -30,7 +31,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('pages/dashboard');
-});
+});//->middleware('auth:admin');
 
 Route::get('/nationality', [AddressController::class, 'getNationality']);
 
@@ -198,4 +199,10 @@ Route::put('/loan_applications/update_loan_application/{id}', [LoanApplicationCo
 
 //////////////////PAYMENTS///////////////////////
 Route::get('/payments/events_tickets', [PaymentController::class, 'events_tickets'])->name('/payments/events_tickets');
+////////////////////////////////////////////////
+
+
+
+//////////////////AUTH///////////////////////
+Route::get('/login', [CustomAuthController::class, 'login'])->name('login');
 ////////////////////////////////////////////////
