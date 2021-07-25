@@ -55,7 +55,7 @@
                                 <td>{{ $events_ticket->phoneNumber }}</td>
                                 <td>{{ $events_ticket->amount }}</td>
                                 <td>{{ $events_ticket->status }}</td>
-                                <td>{{ $events_ticket->entry_date }}</td>
+                                <td>{{ $events_ticket->created_at }}</td>
                                 <td>{{ $events_ticket->payment_method }}</td>
                             </tr>
                         @endforeach
