@@ -55,9 +55,7 @@ Route::get('/users', [UserController::class, 'index']);
 
 Route::get('/admins', [UserController::class, 'admins'])->name('admins');
 
-Route::get('/admins/create', function () {
-    return view('pages/create_admin');
-})->name('admins.create');
+Route::get('/admins/create', [UserController::class, 'create_admin']);
 
 Route::post('/admins/save', [UserController::class, 'create']);
 

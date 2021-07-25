@@ -34,6 +34,7 @@
                             <th>No.</th>
                             <th>Username</th>
                             <th>Full&nbsp;Name</th>
+                            <th>Role</th>
                             <th>Email</th>
                         </tr>
                     </thead>
@@ -44,6 +45,7 @@
                                 <td>{{ $user->id }}</td>
                                 <td>{{ $user->username }}</td>
                                 <td>{{ $user->fullName }}</td>
+                                <td>{{ $user->role }}</td>
                                 <td>{{ $user->email }}</td>
                             </tr>
                         @endforeach

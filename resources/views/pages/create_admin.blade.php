@@ -28,9 +28,6 @@
                 @endif
 
                   {{ csrf_field() }}
-                    {{-- @if(isset($admin->id))
-                    <input type="hidden" name="id" id="id" value="{{ $admin->id }}" />
-                    @endif --}}
                     <div class="mb-3">
                       <label for="exampleInputusername" class="form-label">Username</label>
                       <input type="text" class="form-control" id="exampleInputusername" name="username" value="{{ $admin->username ?? '' }}">
@@ -38,6 +35,14 @@
                     <div class="mb-3">
                       <label for="exampleInputfullname" class="form-label">Full Name</label>
                       <input type="text" class="form-control" id="exampleInputfullname" name="fullName" value="{{ $admin->fullName ?? '' }}">
+                    </div>
+                    <div class="mb-3">
+                      <label for="role" class="form-label">Role</label>
+                      <select class="form-control" id="role" name="role" >
+                        @foreach ($roles as $role)
+                        <option value="{{ $role->role_key }}"  {{ isset($admin) && $admin->role == $role->role_key ? 'selected' : ''}}>{{ $role->role_description }}</option>                            
+                        @endforeach
+                      </select>
                     </div>
                     <div class="mb-3">
                       <label for="exampleInputEmail1" class="form-label">Email address</label>

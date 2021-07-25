@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use DB;
+use Hash;
 
 class UserController extends Controller
 {
@@ -24,43 +25,38 @@ class UserController extends Controller
         return view('pages/admins', compact('admins'));
     }
 
+    public function create_admin()
+    {
+        $roles = DB::table('roles')->get();
+        return view('pages/create_admin', compact('roles'));
+    }
+
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
+
+        $request->validate([
+            'username' => 'required',
+            'fullName' => 'required',
+            'role' => 'required',
+            'email' => 'required|email',
+            'password' => 'required|min:6',
+        ]);
+        $passwordHash =  Hash::make(request('password'));
+        // dd($passwordHash);
         DB::table('admins')->insert([
             'username' => request('username'),
             'fullName' => request('fullName'),
+            'role' => request('role'),
             'email' => request('email'),
-            'password' => request('password')
+            'password' => $passwordHash
         ]);
         // return Redirect::route('/admins');
         return redirect()->route('admins');
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
     }
 
     /**
@@ -71,8 +67,9 @@ class UserController extends Controller
      */
     public function edit($id)
     {
+        $roles = DB::table('roles')->get();
         $admin = DB::table('admins')->where('id', $id)->first();
-        return view('pages/create_admin', compact('admin'));
+        return view('pages/create_admin', compact('admin', 'roles'));
     }
 
     /**
