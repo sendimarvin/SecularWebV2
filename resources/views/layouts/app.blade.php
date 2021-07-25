@@ -80,11 +80,11 @@
                             </a>
                             <div class="collapse" id="collapsePayments" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="layout-static.html">Application Fees</a>
-                                    <a class="nav-link" href="layout-sidenav-light.html">Loan Payments</a>
-                                    <a class="nav-link" href="layout-sidenav-light.html">Subscription</a>
-                                    <a class="nav-link" href="layout-sidenav-light.html">Events</a>
-                                    <a class="nav-link" href="layout-sidenav-light.html">Disbursments</a>
+                                    <a class="nav-link" href="/payments/application_fees">Application Fees</a>
+                                    <a class="nav-link" href="/payments/loan_payments">Loan Payments</a>
+                                    <a class="nav-link" href="/payments/subscriptions">Subscriptions</a>
+                                    <a class="nav-link" href="/payments/events_tickets">Events Tickets</a>
+                                    <a class="nav-link" href="/payments/disbursments">Disbursments</a>
                                 </nav>
                             </div>
 
