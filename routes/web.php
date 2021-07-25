@@ -12,6 +12,7 @@ use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\LoanApplicationController;
 use App\Http\Controllers\PaymentController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,8 +31,11 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/', function () {
-    return view('pages/dashboard');
-});//->middleware('auth:admin');
+    if(Auth::check()){
+        return view('pages/dashboard');
+    }
+    return redirect("login")->withSuccess('You are not allowed to access');
+})->name('dashboard');
 
 Route::get('/nationality', [AddressController::class, 'getNationality']);
 
@@ -205,4 +209,6 @@ Route::get('/payments/events_tickets', [PaymentController::class, 'events_ticket
 
 //////////////////AUTH///////////////////////
 Route::get('/login', [CustomAuthController::class, 'login'])->name('login');
+Route::post('/authenticate', [CustomAuthController::class, 'authenticate'])->name('authenticate');
+Route::get('/logout', [CustomAuthController::class, 'signOut'])->name('logout');
 ////////////////////////////////////////////////
