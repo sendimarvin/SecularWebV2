@@ -73,4 +73,23 @@ class SettingController extends Controller
         return redirect()->route('/application_fee');
     }
 
+
+    public function payments_setup() {
+        $settings = DB::table('settings')->first();
+        return view('pages/payments_setup', compact('settings'));
+    }
+
+
+    public function update_payments_setup (Request $request, $id) {
+        DB::table('settings')
+        ->where('id', $id)
+        ->update([
+            'payment_url' => $request->payment_url,
+            'payment_username' => $request->payment_username,
+            'payment_password' => $request->payment_password
+            ]);
+    
+        return redirect()->route('/payments_setup');
+    }
+
 }

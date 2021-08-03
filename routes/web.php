@@ -120,8 +120,10 @@ Route::get('/kadama_terms', [SettingController::class, 'kadama_terms'])->name('/
 Route::put('/update_kadama_terms/{id}', [SettingController::class, 'update_kadama_terms'])->name('/update_kadama_terms');
 
 Route::get('/application_fee', [SettingController::class, 'application_fee'])->name('/application_fee');
-
 Route::put('/update_application_fee/{id}', [SettingController::class, 'update_application_fee'])->name('/update_application_fee');
+
+Route::get('/payments_setup', [SettingController::class, 'payments_setup'])->name('/payments_setup');
+Route::put('/update_payments_setup/{id}', [SettingController::class, 'update_payments_setup'])->name('/update_payments_setup');
 
 
 // BEGIN SECTION SUBSCRIPTION //
