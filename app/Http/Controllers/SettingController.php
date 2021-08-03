@@ -67,7 +67,7 @@ class SettingController extends Controller
         DB::table('settings')
         ->where('id', $id)
         ->update([
-            'application_fee' => base64_encode($request->policy)
+            'application_fee' => $request->application_fee
             ]);
     
         return redirect()->route('/application_fee');
