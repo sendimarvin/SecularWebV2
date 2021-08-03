@@ -204,6 +204,7 @@ Route::get('/payments/events_tickets', [PaymentController::class, 'events_ticket
 Route::get('/payments/application_fees', [PaymentController::class, 'application_fees'])->name('/payments/application_fees');
 Route::get('/payments/loan_payments', [PaymentController::class, 'loan_payments'])->name('/payments/loan_payments');
 Route::get('/payments/subscriptions', [PaymentController::class, 'subscriptions'])->name('/payments/subscriptions');
+Route::get('/payments/disbursments', [PaymentController::class, 'disbursments'])->name('/payments/disbursments');
 ////////////////////////////////////////////////
 
 

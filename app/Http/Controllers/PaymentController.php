@@ -63,4 +63,19 @@ class PaymentController extends Controller
         return view('pages/subscriptions', compact('subscriptions'));
     }
 
+
+    public function disbursments () {
+        $disbursments = DB::table('subscriptions')
+            ->select('subscriptions.id', 'subscriptions.paymentOption', 'subscriptions.payment_date',
+                'subscriptions.paymentProvider', 'subscriptions.payment_status', 'subscriptions.expiry_date',
+                'subscriptionpackages.name', 'subscriptionpackages.period',
+                'payments.title', 'payments.amount', 'payments.payment_ref',
+                'users.firstName', 'users.lastName', 'users.middleName', 'users.phoneNumber')
+            ->join('payments', 'payments.id', '=', 'subscriptions.payment_id')
+            ->join('subscriptionpackages', 'subscriptionpackages.id', '=', 'subscriptions.subscriptionId')
+            ->join('users', 'users.id', '=', 'subscriptions.userId')
+            ->get();
+        return view('pages/disbursments', compact('disbursments'));
+    }
+
 }
