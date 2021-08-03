@@ -21,4 +21,18 @@ class PaymentController extends Controller
         return view('pages/events_tickets', compact('events_tickets'));
     }
 
+    public function application_fees () {
+        $application_fees = DB::table('loan_application_fee_payments')
+            ->select('loan_application_fee_payments.id', 'loan_application_fee_payments.payment_method', 
+                'loan_application_fee_payments.payment_date',
+                'loan_applications.application_id',
+                'payments.title', 'payments.amount', 'payments.payment_ref',
+                'users.firstName', 'users.lastName', 'users.middleName', 'users.phoneNumber')
+            ->join('payments', 'payments.id', '=', 'loan_application_fee_payments.payment_id')
+            ->join('loan_applications', 'loan_applications.id', '=', 'loan_application_fee_payments.application_id')
+            ->join('users', 'users.id', '=', 'loan_applications.user_id')
+            ->get();
+        return view('pages/application_fees', compact('application_fees'));
+    }
+
 }

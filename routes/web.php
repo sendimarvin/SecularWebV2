@@ -199,8 +199,9 @@ Route::put('/loan_applications/update_loan_application/{id}', [LoanApplicationCo
 //////////////////
 
 
-//////////////////PAYMENTS///////////////////////
+//////////////////PAYMENTS////////////////////////
 Route::get('/payments/events_tickets', [PaymentController::class, 'events_tickets'])->name('/payments/events_tickets');
+Route::get('/payments/application_fees', [PaymentController::class, 'application_fees'])->name('/payments/application_fees');
 ////////////////////////////////////////////////
 
 
