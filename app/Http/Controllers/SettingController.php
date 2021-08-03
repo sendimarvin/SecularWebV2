@@ -30,6 +30,21 @@ class SettingController extends Controller
         return view('pages/policy', compact('settings'));
     }
 
+    public function kadama_terms() {
+        $settings = DB::table('settings')->first();
+        return view('pages/kadama_terms', compact('settings'));
+    }
+
+
+    public function update_kadama_terms (Request $request, $id) {
+        DB::table('settings')
+        ->where('id', $id)
+        ->update([
+            'kadama_terms' => base64_encode($request->kadama_terms)
+            ]);
+    
+        return redirect()->route('/kadama_terms');
+    }
 
     public function update_policy (Request $request, $id) {
         DB::table('settings')
