@@ -35,4 +35,18 @@ class PaymentController extends Controller
         return view('pages/application_fees', compact('application_fees'));
     }
 
+    public function loan_payments () {
+        $loan_payments = DB::table('loan_payments')
+            ->select('loan_payments.id', 'loan_payments.payment_method', 
+                'loan_payments.payment_date', 'loan_payments.approval_status', 'loan_payments.approval_date',
+                'loan_applications.application_id',
+                'payments.title', 'payments.amount', 'payments.payment_ref',
+                'users.firstName', 'users.lastName', 'users.middleName', 'users.phoneNumber')
+            ->join('payments', 'payments.id', '=', 'loan_payments.payment_id')
+            ->join('loan_applications', 'loan_applications.id', '=', 'loan_payments.application_id')
+            ->join('users', 'users.id', '=', 'loan_applications.user_id')
+            ->get();
+        return view('pages/loan_payments', compact('loan_payments'));
+    }
+
 }
