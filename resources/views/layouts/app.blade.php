@@ -161,8 +161,10 @@
                                 <nav class="sb-sidenav-menu-nested nav">
                                     <a class="nav-link" href="/terms">Terms</a>
                                     <a class="nav-link" href="/policy">Policy</a>
+                                    <a class="nav-link" href="/kadama_terms">Kadama Terms</a>
                                     <a class="nav-link" href="/application_fee">Application Fee</a>
-                                    <a class="nav-link" href="/application_fee">System Backup</a>
+                                    <a class="nav-link" href="/payments_setup">Payments Setup</a>
+                                    <a class="nav-link" href="/system_backup">System Backup</a>
                                 </nav>
                             </div>
 

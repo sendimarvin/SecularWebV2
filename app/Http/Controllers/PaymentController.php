@@ -21,4 +21,61 @@ class PaymentController extends Controller
         return view('pages/events_tickets', compact('events_tickets'));
     }
 
+    public function application_fees () {
+        $application_fees = DB::table('loan_application_fee_payments')
+            ->select('loan_application_fee_payments.id', 'loan_application_fee_payments.payment_method', 
+                'loan_application_fee_payments.payment_date',
+                'loan_applications.application_id',
+                'payments.title', 'payments.amount', 'payments.payment_ref',
+                'users.firstName', 'users.lastName', 'users.middleName', 'users.phoneNumber')
+            ->join('payments', 'payments.id', '=', 'loan_application_fee_payments.payment_id')
+            ->join('loan_applications', 'loan_applications.id', '=', 'loan_application_fee_payments.application_id')
+            ->join('users', 'users.id', '=', 'loan_applications.user_id')
+            ->get();
+        return view('pages/application_fees', compact('application_fees'));
+    }
+
+    public function loan_payments () {
+        $loan_payments = DB::table('loan_payments')
+            ->select('loan_payments.id', 'loan_payments.payment_method', 
+                'loan_payments.payment_date', 'loan_payments.approval_status', 'loan_payments.approval_date',
+                'loan_applications.application_id',
+                'payments.title', 'payments.amount', 'payments.payment_ref',
+                'users.firstName', 'users.lastName', 'users.middleName', 'users.phoneNumber')
+            ->join('payments', 'payments.id', '=', 'loan_payments.payment_id')
+            ->join('loan_applications', 'loan_applications.id', '=', 'loan_payments.application_id')
+            ->join('users', 'users.id', '=', 'loan_applications.user_id')
+            ->get();
+        return view('pages/loan_payments', compact('loan_payments'));
+    }
+
+    public function subscriptions () {
+        $subscriptions = DB::table('subscriptions')
+            ->select('subscriptions.id', 'subscriptions.paymentOption', 'subscriptions.payment_date',
+                'subscriptions.paymentProvider', 'subscriptions.payment_status', 'subscriptions.expiry_date',
+                'subscriptionpackages.name', 'subscriptionpackages.period',
+                'payments.title', 'payments.amount', 'payments.payment_ref',
+                'users.firstName', 'users.lastName', 'users.middleName', 'users.phoneNumber')
+            ->join('payments', 'payments.id', '=', 'subscriptions.payment_id')
+            ->join('subscriptionpackages', 'subscriptionpackages.id', '=', 'subscriptions.subscriptionId')
+            ->join('users', 'users.id', '=', 'subscriptions.userId')
+            ->get();
+        return view('pages/subscriptions', compact('subscriptions'));
+    }
+
+
+    public function disbursments () {
+        $disbursments = DB::table('subscriptions')
+            ->select('subscriptions.id', 'subscriptions.paymentOption', 'subscriptions.payment_date',
+                'subscriptions.paymentProvider', 'subscriptions.payment_status', 'subscriptions.expiry_date',
+                'subscriptionpackages.name', 'subscriptionpackages.period',
+                'payments.title', 'payments.amount', 'payments.payment_ref',
+                'users.firstName', 'users.lastName', 'users.middleName', 'users.phoneNumber')
+            ->join('payments', 'payments.id', '=', 'subscriptions.payment_id')
+            ->join('subscriptionpackages', 'subscriptionpackages.id', '=', 'subscriptions.subscriptionId')
+            ->join('users', 'users.id', '=', 'subscriptions.userId')
+            ->get();
+        return view('pages/disbursments', compact('disbursments'));
+    }
+
 }

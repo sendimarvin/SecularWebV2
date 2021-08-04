@@ -117,9 +117,14 @@ Route::get('/policy', [SettingController::class, 'policy'])->name('/policy');
 
 Route::put('/update_policy/{id}', [SettingController::class, 'update_policy'])->name('/update_policy');
 
-Route::get('/application_fee', [SettingController::class, 'application_fee'])->name('/application_fee');
+Route::get('/kadama_terms', [SettingController::class, 'kadama_terms'])->name('/kadama_terms');
+Route::put('/update_kadama_terms/{id}', [SettingController::class, 'update_kadama_terms'])->name('/update_kadama_terms');
 
+Route::get('/application_fee', [SettingController::class, 'application_fee'])->name('/application_fee');
 Route::put('/update_application_fee/{id}', [SettingController::class, 'update_application_fee'])->name('/update_application_fee');
+
+Route::get('/payments_setup', [SettingController::class, 'payments_setup'])->name('/payments_setup');
+Route::put('/update_payments_setup/{id}', [SettingController::class, 'update_payments_setup'])->name('/update_payments_setup');
 
 
 // BEGIN SECTION SUBSCRIPTION //
@@ -209,6 +214,10 @@ Route::get('/kadaama/applications', [KadaamaApplicationsController::class, 'inde
 
 //////////////////PAYMENTS///////////////////////
 Route::get('/payments/events_tickets', [PaymentController::class, 'events_tickets'])->name('/payments/events_tickets');
+Route::get('/payments/application_fees', [PaymentController::class, 'application_fees'])->name('/payments/application_fees');
+Route::get('/payments/loan_payments', [PaymentController::class, 'loan_payments'])->name('/payments/loan_payments');
+Route::get('/payments/subscriptions', [PaymentController::class, 'subscriptions'])->name('/payments/subscriptions');
+Route::get('/payments/disbursments', [PaymentController::class, 'disbursments'])->name('/payments/disbursments');
 ////////////////////////////////////////////////
 
 
