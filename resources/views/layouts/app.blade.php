@@ -35,7 +35,7 @@
                     <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i>
                         {{ Auth::check() ? Auth::user()->fullName : '' }}
                     </a>
-                    
+
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item" href="#!">Settings</a></li>
                         <li><a class="dropdown-item" href="#!">Activity Log</a></li>
@@ -96,6 +96,17 @@
                                     <a class="nav-link" href="/payments/subscriptions">Subscriptions</a>
                                     <a class="nav-link" href="/payments/events_tickets">Events Tickets</a>
                                     <a class="nav-link" href="/payments/disbursments">Disbursments</a>
+                                </nav>
+                            </div>
+
+                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseKadaama" aria-expanded="false" aria-controls="collapseKadaama">
+                                <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                                Kadaama
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                            </a>
+                            <div class="collapse" id="collapseKadaama" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav">
+                                    <a class="nav-link" href="{{url("/kadaama/applications")}}">Applications</a>
                                 </nav>
                             </div>
 

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AddressController;
 use App\Http\Controllers\CustomAuthController;
+use App\Http\Controllers\KadaamaApplicationsController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\QuestionController;
@@ -197,6 +198,13 @@ Route::get('/loan_applications/review_loan/{id}', [LoanApplicationController::cl
 Route::put('/loan_applications/update_loan_application/{id}', [LoanApplicationController::class, 'update_loan_application'])->name('/loan_applications/update_loan_application');
 
 //////////////////
+
+
+////////////////////////////KADAAMA/////////////////////////
+
+Route::get('/kadaama/applications', [KadaamaApplicationsController::class, 'index'])->name('/kadaama_applications');
+
+///////////////////////////////////////////////////////////
 
 
 //////////////////PAYMENTS///////////////////////
