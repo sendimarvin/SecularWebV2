@@ -35,6 +35,7 @@
                             <th>User Id.</th>
                             <th>Country</th>
 
+                            <th>Work City/State</th>
                             <th>Work Type</th>
                             <th>Work Address</th>
 
@@ -65,6 +66,7 @@
                                 <td>{{ $application->id }}</td>
                                 <td>{{ $application->user_id }}</td>
                                 <td>{{ $application->country }}</td>
+                                <td>{{ $application->work_city }}</td>
                                 <td>{{ $application->work_type }}</td>
                                 <td>{{ $application->work_address }}</td>
                                 <td>{{ $application->duration }}</td>
@@ -104,11 +106,19 @@
                 "scrollX": true,
                 "buttons": [
                     {
-                        text: 'Review & Action',
+                        text: 'Review',
                         action: function ( e, dt, node, config ) {
                             let row = $('#example').DataTable().row('.selected').data();
                             let idtodelete = row[0];
-                            window.location.href='/loan_applications/review_loan/'+row[0]
+                            window.location.href='/kadaama/applications/review/'+row[0]
+                        }
+                    },
+                    {
+                        text: 'Preview/View',
+                        action: function ( e, dt, node, config ) {
+                            let row = $('#example').DataTable().row('.selected').data();
+                            let idtodelete = row[0];
+                            window.location.href='/kadaama/applications/preview/'+row[0]
                         }
                     },
                     {

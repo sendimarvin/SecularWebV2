@@ -208,6 +208,14 @@ Route::put('/loan_applications/update_loan_application/{id}', [LoanApplicationCo
 ////////////////////////////KADAAMA/////////////////////////
 
 Route::get('/kadaama/applications', [KadaamaApplicationsController::class, 'index'])->name('/kadaama_applications');
+Route::get('/kadaama/applications/accept/{id}', [KadaamaApplicationsController::class, 'accept']);
+Route::post('/kadaama/applications/accept/{id}/save', [KadaamaApplicationsController::class, 'acceptStore']);
+Route::get('/kadaama/applications/review/{id}', [KadaamaApplicationsController::class, 'review']);
+Route::get('/kadaama/applications/approve/{id}', [KadaamaApplicationsController::class, 'approve']);
+Route::post('/kadaama/applications/approve/{id}/save', [KadaamaApplicationsController::class, 'approveStore']);
+Route::get('/kadaama/applications/decline/{id}', [KadaamaApplicationsController::class, 'decline']);
+Route::post('/kadaama/applications/decline/{id}/save', [KadaamaApplicationsController::class, 'declineStore']);
+Route::get('/kadaama/applications/preview/{id}', [KadaamaApplicationsController::class, 'preview']);
 
 ///////////////////////////////////////////////////////////
 
