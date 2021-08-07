@@ -110,9 +110,72 @@ class LoanApplicationController extends Controller
         return redirect("loans/applications");
 
     }
+    public function approveSubmit(Request $request,$id){
+
+        $application = LoanApplication::find($id);
+        $loan_sub_package = LoanSubPackage::find($application->subpackage_id);
+
+        $review = $request->input("review");
+        $loanStatus = $request->input("loanStatus");
+        $application->loan_status = $loanStatus;
+        $application->save();
+
+        //save Review record
+        LoanApplicationReview::create([
+            "review" => $review,
+            "state" => $loanStatus,
+            "admin_id" => "1",
+            "application_id" => $id
+        ]);
+
+        return redirect("loans/applications");
+
+    }
+    public function disburseSubmit(Request $request,$id){
+
+        $application = LoanApplication::find($id);
+        $loan_sub_package = LoanSubPackage::find($application->subpackage_id);
+
+        $review = $request->input("review");
+        $authorisationCode = $request->input("authorisationCode");
+
+        $loanStatus = $request->input("loanStatus");
+
+        if ($loanStatus=="Disbursed"){
+            if ($authorisationCode == "money"){
+                $application->loan_status = $loanStatus;
+                $application->save();
+                LoanApplicationReview::create([
+                    "review" => $review,
+                    "state" => $loanStatus,
+                    "admin_id" => "1",
+                    "application_id" => $id
+                ]);
+            }
+        }else{
+            $application->loan_status = $loanStatus;
+            $application->save();
+            LoanApplicationReview::create([
+                "review" => $review,
+                "state" => $loanStatus,
+                "admin_id" => "1",
+                "application_id" => $id
+            ]);
+        }
+
+        //save Review record
+
+        return redirect("loans/applications");
+
+    }
     public function review($id){
 
         $application = LoanApplication::find($id);
+        if ($application->loan_status == "Processing" ||
+            $application->loan_status == "Approved"){
+            return redirect("loans/applications/approve/".$id);
+        }
+
         $loan_sub_package = LoanSubPackage::find($application->subpackage_id);
         $loan_package = LoanPackage::find($loan_sub_package->loan_package_id);
         $fee_payment = LoanApplicationFeePayment::where("application_id","=",$application->id)->get()->first();
@@ -124,6 +187,38 @@ class LoanApplicationController extends Controller
             'loan_sub_package'=>$loan_sub_package,
             'loan_package'=>$loan_package,
 
+        ]);
+    }
+    public function approve($id){
+
+        $application = LoanApplication::find($id);
+        $loan_sub_package = LoanSubPackage::find($application->subpackage_id);
+        $loan_package = LoanPackage::find($loan_sub_package->loan_package_id);
+        $fee_payment = LoanApplicationFeePayment::where("application_id","=",$application->id)->get()->first();
+
+        return view("pages.loans.approve",[
+            'fee_payment'=>$fee_payment,
+            'application'=>$application,
+            'applicant'=>Applicant::find($application->user_id),
+            'loan_sub_package'=>$loan_sub_package,
+            'loan_package'=>$loan_package,
+        ]);
+    }
+    public function preview($id){
+
+        $application = LoanApplication::find($id);
+        $loan_sub_package = LoanSubPackage::find($application->subpackage_id);
+        $loan_package = LoanPackage::find($loan_sub_package->loan_package_id);
+        $reviews = LoanApplicationReview::where("application_id","=",$id)->get();
+        $fee_payment = LoanApplicationFeePayment::where("application_id","=",$application->id)->get()->first();
+
+        return view("pages.loans.preview",[
+            'fee_payment'=>$fee_payment,
+            'reviews'=>$reviews,
+            'application'=>$application,
+            'applicant'=>Applicant::find($application->user_id),
+            'loan_sub_package'=>$loan_sub_package,
+            'loan_package'=>$loan_package,
         ]);
     }
 

@@ -89,6 +89,14 @@
                         }
                     },
                     {
+                        text: 'Preview',
+                        action: function ( e, dt, node, config ) {
+                            let row = $('#example').DataTable().row('.selected').data();
+                            let idtodelete = row[0];
+                            window.location.href='/loans/applications/preview/'+row[0]
+                        }
+                    },
+                    {
                         text: 'Excel',
                         action: function ( e, dt, node, config ) {
                             alert( 'Button activated' );

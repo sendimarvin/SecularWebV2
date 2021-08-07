@@ -210,6 +210,10 @@ Route::put('/loan_applications/update_loan_application/{id}', [LoanApplicationCo
 Route::get('/loans/applications', [LoanApplicationController::class, 'index'])->name('/loans');
 Route::get('/loans/applications/review/{id}', [LoanApplicationController::class, 'review']);
 Route::post('/loans/applications/review/{id}/submit', [LoanApplicationController::class, 'reviewSubmit']);
+Route::get('/loans/applications/approve/{id}', [LoanApplicationController::class, 'approve']);
+Route::post('/loans/applications/approve/{id}/submit', [LoanApplicationController::class, 'approveSubmit']);
+Route::post('/loans/applications/disburse/{id}/submit', [LoanApplicationController::class, 'disburseSubmit']);
+Route::get('/loans/applications/preview/{id}', [LoanApplicationController::class, 'preview']);
 
 ///
 
