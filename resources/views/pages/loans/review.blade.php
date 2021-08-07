@@ -43,13 +43,13 @@
                 <div class="card mb-4">
                     <div class="card-header">
                         <i class="fas fa-table me-1"></i>
-                        Applicant
+                        Application Fee
                     </div>
                     <div class="card-body">
-                        <p><b>First Name :</b> {{$applicant->firstName}}</p>
-                        <p><b>Middle Name :</b> {{$applicant->middleName}}</p>
-                        <p><b>Last Name :</b> {{$applicant->lastName}}</p>
-                        <p><b>Email Address :</b> {{$applicant->email}}</p>
+                        <p><b>Amount :</b> {{$fee_payment->amount}}</p>
+                        <p><b>Payment Date :</b> {{$fee_payment->payment_date}}</p>
+                        <p><b>Status :</b> {{$fee_payment->status}}</p>
+                        <p><b>Payment Ref :</b> {{$fee_payment->payment_ref}}</p>
                     </div>
                 </div>
             </div>
