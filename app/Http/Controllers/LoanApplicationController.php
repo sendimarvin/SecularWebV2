@@ -7,6 +7,7 @@ use App\Models\LoanApplication;
 use App\Models\LoanApplicationFeePayment;
 use App\Models\LoanApplicationReview;
 use App\Models\LoanPackage;
+use App\Models\LoanPayment;
 use App\Models\LoanSubPackage;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -210,11 +211,13 @@ class LoanApplicationController extends Controller
         $loan_sub_package = LoanSubPackage::find($application->subpackage_id);
         $loan_package = LoanPackage::find($loan_sub_package->loan_package_id);
         $reviews = LoanApplicationReview::where("application_id","=",$id)->get();
+        $payments = LoanPayment::where("application_id","=",$id)->get();
         $fee_payment = LoanApplicationFeePayment::where("application_id","=",$application->id)->get()->first();
 
         return view("pages.loans.preview",[
             'fee_payment'=>$fee_payment,
             'reviews'=>$reviews,
+            'payments'=>$payments,
             'application'=>$application,
             'applicant'=>Applicant::find($application->user_id),
             'loan_sub_package'=>$loan_sub_package,

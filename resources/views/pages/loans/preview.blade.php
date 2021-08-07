@@ -106,8 +106,31 @@
                         <i class="fas fa-table me-1"></i>
                         LOAN PAYMENTS/INSTALLMENTS
                     </div>
-                    <div class="card-body"  style="height: 500px">
-
+                    <div class="card-body table-responsive"  style="height: 500px">
+                        <table class="table table-head-fixed text-nowrap text-white">
+                            <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Amount</th>
+                                <th>Payment Method</th>
+                                <th>Payment Ref</th>
+                                <th>Approval Status</th>
+                                <th>Payment Date</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach($payments as $payment)
+                                <tr>
+                                    <td>{{$payment->id}}</td>
+                                    <td>{{$payment->amount}}</td>
+                                    <td>{{$payment->payment_method}}</td>
+                                    <td>{{$payment->payment_ref}}</td>
+                                    <td>{{$payment->approval_status}}</td>
+                                    <td>{{$payment->payment_date}}</td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
 
                     </div>
                 </div>
