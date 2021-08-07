@@ -10,6 +10,13 @@ class NotificationsController extends Controller
 {
     //
 
+    public function upload(Request $request){
+
+        $this->sendNotificationToOnePerson("Greetings","Another 1",$request->input("id"));
+
+        dd("Finish");
+    }
+
     public function sendNotificationToOnePerson($title, $content, $user_id){
 
         Notification::create([
@@ -20,7 +27,7 @@ class NotificationsController extends Controller
         $user = Applicant::where("id","=",$user_id)->get()->first();
 
         if($user!=null  && $user->playerId!=""){
-            (new OneSignalController())->sendOneSignalNotificationToOne($title,$content,$user->player_id);
+            (new OneSignalController())->sendOneSignalNotificationToOne($title,$content,$user->playerId);
         }
 
     }

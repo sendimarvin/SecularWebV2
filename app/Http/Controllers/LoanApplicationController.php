@@ -97,8 +97,12 @@ class LoanApplicationController extends Controller
             $application->paymentFull = $paymentFull;
             $application->paymentInstallment = $paymentInstallment;
             $application->expectedCompletionDate = $expectedCompletionDate;
+
         }
+
         $application->save();
+
+        $this->sendLoanApplicationNotification($application);
 
         //save Review record
         LoanApplicationReview::create([
@@ -120,6 +124,8 @@ class LoanApplicationController extends Controller
         $loanStatus = $request->input("loanStatus");
         $application->loan_status = $loanStatus;
         $application->save();
+
+        $this->sendLoanApplicationNotification($application);
 
         //save Review record
         LoanApplicationReview::create([
@@ -146,6 +152,9 @@ class LoanApplicationController extends Controller
             if ($authorisationCode == "money"){
                 $application->loan_status = $loanStatus;
                 $application->save();
+
+                $this->sendLoanApplicationNotification($application);
+
                 LoanApplicationReview::create([
                     "review" => $review,
                     "state" => $loanStatus,
@@ -156,6 +165,9 @@ class LoanApplicationController extends Controller
         }else{
             $application->loan_status = $loanStatus;
             $application->save();
+
+            $this->sendLoanApplicationNotification($application);
+
             LoanApplicationReview::create([
                 "review" => $review,
                 "state" => $loanStatus,
@@ -223,6 +235,34 @@ class LoanApplicationController extends Controller
             'loan_sub_package'=>$loan_sub_package,
             'loan_package'=>$loan_package,
         ]);
+    }
+
+
+    function sendLoanApplicationNotification($application){
+        $user_id = $application->user_id;
+
+        $message = "";
+        switch($application->loan_status){
+            case "Pending":
+                $message = "Your application for the loan of ".$application->amount." is Pending";
+                break;
+            case "Processing":
+                $message = "Your application for the loan of ".$application->amount." is being Processed";
+                break;
+            case "Approved":
+                $message = "Your application for the loan of ".$application->amount." is being Approved, Please wait for the money";
+                break;
+            case "Declined":
+                $message = "Your application for the loan of ".$application->amount." has been Declined";
+                break;
+            default :
+                $message = "Your application state has changed, Please open the app to check it out";
+                break;
+
+        }
+
+        (new NotificationsController())->sendNotificationToOnePerson("Loan Updated",$message,$user_id);
+
     }
 
 }
