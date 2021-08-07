@@ -2,17 +2,23 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Applicant;
+use App\Models\LoanApplication;
+use App\Models\LoanApplicationReview;
+use App\Models\LoanPackage;
+use App\Models\LoanSubPackage;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use DB;
 
 class LoanApplicationController extends Controller
 {
-    
+
     public function loan_applications () {
             $loan_applications = DB::table('loan_applications')
-                ->select('loan_applications.id', 'loan_applications.application_id', 'loan_applications.questions', 
+                ->select('loan_applications.id', 'loan_applications.application_id', 'loan_applications.questions',
                 'loan_applications.amount',  'loan_applications.loanRepaymentPlan', 'loan_applications.loanRepaymentPlanDays',
-                 'loan_applications.moneyReceptionOption', 'loan_applications.moneyReceptionBank', 
+                 'loan_applications.moneyReceptionOption', 'loan_applications.moneyReceptionBank',
                  'loan_applications.moneyReceptionBankAccountNumber', 'loan_applications.moneyReceptionMobileTelecom',
                  'loan_applications.moneyReceptionMobileNumber', 'loan_applications.moneyReceptionAccountNames',
                  'loan_applications.entry_date', 'users.firstName', 'users.middleName' , 'users.lastName'
@@ -43,8 +49,79 @@ class LoanApplicationController extends Controller
         $loan_application_fee_payment = DB::table('loan_application_fee_payments')
                 ->where('application_id', $loan_application->application_id)
                 ->first();
-        return view('pages/loan_application_review', compact('loan_application', 'user', 'loan_sub_package', 
+        return view('pages/loan_application_review', compact('loan_application', 'user', 'loan_sub_package',
             'loan_package', 'subscription', 'loan_application_fee_payment'));
+    }
+
+    public function index(){
+
+        return view("pages.loans.applications",[
+            "applications"=> LoanApplication::all()->map(function ($application){
+
+                $application->user = Applicant::find($application->user_id);
+                $application->loan_sub_package = LoanSubPackage::find($application->subpackage_id);
+                $application->loan_package = LoanPackage::find($application->loan_sub_package->loan_package_id);
+
+                return $application;
+            })
+        ]);
+    }
+    public function reviewSubmit(Request $request,$id){
+
+        $application = LoanApplication::find($id);
+        $loan_sub_package = LoanSubPackage::find($application->subpackage_id);
+
+        $review = $request->input("review");
+        $loanStatus = $request->input("loanStatus");
+        $application->loan_status = $loanStatus;
+
+        if ($loanStatus == "Processing"){
+            $interest =$loan_sub_package->interest;
+            $interestAmount = ($application->amount* ($loan_sub_package->interest/100) );
+            $paymentFull = $application->amount + $interestAmount;
+            $paymentInterval = $request->input("paymentInterval");
+            $paymentGracePeriod = $request->input("paymentGracePeriod");
+            $paymentInstallment = $request->input("paymentInstallment");
+            $paymentStartDate = Carbon::now()->addDays($paymentGracePeriod)->toDateString();
+            $expectedCompletionDate = Carbon::now()->addDays(((($paymentFull/$paymentInstallment)*$paymentInterval)+$paymentGracePeriod))->toDateString();
+
+            $application->interest = $interest;
+            $application->interestAmount = $interestAmount;
+            $application->paymentGracePeriod = $paymentGracePeriod;
+            $application->paymentStartDate = $paymentStartDate;
+            $application->nextPaymentDate = $paymentStartDate;
+            $application->paymentInterval = $paymentInterval;
+            $application->paymentSofar = 0;
+            $application->paymentFull = $paymentFull;
+            $application->paymentInstallment = $paymentInstallment;
+            $application->expectedCompletionDate = $expectedCompletionDate;
+        }
+        $application->save();
+
+        //save Review record
+        LoanApplicationReview::create([
+            "review" => $review,
+            "state" => $loanStatus,
+            "admin_id" => "1",
+            "application_id" => $id
+        ]);
+
+        return redirect("loans/applications");
+
+    }
+    public function review($id){
+
+        $application = LoanApplication::find($id);
+        $loan_sub_package = LoanSubPackage::find($application->subpackage_id);
+        $loan_package = LoanPackage::find($loan_sub_package->loan_package_id);
+
+        return view("pages.loans.review",[
+            'application'=>$application,
+            'applicant'=>Applicant::find($application->user_id),
+            'loan_sub_package'=>$loan_sub_package,
+            'loan_package'=>$loan_package,
+
+        ]);
     }
 
 }
