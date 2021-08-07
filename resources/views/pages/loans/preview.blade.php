@@ -91,6 +91,7 @@
                         <p><b>Payment Start Date:</b> {{$application->paymentStartDate}}</p>
                         <p><b>Next Payment Date:</b> {{$application->nextPaymentDate}}</p>
                         <p><b>Payment Interval:</b> {{$application->paymentInterval}} Days</p>
+                        <p><b>Payment So Far:</b> {{$application->paymentSofar}}</p>
                         <p><b>Payment Full:</b> {{$application->paymentFull}}</p>
                         <p><b>Payment Installment:</b> {{$application->paymentInstallment}}</p>
                         <p><b>Expected Completion Date:</b> {{$application->expectedCompletionDate}}</p>

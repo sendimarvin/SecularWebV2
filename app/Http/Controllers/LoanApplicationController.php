@@ -85,7 +85,9 @@ class LoanApplicationController extends Controller
             $paymentGracePeriod = $request->input("paymentGracePeriod");
             $paymentInstallment = $request->input("paymentInstallment");
             $paymentStartDate = Carbon::now()->addDays($paymentGracePeriod)->toDateString();
-            $expectedCompletionDate = Carbon::now()->addDays(((($paymentFull/$paymentInstallment)*$paymentInterval)+$paymentGracePeriod))->toDateString();
+            $expectedCompletionDate = Carbon::now()->addDays(((
+                ($paymentFull/$paymentInstallment) *$paymentInterval)
+                +$paymentGracePeriod))->toDateString();
 
             $application->interest = $interest;
             $application->interestAmount = $interestAmount;
