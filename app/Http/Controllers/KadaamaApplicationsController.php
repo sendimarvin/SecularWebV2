@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Applicant;
 use App\Models\KadaamaApplication;
 use App\Models\KadaamaApplicationReview;
+use App\Models\KadaamaPayment;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -58,7 +59,7 @@ class KadaamaApplicationsController extends Controller
         $application->payment_yearly = $request->input("payment_yearly");
         $application->payment_full = $request->input("payment_full");
         $application->payment_date = $request->input("payment_date");
-        $application->next_payment_date = $request->input("next_payment_date");
+        $application->next_payment_date = $request->input("payment_date");
         $application->status = "processing";
         $application->payment_sofar = "0";
         $application->save();
@@ -128,6 +129,7 @@ class KadaamaApplicationsController extends Controller
         return view("pages/kadaama/applications_preview",[
             "application"=>$application,
             "applicant"=>$applicant,
+            "payments"=>KadaamaPayment::where("application_id","=",$id)->get(),
             "reviews"=>KadaamaApplicationReview::where("application_id","=",$id)->get()
         ]);
     }

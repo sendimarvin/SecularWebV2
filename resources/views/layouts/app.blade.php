@@ -107,6 +107,7 @@
                             <div class="collapse" id="collapseKadaama" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
                                     <a class="nav-link" href="{{url("/kadaama/applications")}}">Applications</a>
+                                    <a class="nav-link" href="{{url("/kadaama/payments")}}">Payment</a>
                                 </nav>
                             </div>
 

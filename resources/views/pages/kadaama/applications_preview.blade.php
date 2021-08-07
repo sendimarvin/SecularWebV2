@@ -93,7 +93,7 @@
                 <div class="card mb-4">
                     <div class="card-header">
                         <i class="fas fa-table me-1"></i>
-                        Applicant Reviews
+                        APPLICATION REVIEWS/ACTIONS
                     </div>
 
                     <div class="card-body table-responsive p-0">
@@ -104,7 +104,7 @@
                                 <th>Admin</th>
                                 <th>State</th>
                                 <th>Review</th>
-                                <th>Created At</th>
+                                <th>Recorded On</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -116,6 +116,40 @@
                                     <td>{{$review->state}}</td>
                                     <td>{{$review->review}}</td>
                                     <td>{{$review->created_at}}</td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class=" col-6">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <i class="fas fa-table me-1"></i>
+                        PAYMENT RECORDS
+                    </div>
+
+                    <div class="card-body table-responsive p-0">
+                        <table class="table table-hover">
+                            <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Payment</th>
+                                <th>Amount</th>
+                                <th>Status</th>
+                                <th>Paid On</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+
+                            @foreach( $payments as $payment)
+                                <tr>
+                                    <td>{{$payment->id}}</td>
+                                    <td>{{$payment->payment_id}}</td>
+                                    <td>{{$payment->amount}}</td>
+                                    <td>{{$payment->status}}</td>
+                                    <td>{{$payment->created_at}}</td>
                                 </tr>
                             @endforeach
                             </tbody>

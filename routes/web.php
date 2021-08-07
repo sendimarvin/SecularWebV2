@@ -3,6 +3,7 @@
 use App\Http\Controllers\AddressController;
 use App\Http\Controllers\CustomAuthController;
 use App\Http\Controllers\KadaamaApplicationsController;
+use App\Http\Controllers\KadaamaPaymentsController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\QuestionController;
@@ -216,6 +217,12 @@ Route::post('/kadaama/applications/approve/{id}/save', [KadaamaApplicationsContr
 Route::get('/kadaama/applications/decline/{id}', [KadaamaApplicationsController::class, 'decline']);
 Route::post('/kadaama/applications/decline/{id}/save', [KadaamaApplicationsController::class, 'declineStore']);
 Route::get('/kadaama/applications/preview/{id}', [KadaamaApplicationsController::class, 'preview']);
+
+Route::get('/kadaama/payments', [KadaamaPaymentsController::class, 'index'])->name('/kadaama_payments');
+Route::get('/kadaama/payments/review/{id}', [KadaamaPaymentsController::class, 'review']);
+Route::post('/kadaama/payments/review/{id}/accept', [KadaamaPaymentsController::class, 'accept']);
+Route::post('/kadaama/payments/review/{id}/decline', [KadaamaPaymentsController::class, 'decline']);
+Route::post('/kadaama/payments/review/{id}/pending', [KadaamaPaymentsController::class, 'pending']);
 
 ///////////////////////////////////////////////////////////
 
