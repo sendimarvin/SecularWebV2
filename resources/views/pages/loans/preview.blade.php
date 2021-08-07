@@ -83,7 +83,7 @@
                 <div class="card mb-4 bg-dark text-white" >
                     <div class="card-header text-danger">
                         <i class="fas fa-table me-1"></i>
-                        KEY APPLICTION INFORMATION
+                        KEY APPLICATION INFORMATION
                     </div>
                     <div class="card-body"  style="height: 500px">
                         <p><b>Interest:</b> {{$application->interest}}% which is {{$application->interestAmount}}</p>
@@ -116,18 +116,18 @@
                                 <th>Payment Method</th>
                                 <th>Payment Ref</th>
                                 <th>Approval Status</th>
-                                <th>Payment Date</th>
+                                <th>Created Date</th>
                             </tr>
                             </thead>
                             <tbody>
                             @foreach($payments as $payment)
                                 <tr>
                                     <td>{{$payment->id}}</td>
-                                    <td>{{$payment->amount}}</td>
-                                    <td>{{$payment->payment_method}}</td>
-                                    <td>{{$payment->payment_ref}}</td>
-                                    <td>{{$payment->approval_status}}</td>
-                                    <td>{{$payment->payment_date}}</td>
+                                    <td>{{$payment->payment->amount}}</td>
+                                    <td>{{$payment->payment->payment_method}}</td>
+                                    <td>{{$payment->payment->payment_ref}}</td>
+                                    <td>{{$payment->payment->status}}</td>
+                                    <td>{{$payment->payment->created_at}}</td>
                                 </tr>
                             @endforeach
                             </tbody>

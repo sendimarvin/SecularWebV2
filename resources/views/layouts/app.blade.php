@@ -80,6 +80,7 @@
                             <div class="collapse" id="collapseLayouts2" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
                                     <a class="nav-link" href="{{url("/loans/applications")}}">Applications</a>
+                                    <a class="nav-link" href="{{url("/loans/payments")}}">Payments</a>
                                     {{-- <a class="nav-link" href="layout-sidenav-light.html">Pending Approvals</a> --}}
                                 </nav>
                             </div>
