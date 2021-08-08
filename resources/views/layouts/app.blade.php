@@ -79,9 +79,11 @@
                             </a>
                             <div class="collapse" id="collapseLayouts2" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="{{url("/loans/applications")}}">Applications</a>
+                                    <a class="nav-link" href="{{url("/loans/applications/pending")}}">Pending App.</a>
+                                    <a class="nav-link" href="{{url("/loans/applications/processing")}}">Processing App.</a>
+                                    <a class="nav-link" href="{{url("/loans/applications/disbursed")}}">Disbursed App.</a>
+                                    <a class="nav-link" href="{{url("/loans/applications/declined")}}">Declined App.</a>
                                     <a class="nav-link" href="{{url("/loans/payments")}}">Payments</a>
-                                    {{-- <a class="nav-link" href="layout-sidenav-light.html">Pending Approvals</a> --}}
                                 </nav>
                             </div>
 
@@ -95,7 +97,6 @@
                                     <a class="nav-link" href="/payments/application_fees">Application Fees</a>
                                     <a class="nav-link" href="/payments/subscriptions">Subscriptions</a>
                                     <a class="nav-link" href="/payments/events_tickets">Events Tickets</a>
-                                    <a class="nav-link" href="/payments/disbursments">Disbursments</a>
                                 </nav>
                             </div>
 

@@ -39,7 +39,6 @@
                             <th>Paid Amount</th>
                             <th>Status</th>
                             <th>Paid On</th>
-                            <th>Updated On</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -55,7 +54,6 @@
                                 <td>{{ $loanPayment->payment->amount }} UGX</td>
                                 <td>{{ $loanPayment->payment->status }}</td>
                                 <td>{{ $loanPayment->payment->created_at }}</td>
-                                <td>{{ $loanPayment->payment->updated_at }}</td>
                                 <td>
                                     <a href="{{url("/loans/payments/{$loanPayment->id}/edit")}}"
                                        class="btn btn-primary @if($loanPayment->payment->status == "approved") disabled @endif" >Update</a>

@@ -45,7 +45,7 @@
                         <i class="fas fa-table me-1"></i>
                         Application Questions
                     </div>
-                    <div class="card-body" style="height: 500px">
+                    <div class="card-body" style="height: 500px; overflow-y: auto">
                         @foreach( json_decode($application->questions) as $category)
                             <h6>{{$category->category}}</h6>
                         <hr>
@@ -76,6 +76,16 @@
                         <p><b>Repayment Days:</b> {{$application->loanRepaymentPlanDays}}</p>
                         <p><b>Reception:</b> {{$application->moneyReceptionOption}}</p>
 
+                        @if($application->moneyReceptionOption=="Mobile Money")
+                            <p><b>Mobile Telecom:</b> {{$application->moneyReceptionMobileTelecom}}</p>
+                            <p><b>Mobile Number:</b> {{$application->moneyReceptionMobileNumber}}</p>
+                            <p><b>Account Names:</b> {{$application->moneyReceptionAccountNames}}</p>
+                        @else
+                            <p><b>Bank:</b> {{$application->moneyReceptionBank}}</p>
+                            <p><b>Account Number:</b> {{$application->moneyReceptionBankAccountNumber}}</p>
+                        @endif
+
+
                     </div>
                 </div>
             </div>
@@ -92,6 +102,7 @@
                         <p><b>Next Payment Date:</b> {{$application->nextPaymentDate}}</p>
                         <p><b>Payment Interval:</b> {{$application->paymentInterval}} Days</p>
                         <p><b>Payment So Far:</b> {{$application->paymentSofar}}</p>
+                        <p><b>Payment Left:</b> {{$application->paymentFull - $application->paymentSofar}}</p>
                         <p><b>Payment Full:</b> {{$application->paymentFull}}</p>
                         <p><b>Payment Installment:</b> {{$application->paymentInstallment}}</p>
                         <p><b>Expected Completion Date:</b> {{$application->expectedCompletionDate}}</p>
@@ -150,7 +161,7 @@
                 </div>
             </div>
             </div>
-            <div class="col-6">
+            <div class="col-8">
                 <div class="card mb-4">
                 <div class="card-header">
                     <i class="fas fa-table me-1"></i>

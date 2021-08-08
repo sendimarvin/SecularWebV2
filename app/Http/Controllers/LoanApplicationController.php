@@ -13,6 +13,8 @@ use App\Models\Payment;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use DB;
+use function Composer\Autoload\includeFile;
+use function PHPUnit\Framework\stringStartsWith;
 
 class LoanApplicationController extends Controller
 {
@@ -56,10 +58,13 @@ class LoanApplicationController extends Controller
             'loan_package', 'subscription', 'loan_application_fee_payment'));
     }
 
-    public function index(){
+    public function index($status){
 
         return view("pages.loans.applications",[
-            "applications"=> LoanApplication::all()->map(function ($application){
+            "status"=>$status,
+            "applications"=> LoanApplication::where("loan_status","=",$status)
+                ->get()
+                ->map(function ($application){
 
                 $application->user = Applicant::find($application->user_id);
                 $application->loan_sub_package = LoanSubPackage::find($application->subpackage_id);
@@ -142,6 +147,7 @@ class LoanApplicationController extends Controller
 
     }
     public function disburseSubmit(Request $request,$id){
+        $error = "";
 
         $application = LoanApplication::find($id);
         $loan_sub_package = LoanSubPackage::find($application->subpackage_id);
@@ -153,18 +159,48 @@ class LoanApplicationController extends Controller
 
         if ($loanStatus=="Disbursed"){
             if ($authorisationCode == "money"){
-                $application->loan_status = $loanStatus;
-                $application->save();
+                if ($application->moneyReceptionOption=="Mobile Money"){
+                    $mobile_number = $application->moneyReceptionMobileNumber;
 
-                $this->sendLoanApplicationNotification($application);
+                    if($mobile_number == ""){
+                        $error = "Payment Number cannot be Empty";
+                    }else if(str_starts_with($mobile_number, '0')){
+                        $mobile_number = $this->str_replace_first("0","256",$mobile_number);
+                    }
 
-                LoanApplicationReview::create([
-                    "review" => $review,
-                    "state" => $loanStatus,
-                    "admin_id" => "1",
-                    "application_id" => $id
-                ]);
+                    if (str_starts_with($mobile_number,"256")){
+
+                        if($application->amount>2000){
+                            $error = "Amount to much for testing | We have a limit of only 5000";
+                        }else{
+
+                            $response = (new EasyPayHelper())->mmpayout($application->amount,$mobile_number);
+                            $error = json_encode($response);
+
+                            $application->loan_status = $loanStatus;
+                            $application->save();
+
+                            $this->sendLoanApplicationNotification($application);
+
+                        }
+                    }else{
+                        $error = "Phone Number {$mobile_number} Not Starting with 256";
+                    }
+
+                }else{
+                    $error = "Only mobile money is supported for now, You cannot use other options";
+                }
+            }else{
+                $error = "Password is Invalid";
             }
+
+
+            LoanApplicationReview::create([
+                "review" => $review." ==> ".$error,
+                "state" => $loanStatus,
+                "admin_id" => "1",
+                "application_id" => $id
+            ]);
         }else{
             $application->loan_status = $loanStatus;
             $application->save();
@@ -184,6 +220,14 @@ class LoanApplicationController extends Controller
         return redirect("loans/applications");
 
     }
+
+    function str_replace_first($from, $to, $content)
+    {
+        $from = '/'.preg_quote($from, '/').'/';
+
+        return preg_replace($from, $to, $content, 1);
+    }
+
     public function review($id){
 
         $application = LoanApplication::find($id);

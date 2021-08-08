@@ -208,7 +208,7 @@ Route::put('/loan_applications/update_loan_application/{id}', [LoanApplicationCo
 
 ////////////////////////////LOANS///////////////////////////
 
-Route::get('/loans/applications', [LoanApplicationController::class, 'index'])->name('/loans');
+Route::get('/loans/applications/{status}', [LoanApplicationController::class, 'index'])->name('/loans');
 Route::get('/loans/applications/review/{id}', [LoanApplicationController::class, 'review']);
 Route::post('/loans/applications/review/{id}/submit', [LoanApplicationController::class, 'reviewSubmit']);
 Route::get('/loans/applications/approve/{id}', [LoanApplicationController::class, 'approve']);

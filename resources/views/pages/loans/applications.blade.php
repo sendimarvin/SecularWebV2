@@ -11,16 +11,12 @@
 
 @section('content')
     <div class="container-fluid px-4">
-        <h1 class="mt-4">Loan Applications</h1>
+        <h1 class="mt-4">Loan Applications | {{strtoupper($status)}}</h1>
         <ol class="breadcrumb mb-4">
             <li class="breadcrumb-item"><a href="/">Loans</a></li>
             <li class="breadcrumb-item active">Applications</li>
         </ol>
-        <div class="card mb-4">
-            <div class="card-body">
-                List of all applications
-            </div>
-        </div>
+
         <div class="card mb-4">
             <div class="card-header">
                 <i class="fas fa-table me-1"></i>
@@ -32,15 +28,14 @@
                     <thead>
                         <tr>
                             <th>No.</th>
-                            <th>Application ID.</th>
                             <th>Names</th>
                             <th>Loan</th>
                             <th>Sub Package</th>
                             <th>Amount</th>
                             <th>Repayment Plan</th>
-                            <th>Repayment Plan Days</th>
                             <th>Status</th>
                             <th>Created At</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -48,16 +43,16 @@
                         @foreach ($applications as $application)
                             <tr>
                                 <td>{{ $application->id }}</td>
-                                <td>{{ $application->application_id }}</td>
                                 <td>{{ $application->user->firstName }} {{ $application->user->middleName }} {{ $application->user->lastName }}</td>
                                 <td>{{ $application->loan_package->loan }}</td>
                                 <td>{{ $application->loan_sub_package->sub_loan }}</td>
                                 <td>{{ $application->amount }}</td>
                                 <td>{{ $application->loanRepaymentPlan }}</td>
-                                <td>{{ $application->loanRepaymentPlanDays }}</td>
                                 <td>{{ $application->loan_status }}</td>
-
                                 <td>{{ $application->created_at }}</td>
+                                <td>
+                                    <a href="{{url("/loans/applications/preview/".$application->id)}}" class="btn btn-success">Preview</a>
+                                </td>
                             </tr>
                         @endforeach
 
@@ -78,7 +73,6 @@
         $(function() {
             table = $('#example').DataTable({
                 dom: 'Bfrtip',
-                "scrollX": true,
                 "buttons": [
                     {
                         text: 'Review & Action',
@@ -86,20 +80,6 @@
                             let row = $('#example').DataTable().row('.selected').data();
                             let idtodelete = row[0];
                             window.location.href='/loans/applications/review/'+row[0]
-                        }
-                    },
-                    {
-                        text: 'Preview',
-                        action: function ( e, dt, node, config ) {
-                            let row = $('#example').DataTable().row('.selected').data();
-                            let idtodelete = row[0];
-                            window.location.href='/loans/applications/preview/'+row[0]
-                        }
-                    },
-                    {
-                        text: 'Excel',
-                        action: function ( e, dt, node, config ) {
-                            alert( 'Button activated' );
                         }
                     }
                 ]
