@@ -88,11 +88,29 @@
 
                     <h6 class="text-primary">LOAN INFORMATION</h6>
                     <hr>
-                    <p><b>Amount Needed:</b> {{$application->amount}}</p>
-                    <p><b>Repayment Plan:</b> {{$application->loanRepaymentPlan}}</p>
-                    <p><b>Repayment Days:</b> {{$application->loanRepaymentPlanDays}}</p>
-                    <p><b>Reception:</b> {{$application->moneyReceptionOption}}</p>
 
+                    <div class="row">
+                        <div class="col-6">
+                            <p><b>Amount Needed:</b> {{$application->amount}}</p>
+                            <p><b>Repayment Plan:</b> {{$application->loanRepaymentPlan}}</p>
+                            <p><b>Repayment Days:</b> {{$application->loanRepaymentPlanDays}}</p>
+                            <p><b>Reception:</b> {{$application->moneyReceptionOption}}</p>
+                        </div>
+                        <div class="col-6">
+                            @if($application->moneyReceptionOption=="Mobile Money")
+                                <p><b>Mobile Telecom:</b> {{$application->moneyReceptionMobileTelecom}}</p>
+                                <p><b>Mobile Number:</b> {{$application->moneyReceptionMobileNumber}}</p>
+                                <p><b>Account Names:</b> {{$application->moneyReceptionAccountNames}}</p>
+                            @else
+                                <p><b>Bank:</b> {{$application->moneyReceptionBank}}</p>
+                                <p><b>Account Number:</b> {{$application->moneyReceptionBankAccountNumber}}</p>
+                            @endif
+                        </div>
+                    </div>
+
+
+                    <h6 class="text-primary">FORM</h6>
+                    <hr>
                     <form action="{{url("/loans/applications/review/".$application->id."/submit")}}" method="post" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group mb-2">
