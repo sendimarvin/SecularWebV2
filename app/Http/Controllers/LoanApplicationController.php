@@ -77,6 +77,7 @@ class LoanApplicationController extends Controller
     public function reviewSubmit(Request $request,$id){
 
         $application = LoanApplication::find($id);
+        $old_loan_status = $application->loan_status;
         $loan_sub_package = LoanSubPackage::find($application->subpackage_id);
 
         $review = $request->input("review");
@@ -120,12 +121,13 @@ class LoanApplicationController extends Controller
             "application_id" => $id
         ]);
 
-        return redirect("loans/applications");
+        return redirect("loans/applications/".$old_loan_status);
 
     }
     public function approveSubmit(Request $request,$id){
 
         $application = LoanApplication::find($id);
+        $old_loan_status = $application->loan_status;
         $loan_sub_package = LoanSubPackage::find($application->subpackage_id);
 
         $review = $request->input("review");
@@ -143,13 +145,14 @@ class LoanApplicationController extends Controller
             "application_id" => $id
         ]);
 
-        return redirect("loans/applications");
+        return redirect("loans/applications/".$old_loan_status);
 
     }
     public function disburseSubmit(Request $request,$id){
         $error = "";
 
         $application = LoanApplication::find($id);
+        $old_loan_status = $application->loan_status;
         $loan_sub_package = LoanSubPackage::find($application->subpackage_id);
 
         $review = $request->input("review");
@@ -217,7 +220,7 @@ class LoanApplicationController extends Controller
 
         //save Review record
 
-        return redirect("loans/applications");
+        return redirect("loans/applications/".$old_loan_status);
 
     }
 
