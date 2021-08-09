@@ -29,8 +29,7 @@
                         <tr>
                             <th>No.</th>
                             <th>Names</th>
-                            <th>Loan</th>
-                            <th>Sub Package</th>
+                            <th>Loan Package</th>
                             <th>Amount</th>
                             <th>Repayment Plan</th>
                             <th>Status</th>
@@ -44,8 +43,7 @@
                             <tr>
                                 <td>{{ $application->id }}</td>
                                 <td>{{ $application->user->firstName }} {{ $application->user->middleName }} {{ $application->user->lastName }}</td>
-                                <td>{{ $application->loan_package->loan }}</td>
-                                <td>{{ $application->loan_sub_package->sub_loan }}</td>
+                                <td>{{ $application->loan_package->loan }}<br>{{ $application->loan_sub_package->sub_loan }}</td>
                                 <td>{{ $application->amount }}</td>
                                 <td>{{ $application->loanRepaymentPlan }}</td>
                                 <td>{{ $application->loan_status }}</td>

@@ -84,6 +84,7 @@
                                     <a class="nav-link" href="{{url("/loans/applications/disbursed")}}">Disbursed App.</a>
                                     <a class="nav-link" href="{{url("/loans/applications/declined")}}">Declined App.</a>
                                     <a class="nav-link" href="{{url("/loans/payments")}}">Payments</a>
+                                    <a class="nav-link" href="{{url("/payments/application_fees")}}">Application Fees</a>
                                 </nav>
                             </div>
 
@@ -94,7 +95,6 @@
                             </a>
                             <div class="collapse" id="collapsePayments" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="/payments/application_fees">Application Fees</a>
                                     <a class="nav-link" href="/payments/subscriptions">Subscriptions</a>
                                     <a class="nav-link" href="/payments/events_tickets">Events Tickets</a>
                                 </nav>

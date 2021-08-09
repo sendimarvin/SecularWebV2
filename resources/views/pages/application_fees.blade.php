@@ -11,53 +11,52 @@
 
 @section('content')
     <div class="container-fluid px-4">
-        <h1 class="mt-4">Application Fees</h1>
+        <h1 class="mt-4">Loan Application Fees</h1>
         <ol class="breadcrumb mb-4">
             <li class="breadcrumb-item"><a href="/">Payments</a></li>
             <li class="breadcrumb-item active">Application Fees</li>
         </ol>
-        <div class="card mb-4">
-            <div class="card-body">
-                List of all Application Fees
-            </div>
-        </div>
         <div class="card mb-4">
             <div class="card-header">
                 <i class="fas fa-table me-1"></i>
                 Application Fees
             </div>
             <div class="card-body">
-                <table id="example" 
-                    class="table table-bordered display nowrap"  >
+                <table id="example"
+                       class="table table-bordered display nowrap"  >
                     <thead>
                         <tr>
-                            <th>No.</th>
-                            <th>Application</th>
-                            <th>Payment Method</th>
-                            <th>Date</th>
-                            <th>Title</th>
-                            <th>Amount</th>
-                            <th>Payment Ref</th>
-                            <th>Names</th>
-                            <th>Contact</th>
+                            <th>#</th>
+                            <th>Applicant</th>
+                            <th>Loan Package</th>
+                            <th>Loan Amount</th>
+                            <th>Fees Paid</th>
+                            <th>Status</th>
+                            <th>Paid On</th>
+                            <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
 
-                        @foreach ($application_fees as $application_fee)
+                        @foreach ($feesPayments as $payment)
                             <tr>
-                                <td>{{ $application_fee->id }}</td>
-                                <td>{{ $application_fee->application_id }}</td>
-                                <td>{{ $application_fee->payment_method }}</td>
-                                <td>{{ $application_fee->payment_date }}</td>
-                                <td>{{ $application_fee->title }}</td>
-                                <td>{{ $application_fee->amount }}</td>
-                                <td>{{ $application_fee->payment_ref }}</td>
-                                <td>{{ $application_fee->firstName }} {{ $application_fee->middleName }} {{ $application_fee->lastName }}</td>
-                                <td>{{ $application_fee->phoneNumber }}</td>
+                                <td>{{ $payment->id }}</td>
+                                <td>{{ $payment->applicant->firstName }} {{ $payment->applicant->middleName }} {{ $payment->applicant->lastName }}</td>
+                                <td>
+                                    {{ $payment->package->loan }}<br>
+                                    {{ $payment->sub_package->sub_loan }}
+                                </td>
+                                <td>{{ $payment->application->amount }} UGX</td>
+                                <td><b>{{ $payment->payment->amount }} UGX</b></td>
+                                <td>{{ $payment->payment->status }}</td>
+                                <td>{{ $payment->payment->created_at }}</td>
+                                <td>
+                                    <a href="{{url("/payments/application_fees/{$payment->id}/edit")}}"
+                                       class="btn btn-primary @if($payment->payment->status == "approved") disabled @endif" >Update</a>
+                                </td>
                             </tr>
                         @endforeach
-                        
+
                     </tbody>
                 </table>
             </div>
@@ -73,24 +72,15 @@
     <script>
         var table;
         $(function() {
-            table = $('#example').DataTable({ 
+            table = $('#example').DataTable({
                 dom: 'Bfrtip',
-                "scrollX": true,
                 "buttons": [
                     {
-                        text: 'Update Status',
+                        text: '***',
                         action: function ( e, dt, node, config ) {
-                            let row = $('#example').DataTable().row('.selected').data();
-                            let idtodelete = row[0];
-                            window.location.href='/loan_applications/review_loan/'+row[0]
+
                         }
                     },
-                    {
-                        text: 'Excel',
-                        action: function ( e, dt, node, config ) {
-                            alert( 'Button activated' );
-                        }
-                    }
                 ]
             } );
 
@@ -104,8 +94,8 @@
                     $(this).addClass('selected');
                 }
             } );
-        
 
-        } );    
+
+        } );
     </script>
 @endsection

@@ -2,12 +2,76 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Applicant;
+use App\Models\LoanApplication;
+use App\Models\LoanApplicationFeePayment;
+use App\Models\LoanPackage;
+use App\Models\LoanPayment;
+use App\Models\LoanSubPackage;
+use App\Models\Payment;
 use Illuminate\Http\Request;
 use \DB;
 
 class PaymentController extends Controller
 {
-    
+
+    public function applicationFeesEditSubmit(Request $request, $id){
+        $status = $request->input("status");
+
+        $fees = LoanApplicationFeePayment::find($id);
+
+        $payment = Payment::find($fees->payment_id);
+        $payment->status = $status;
+        $payment->save();
+
+        $application = LoanApplication::find($fees->application_id);
+
+        (new NotificationsController())->sendNotificationToOnePerson("Loan Application Fees Updated","Your Loan Payment fees have been {$status}",$application->user_id);
+
+        return redirect("payments/application_fees");
+
+    }
+    public function applicationFeesEdit($id){
+
+        $fees = LoanApplicationFeePayment::find($id);
+        $fees->payment = Payment::find($fees->payment_id);
+        $application = LoanApplication::find($fees->application_id);
+
+        $loan_sub_package = LoanSubPackage::find($application->subpackage_id);
+        $loan_package = LoanPackage::find($loan_sub_package->loan_package_id);
+
+        $applicant = Applicant::find($application->user_id);
+
+        return view("pages.loan_application_fees.edit",[
+            "fees"=>$fees,
+            "applicant"=>$applicant,
+            "loan_package"=>$loan_package,
+            "loan_sub_package"=>$loan_sub_package,
+            "application"=>$application,
+        ]);
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     public function events_tickets () {
         $events_tickets = DB::table('events_tickets')
             ->select('events_tickets.id', 'events_tickets.number_of_people', 'events_tickets.status', 'events_tickets.created_at',
@@ -22,22 +86,24 @@ class PaymentController extends Controller
     }
 
     public function application_fees () {
-        $application_fees = DB::table('loan_application_fee_payments')
-            ->select('loan_application_fee_payments.id', 'loan_application_fee_payments.payment_method', 
-                'loan_application_fee_payments.payment_date',
-                'loan_applications.application_id',
-                'payments.title', 'payments.amount', 'payments.payment_ref',
-                'users.firstName', 'users.lastName', 'users.middleName', 'users.phoneNumber')
-            ->join('payments', 'payments.id', '=', 'loan_application_fee_payments.payment_id')
-            ->join('loan_applications', 'loan_applications.id', '=', 'loan_application_fee_payments.application_id')
-            ->join('users', 'users.id', '=', 'loan_applications.user_id')
-            ->get();
-        return view('pages/application_fees', compact('application_fees'));
+        $feesPayments = LoanApplicationFeePayment::all()->map(function ($feesPayment){
+            $feesPayment->payment = Payment::find($feesPayment->payment_id);
+            $feesPayment->application = LoanApplication::find($feesPayment->application_id);
+
+            $feesPayment->sub_package = LoanSubPackage::find($feesPayment->application->subpackage_id);
+            $feesPayment->package = LoanPackage::find($feesPayment->sub_package->loan_package_id);
+
+            $feesPayment->applicant = Applicant::find($feesPayment->application->user_id);
+            return $feesPayment;
+        });
+
+
+        return view('pages/application_fees', ['feesPayments'=>$feesPayments]);
     }
 
     public function loan_payments () {
         $loan_payments = DB::table('loan_payments')
-            ->select('loan_payments.id', 'loan_payments.payment_method', 
+            ->select('loan_payments.id', 'loan_payments.payment_method',
                 'loan_payments.payment_date', 'loan_payments.approval_status', 'loan_payments.approval_date',
                 'loan_applications.application_id',
                 'payments.title', 'payments.amount', 'payments.payment_ref',

@@ -17,11 +17,6 @@
             <li class="breadcrumb-item active">Applications</li>
         </ol>
         <div class="card mb-4">
-            <div class="card-body">
-                List of all applications
-            </div>
-        </div>
-        <div class="card mb-4">
             <div class="card-header">
                 <i class="fas fa-table me-1"></i>
                 Loan Applications
@@ -34,7 +29,6 @@
                             <th>#</th>
                             <th>Applicant</th>
                             <th>Loan Package</th>
-                            <th>Loan Sub Package</th>
                             <th>Loan Amount</th>
                             <th>Paid Amount</th>
                             <th>Status</th>
@@ -48,8 +42,10 @@
                             <tr>
                                 <td>{{ $loanPayment->id }}</td>
                                 <td>{{ $loanPayment->applicant->firstName }} {{ $loanPayment->applicant->middleName }} {{ $loanPayment->applicant->lastName }}</td>
-                                <td>{{ $loanPayment->package->loan }}</td>
-                                <td>{{ $loanPayment->sub_package->sub_loan }}</td>
+                                <td>
+                                    {{ $loanPayment->package->loan }}<br>
+                                    {{ $loanPayment->sub_package->sub_loan }}
+                                </td>
                                 <td>{{ $loanPayment->application->amount }} UGX</td>
                                 <td>{{ $loanPayment->payment->amount }} UGX</td>
                                 <td>{{ $loanPayment->payment->status }}</td>
