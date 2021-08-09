@@ -95,7 +95,7 @@
                             </a>
                             <div class="collapse" id="collapsePayments" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="/payments/subscriptions">Subscriptions</a>
+                                    <a class="nav-link" href="{{url("/subscriptions/payments")}}">Subscriptions</a>
                                     <a class="nav-link" href="/payments/events_tickets">Events Tickets</a>
                                 </nav>
                             </div>

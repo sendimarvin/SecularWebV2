@@ -9,6 +9,8 @@ use App\Models\LoanPackage;
 use App\Models\LoanPayment;
 use App\Models\LoanSubPackage;
 use App\Models\Payment;
+use App\Models\Subscription;
+use App\Models\SubscriptionPackage;
 use Illuminate\Http\Request;
 use \DB;
 
@@ -52,6 +54,46 @@ class PaymentController extends Controller
 
     }
 
+    public function indexSubscription () {
+        $feesPayments = Subscription::all()->map(function ($feesPayment){
+            $feesPayment->payment = Payment::find($feesPayment->payment_id);
+            $feesPayment->applicant = Applicant::find($feesPayment->userId);
+            $feesPayment->package = SubscriptionPackage::find($feesPayment->subscriptionId);
+            return $feesPayment;
+        });
+
+        return view('pages/subscription/index', ['subscriptions'=>$feesPayments]);
+    }
+    public function indexSubscriptionEdit($id){
+
+        $subscription = Subscription::find($id);
+        $subscription->payment = Payment::find($subscription->payment_id);
+        $package = SubscriptionPackage::find($subscription->subscriptionId);
+        $applicant = Applicant::find($subscription->userId);
+
+        return view("pages/subscription/edit",[
+            "subscription"=>$subscription,
+            "applicant"=>$applicant,
+            "package"=>$package,
+        ]);
+
+    }
+    public function indexSubscriptionSubmitEdit(Request $request,$id){
+
+        $status = $request->input("status");
+
+        $subscription = Subscription::find($id);
+        $subscription->payment_status = $status;
+        $subscription->save();
+
+        $payment = Payment::find($subscription->payment_id);
+        $payment->status = $status;
+        $payment->save();
+
+        (new NotificationsController())->sendNotificationToOnePerson("Subscription Fees Updated","Your subscription fees have been {$status}",$subscription->userId);
+
+        return redirect("subscriptions/payments");
+    }
 
 
 

@@ -249,7 +249,12 @@ Route::get('/payments/application_fees', [PaymentController::class, 'application
 Route::get('/payments/application_fees/{id}/edit', [PaymentController::class, 'applicationFeesEdit']);
 Route::post('/payments/application_fees/{id}/editSubmit', [PaymentController::class, 'applicationFeesEditSubmit']);
 Route::get('/payments/loan_payments', [PaymentController::class, 'loan_payments'])->name('/payments/loan_payments');
+
 Route::get('/payments/subscriptions', [PaymentController::class, 'subscriptions'])->name('/payments/subscriptions');
+Route::get('/subscriptions/payments', [PaymentController::class, 'indexSubscription']);
+Route::get('/subscriptions/payments/{id}/edit', [PaymentController::class, 'indexSubscriptionEdit']);
+Route::post('/subscriptions/payments/{id}/editSubmit', [PaymentController::class, 'indexSubscriptionSubmitEdit']);
+
 Route::get('/payments/disbursments', [PaymentController::class, 'disbursments'])->name('/payments/disbursments');
 ////////////////////////////////////////////////
 
