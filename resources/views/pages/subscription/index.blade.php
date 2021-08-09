@@ -28,8 +28,7 @@
                         <tr>
                             <th>#</th>
                             <th>User</th>
-                            <th>Title</th>
-                            <th>Paid Amount</th>
+                            <th>Package</th>
                             <th>Payment Date</th>
                             <th>Expiry Date</th>
                             <th>Status</th>
@@ -47,8 +46,7 @@
 
 
 
-                                <td>{{ $subscription->package->name }}</td>
-                                <td>{{ $subscription->payment->amount }} UGX</td>
+                                <td>{{ $subscription->package->name }}<br>{{ $subscription->payment->amount }} UGX</td>
                                 <td>{{ $subscription->payment->created_at }}</td>
                                 <td>{{ $subscription->expiry_date }}</td>
                                 <td>{{ $subscription->payment->status }}</td>
