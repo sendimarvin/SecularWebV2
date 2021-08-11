@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Applicant;
+use App\Models\ApplicationMeeting;
 use App\Models\LoanApplication;
 use App\Models\LoanApplicationFeePayment;
 use App\Models\LoanApplicationReview;
@@ -242,10 +243,12 @@ class LoanApplicationController extends Controller
         $loan_sub_package = LoanSubPackage::find($application->subpackage_id);
         $loan_package = LoanPackage::find($loan_sub_package->loan_package_id);
         $fee_payment = LoanApplicationFeePayment::where("application_id","=",$application->id)->get()->first();
+        $meeting = ApplicationMeeting::where("application_id","=",$application->id)->get()->first();
 
         return view("pages.loans.review",[
             'fee_payment'=>$fee_payment,
             'application'=>$application,
+            'meeting'=>$meeting,
             'applicant'=>Applicant::find($application->user_id),
             'loan_sub_package'=>$loan_sub_package,
             'loan_package'=>$loan_package,

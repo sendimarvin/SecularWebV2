@@ -52,6 +52,56 @@
                         <p><b>Payment Ref :</b> {{$fee_payment->payment_ref}}</p>
                     </div>
                 </div>
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <i class="fas fa-table me-1"></i>
+                        Meeting
+                    </div>
+                    <div class="card-body">
+
+                        @if($meeting==null)
+                            <p><b>NO MEETING REQUESTED FOR THIS APPLICATION</b></p>
+                        @else
+
+                            <p><b>Meeting Status :</b> {{$meeting->status}}</p>
+                            <p><b>Meeting Type :</b> {{$meeting->type}}</p>
+                            <p><b>Meeting Date :</b> {{$meeting->meeting_date}}</p>
+                            <p><b>Meeting Time :</b> {{$meeting->meeting_time}}</p>
+                            @if($meeting->comments != "")
+                                <p><b>Comment :</b> {{$meeting->comments}}</p>
+                            @endif
+
+                            @if($meeting->status != "approved")
+                                <form action="{{url("/loans/applications/meeting/".$meeting->id."/submit")}}" method="post" enctype="multipart/form-data">
+                                    @csrf
+                                    <div class="form-group mb-2">
+                                        <label for="exampleInputEmail1">Meeting Status</label>
+                                        <select name="status" type="number" class="form-control" id="exampleInputEmail1" >
+                                            <option
+                                                @if($meeting->status=="pending") selected @endif
+                                            value="pending" >Pending</option>
+                                            <option
+                                                @if($meeting->status=="approved") selected @endif
+                                            value="approved">Approved</option>
+                                            <option
+                                                @if($meeting->status=="declined") selected @endif
+                                            value="declined">Decline</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group mb-2">
+                                        <label for="exampleInputEmail1">Remarks</label>
+                                        <textarea class="form-control" name="remarks" id="exampleInputEmail1" >{{$meeting->remarks}}</textarea>
+                                    </div>
+                                    <input  class="btn btn-success" type="submit" value="Submit"/>
+                                </form>
+                            @else
+                                <p><b>Remarks :</b> {{$meeting->remarks}}</p>
+                            @endif
+
+                        @endif
+
+                    </div>
+                </div>
             </div>
             <div class=" col-4">
             <div class="card mb-4">

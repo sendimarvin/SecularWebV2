@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AddressController;
+use App\Http\Controllers\ApplicationMeetingController;
 use App\Http\Controllers\CustomAuthController;
 use App\Http\Controllers\KadaamaApplicationsController;
 use App\Http\Controllers\KadaamaPaymentsController;
@@ -215,6 +216,7 @@ Route::get('/loans/applications/approve/{id}', [LoanApplicationController::class
 Route::post('/loans/applications/approve/{id}/submit', [LoanApplicationController::class, 'approveSubmit']);
 Route::post('/loans/applications/disburse/{id}/submit', [LoanApplicationController::class, 'disburseSubmit']);
 Route::get('/loans/applications/preview/{id}', [LoanApplicationController::class, 'preview']);
+Route::post('/loans/applications/meeting/{id}/submit', [ApplicationMeetingController::class, 'meetingEdit']);
 
 Route::get('/loans/payments', [LoanPaymentsController::class, 'index']);
 Route::get('/loans/payments/{id}/edit', [LoanPaymentsController::class, 'edit']);
