@@ -81,6 +81,7 @@
                                 <nav class="sb-sidenav-menu-nested nav">
                                     <a class="nav-link" href="{{url("/loans/applications/pending")}}">Pending App.</a>
                                     <a class="nav-link" href="{{url("/loans/applications/processing")}}">Processing App.</a>
+                                    <a class="nav-link" href="{{url("/loans/applications/approved")}}">Approved App.</a>
                                     <a class="nav-link" href="{{url("/loans/applications/disbursed")}}">Disbursed App.</a>
                                     <a class="nav-link" href="{{url("/loans/applications/declined")}}">Declined App.</a>
                                     <a class="nav-link" href="{{url("/loans/payments")}}">Payments</a>
@@ -139,6 +140,7 @@
                                     <a class="nav-link" href="/question/categories">Categories</a>
                                     <a class="nav-link" href="/question/questions">Questions</a>
                                     <a class="nav-link" href="/question/question_mappings">Mappings</a>
+                                    <a class="nav-link" href="{{url("/question/options")}}">Options</a>
                                 </nav>
                             </div>
 

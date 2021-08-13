@@ -11,44 +11,49 @@
 
 @section('content')
     <div class="container-fluid px-4">
-        <h1 class="mt-4">Questions</h1>
+        <h1 class="mt-4">Loan Questions Options</h1>
         <ol class="breadcrumb mb-4">
-            <li class="breadcrumb-item"><a href="/">Questions</a></li>
-            <li class="breadcrumb-item active">categories</li>
+            <li class="breadcrumb-item"><a href="/">Loans</a></li>
+            <li class="breadcrumb-item active">Applications</li>
         </ol>
-        <div class="card mb-4">
-            <div class="card-body">
-                This retrieves all system admins that can access the dashboard
-            </div>
-        </div>
+
+
         <div class="card mb-4">
             <div class="card-header">
                 <i class="fas fa-table me-1"></i>
                 Questions
             </div>
             <div class="card-body">
+
+            </div>
+        </div>
+
+        <div class="card mb-4">
+            <div class="card-header">
+                <i class="fas fa-table me-1"></i>
+                Loan Applications
+            </div>
+            <div class="card-body">
                 <table id="example"
                     class="table table-bordered display nowrap"  >
                     <thead>
                         <tr>
-                            <th>No.</th>
-                            <th>Category</th>
+                            <th>#</th>
                             <th>Question</th>
-                            <th>Type</th>
+                            <th>Option</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
 
-                        @foreach ($questions as $question)
+                        @foreach ($list as $options)
                             <tr>
-                                <td>{{ $question->id }}</td>
-                                <td>{{ $question->category }}</td>
-                                <td>{{ $question->question }}</td>
+                                <td>{{ $options->id }}</td>
+                                <td>{{ $options->question_id }}</td>
+                                <td>{{ $options->option_name }}</td>
                                 <td>
-                                    {{ ucfirst( strtolower($question->type)) }}
-                                    @if($question->type == "SINGLE")
-                                        <a href="{{url("")}}" class="btn btn-primary ml-2">OPTIONS</a>
-                                    @endif
+                                    <a href="{{url("/options/{$options->id}/edit")}}" class="btn btn-primary" >Update</a>
+                                    <a href="{{url("/loans/payments/{$options->id}/delete")}}" class="btn btn-danger" >Delete</a>
                                 </td>
                             </tr>
                         @endforeach
@@ -70,32 +75,7 @@
         $(function() {
             table = $('#example').DataTable({
                 dom: 'Bfrtip',
-                // "scrollX": true,
                 "buttons": [
-                    {
-                        text: 'New',
-                        action: function ( e, dt, node, config ) {
-                            // alert( 'Button activated' );
-                            window.location.href='/question/new_question'
-                        }
-                    },
-                    {
-                        text: 'Edit',
-                        action: function ( e, dt, node, config ) {
-                            let row = $('#example').DataTable().row('.selected').data();
-                            let idtodelete = row[0];
-                            window.location.href='/question/edit_question/'+row[0]
-                        }
-                    },
-                    {
-                        text: 'Delete',
-                        action: function ( e, dt, node, config ) {
-                            // alert( 'Button activated' );
-                            let row = $('#example').DataTable().row('.selected').data();
-                            let idtodelete = row[0];
-                            window.location.href='/question/delete_question/'+row[0]
-                        }
-                    },
                     {
                         text: 'Excel',
                         action: function ( e, dt, node, config ) {
@@ -115,6 +95,10 @@
                     $(this).addClass('selected');
                 }
             } );
+
+            // $('#button').click( function () {
+            //     table.row('.selected').remove().draw( false );
+            // } );
 
 
         } );

@@ -6,6 +6,7 @@ use App\Http\Controllers\CustomAuthController;
 use App\Http\Controllers\KadaamaApplicationsController;
 use App\Http\Controllers\KadaamaPaymentsController;
 use App\Http\Controllers\LoanPaymentsController;
+use App\Http\Controllers\LoanQuestionsOptionsController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\QuestionController;
@@ -85,6 +86,13 @@ Route::put('/question/update_category/{id}', [QuestionController::class, 'update
 Route::get('/question/delete_category/{id}', [QuestionController::class, 'delete_category']);
 // END SECTION QUESTION CATEGORY ROUTES
 
+
+Route::get('/question/options', [LoanQuestionsOptionsController::class, 'index']);
+Route::get('/question/options/create', [LoanQuestionsOptionsController::class, 'create']);
+Route::post('/question/options/store', [LoanQuestionsOptionsController::class, 'store']);
+Route::get('/question/options/{id}/delete', [LoanQuestionsOptionsController::class, 'delete']);
+Route::get('/question/options/{id}/edit', [LoanQuestionsOptionsController::class, 'edit']);
+Route::put('/question/options/{id}/update', [LoanQuestionsOptionsController::class, 'update']);
 
 Route::get('/question/questions', [QuestionController::class, 'questions'])->name('/question/questions');
 
