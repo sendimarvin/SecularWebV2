@@ -77,19 +77,19 @@
                     <div class="card-body">
                         <p><b>Profile Picture :</b></p>
                         <img class="img-thumbnail"
-                             style="height: 100px; width: 100px;" src="{{env("APP_IMAGES_URL").$applicant->profilePicture}}"/>
+                             style="height: 100px; width: 100px;" src="{{env("IMAGES_URL").$applicant->profilePicture}}"/>
 
                         <hr>
                         <div class="row">
                             <div class="col-6">
                                 <p><b>Identity Card Front :</b></p>
                                 <img class="img-thumbnail"
-                                     style="height: 200px; " src="{{env("APP_IMAGES_URL").$applicant->cardPictureFront}}"/>
+                                     style="height: 200px; " src="{{env("IMAGES_URL").$applicant->cardPictureFront}}"/>
                             </div>
                             <div class="col-6">
                                 <p><b>Identity Card Back :</b></p>
                                 <img class="img-thumbnail"
-                                     style="height: 200px;" src="{{env("APP_IMAGES_URL").$applicant->cardPictureBack}}"/>
+                                     style="height: 200px;" src="{{env("IMAGES_URL").$applicant->cardPictureBack}}"/>
 
                             </div>
                         </div>
