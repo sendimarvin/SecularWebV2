@@ -34,6 +34,7 @@
                             <th>Phone&nbsp;Number</th>
                             <th>Email</th>
                             <th>Gender</th>
+                            <th>Status</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -48,6 +49,7 @@
                                 <td>{{ $user->phoneNumber }}</td>
                                 <td>{{ $user->email }}</td>
                                 <td>{{ $user->gender }}</td>
+                                <td>{{ $user->status }}</td>
                                 <td><a class="btn btn-success" href="{{url("/users/".$user->id)}}">Preview</a></td>
                             </tr>
                         @endforeach

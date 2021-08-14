@@ -11,7 +11,7 @@
 
 @section('content')
     <div class="container-fluid px-4">
-        <h1 class="mt-4">Loan Applications</h1>
+        <h1 class="mt-4">Loan Applications | Clearing</h1>
         <ol class="breadcrumb mb-4">
             <li class="breadcrumb-item"><a href="/">Loan</a></li>
             <li class="breadcrumb-item active">Applications</li>
@@ -40,20 +40,29 @@
                 </div>
             </div>
             <div class=" col-4">
-                <div class="card mb-4">
-                    <div class="card-header">
+                <div class="card mb-4 bg-dark text-white" >
+                    <div class="card-header text-danger">
                         <i class="fas fa-table me-1"></i>
-                        Application Questions
+                        KEY APPLICATION INFORMATION
                     </div>
-                    <div class="card-body" style="height: 500px; overflow-y: auto">
-                        @foreach( json_decode($application->questions) as $category)
-                            <h6>{{$category->category}}</h6>
-                        <hr>
-                            @foreach( $category->questions as $question)
-                                <p><b>{{$question->question}}</b><br>REPLY: {{$question->value}}</p>
-                            @endforeach
+                    <div class="card-body"  style="height: 500px">
+                        <p><b>Interest:</b> {{$application->interest}}% which is {{$application->interestAmount}}</p>
+                        <p><b>Payment Grace Period:</b> {{$application->paymentGracePeriod}} Days</p>
+                        <p><b>Payment Start Date:</b> {{$application->paymentStartDate}}</p>
+                        <p><b>Next Payment Date:</b> {{$application->nextPaymentDate}}</p>
+                        <p><b>Payment Interval:</b> {{$application->paymentInterval}} Days</p>
+                        <p><b>Payment So Far:</b> {{$application->paymentSofar}}</p>
+                        <p><b>Payment Left:</b> {{$application->paymentFull - $application->paymentSofar}}</p>
+                        <p><b>Payment Full:</b> {{$application->paymentFull}}</p>
+                        <p><b>Payment Installment:</b> {{$application->paymentInstallment}}</p>
+                        <p><b>Expected Completion Date:</b> {{$application->expectedCompletionDate}}</p>
+                        <p><b>Loan Status:</b> {{$application->loan_status}}</p>
 
-                        @endforeach
+                        <div>
+                            <a class="btn btn-success" href="{{url("/loans/applications/clear/{$application->id}")}}"
+                               style="width: 100%">Clear Loan | Mark as Paid</a>
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -89,42 +98,13 @@
                     </div>
                 </div>
             </div>
-            <div class=" col-4">
-                <div class="card mb-4 bg-dark text-white" >
-                    <div class="card-header text-danger">
-                        <i class="fas fa-table me-1"></i>
-                        KEY APPLICATION INFORMATION
-                    </div>
-                    <div class="card-body"  style="height: 500px">
-                        <p><b>Interest:</b> {{$application->interest}}% which is {{$application->interestAmount}}</p>
-                        <p><b>Payment Grace Period:</b> {{$application->paymentGracePeriod}} Days</p>
-                        <p><b>Payment Start Date:</b> {{$application->paymentStartDate}}</p>
-                        <p><b>Next Payment Date:</b> {{$application->nextPaymentDate}}</p>
-                        <p><b>Payment Interval:</b> {{$application->paymentInterval}} Days</p>
-                        <p><b>Payment So Far:</b> {{$application->paymentSofar}}</p>
-                        <p><b>Payment Left:</b> {{$application->paymentFull - $application->paymentSofar}}</p>
-                        <p><b>Payment Full:</b> {{$application->paymentFull}}</p>
-                        <p><b>Payment Installment:</b> {{$application->paymentInstallment}}</p>
-                        <p><b>Expected Completion Date:</b> {{$application->expectedCompletionDate}}</p>
-                        <p><b>Loan Status:</b> {{$application->loan_status}}</p>
-
-                        @if($application->loan_status == "Disbursed")
-                            <div>
-                                <a class="btn btn-success" href="{{url("/loans/applications/clear/{$application->id}")}}"
-                                   style="width: 100%">Clear Loan | Mark as Paid</a>
-                            </div>
-                        @endif
-
-                    </div>
-                </div>
-            </div>
-            <div class=" col-8">
+            <div class=" col-12">
                 <div class="card mb-4 bg-dark text-white" >
                     <div class="card-header text-danger">
                         <i class="fas fa-table me-1"></i>
                         LOAN PAYMENTS/INSTALLMENTS
                     </div>
-                    <div class="card-body table-responsive"  style="height: 500px">
+                    <div class="card-body table-responsive"  style="height: 300px">
                         <table class="table table-head-fixed text-nowrap text-white">
                             <thead>
                             <tr>
@@ -153,55 +133,27 @@
                     </div>
                 </div>
             </div>
-            <div class="col-4">
+            <div class="col-12">
                 <div class="card mb-4">
-                <div class="card-header">
-                    <i class="fas fa-table me-1"></i>
-                    Application Fee
-                </div>
-                <div class="card-body" style="height: 300px;">
-                    @if($fee_payment==null)
-                        <p class="text-danger text-center"><b>NO APPLICATION FEES PAID FOR THIS LOAN</b></p>
-                    @else
-                        <p><b>Amount :</b> {{$fee_payment->amount}}</p>
-                        <p><b>Payment Date :</b> {{$fee_payment->payment_date}}</p>
-                        <p><b>Status :</b> {{$fee_payment->status}}</p>
-                        <p><b>Payment Ref :</b> {{$fee_payment->payment_ref}}</p>
-                    @endif
-                </div>
-            </div>
-            </div>
-            <div class="col-8">
-                <div class="card mb-4">
-                <div class="card-header">
-                    <i class="fas fa-table me-1"></i>
-                    Reviews
-                </div>
-                <div class="card-body  table-responsive p-0" style="height: 300px;">
+                    <div class="card-header">
+                        <i class="fas fa-table me-1"></i>
+                        Clear
+                    </div>
+                    <div class="card-body" style="height: 300px;">
 
-                    <table class="table table-head-fixed text-nowrap">
-                        <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Admin Id</th>
-                            <th>State</th>
-                            <th>Review</th>
-                            <th>Created At</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                            @foreach($reviews as $review)
-                                <tr>
-                                    <td>{{$review->id}}</td>
-                                    <td>{{$review->admin_id}}</td>
-                                    <td>{{$review->state}}</td>
-                                    <td>{{$review->review}}</td>
-                                    <td>{{$review->created_at}}</td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
+                        <form action="{{url("/loans/applications/clear/".$application->id."/submit")}}" method="post" enctype="multipart/form-data">
+                            @csrf
+                            <p class="text-danger">Submitting this form confirms that you have CONFIRMED that the money has been paid successfully and in its fullness</p>
+                            <div class="form-group mb-2">
+                                <label for="exampleInputEmail1">Review</label>
+                                <textarea style="height: 160px;" class="form-control" name="review" id="exampleInputEmail1" ></textarea>
+                            </div>
+
+                            <input  class="btn btn-success" type="submit" value="Confirm Loan Clearance"/>
+
+                        </form>
+
+                    </div>
             </div>
             </div>
         </div>

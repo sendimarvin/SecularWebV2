@@ -149,6 +149,28 @@ class LoanApplicationController extends Controller
         return redirect("loans/applications/".$old_loan_status);
 
     }
+    public function clearSubmit(Request $request,$id){
+
+        $application = LoanApplication::find($id);
+
+        $review = $request->input("review");
+        $loanStatus = "paid";
+        $application->loan_status = $loanStatus;
+        $application->save();
+
+        $this->sendLoanApplicationNotification($application);
+
+        //save Review record
+        LoanApplicationReview::create([
+            "review" => $review,
+            "state" => $loanStatus,
+            "admin_id" => "1",
+            "application_id" => $id
+        ]);
+
+        return redirect("loans/applications/preview/{$id}");
+
+    }
     public function disburseSubmit(Request $request,$id){
         $error = "";
 
@@ -270,6 +292,29 @@ class LoanApplicationController extends Controller
             'loan_package'=>$loan_package,
         ]);
     }
+    public function clear($id){
+
+        $application = LoanApplication::find($id);
+        $loan_sub_package = LoanSubPackage::find($application->subpackage_id);
+        $loan_package = LoanPackage::find($loan_sub_package->loan_package_id);
+        $reviews = LoanApplicationReview::where("application_id","=",$id)->get();
+        $payments = LoanPayment::where("application_id","=",$id)->get()->map(function ($payment){
+            $payment->payment = Payment::find($payment->payment_id);
+            return $payment;
+        });
+        $fee_payment = LoanApplicationFeePayment::where("application_id","=",$application->id)->get()->first();
+
+        return view("pages.loans.clear",[
+            'fee_payment'=>$fee_payment,
+            'reviews'=>$reviews,
+            'payments'=>$payments,
+            'application'=>$application,
+            'applicant'=>Applicant::find($application->user_id),
+            'loan_sub_package'=>$loan_sub_package,
+            'loan_package'=>$loan_package,
+        ]);
+    }
+
     public function preview($id){
 
         $application = LoanApplication::find($id);
@@ -310,6 +355,9 @@ class LoanApplicationController extends Controller
                 break;
             case "Declined":
                 $message = "Your application for the loan of ".$application->amount." has been Declined";
+                break;
+            case "Paid":
+                $message = "Your application for the loan of ".$application->amount." has been paid successfully, You now apply for another loan";
                 break;
             default :
                 $message = "Your application state has changed, Please open the app to check it out";

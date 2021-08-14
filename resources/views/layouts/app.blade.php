@@ -84,6 +84,7 @@
                                     <a class="nav-link" href="{{url("/loans/applications/approved")}}">Approved App.</a>
                                     <a class="nav-link" href="{{url("/loans/applications/disbursed")}}">Disbursed App.</a>
                                     <a class="nav-link" href="{{url("/loans/applications/declined")}}">Declined App.</a>
+                                    <a class="nav-link" href="{{url("/loans/applications/paid")}}">Paid App.</a>
                                     <a class="nav-link" href="{{url("/loans/payments")}}">Payments</a>
                                     <a class="nav-link" href="{{url("/payments/application_fees")}}">Application Fees</a>
                                 </nav>

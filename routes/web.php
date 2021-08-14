@@ -223,6 +223,8 @@ Route::get('/loans/applications/{status}', [LoanApplicationController::class, 'i
 Route::get('/loans/applications/review/{id}', [LoanApplicationController::class, 'review']);
 Route::post('/loans/applications/review/{id}/submit', [LoanApplicationController::class, 'reviewSubmit']);
 Route::get('/loans/applications/approve/{id}', [LoanApplicationController::class, 'approve']);
+Route::get('/loans/applications/clear/{id}', [LoanApplicationController::class, 'clear']);
+Route::post('/loans/applications/clear/{id}/submit', [LoanApplicationController::class, 'clearSubmit']);
 Route::post('/loans/applications/approve/{id}/submit', [LoanApplicationController::class, 'approveSubmit']);
 Route::post('/loans/applications/disburse/{id}/submit', [LoanApplicationController::class, 'disburseSubmit']);
 Route::get('/loans/applications/preview/{id}', [LoanApplicationController::class, 'preview']);
