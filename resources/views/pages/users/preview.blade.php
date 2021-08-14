@@ -67,7 +67,6 @@
                     </div>
                 </div>
             </div>
-
             <div class="col-6">
                 <div class="card mb-4">
                     <div class="card-header">
@@ -95,6 +94,49 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+
+
+        <div class="card mb-4">
+            <div class="card-header">
+                <i class="fas fa-table me-1"></i>
+                Loan Applications
+            </div>
+            <div class="card-body">
+                <table id="example"
+                       class="table table-bordered display nowrap"  >
+                    <thead>
+                    <tr>
+                        <th>No.</th>
+                        <th>Loan Package</th>
+                        <th>Loan Sub Package</th>
+                        <th>Amount</th>
+                        <th>Repayment Plan</th>
+                        <th>Status</th>
+                        <th>Created At</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    @foreach ($applications as $application)
+                        <tr>
+                            <td>{{ $application->id }}</td>
+                            <td>{{ $application->loan_package->loan }}</td>
+                            <td>{{ $application->loan_sub_package->sub_loan }}</td>
+                            <td>{{ $application->amount }}</td>
+                            <td>{{ $application->loanRepaymentPlan }}</td>
+                            <td>{{ $application->loan_status }}</td>
+                            <td>{{ $application->created_at }}</td>
+                            <td>
+                                <a href="{{url("/loans/applications/preview/".$application->id)}}" class="btn btn-success">Preview</a>
+                            </td>
+                        </tr>
+                    @endforeach
+
+                    </tbody>
+                </table>
             </div>
         </div>
 

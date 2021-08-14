@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Applicant;
+use App\Models\LoanApplication;
+use App\Models\LoanPackage;
+use App\Models\LoanSubPackage;
 use Illuminate\Http\Request;
 use DB;
 use Hash;
@@ -126,10 +129,22 @@ class UserController extends Controller
     }
 
     public function viewUser($id){
+
         $images_url = env("IMAGES_URL");
+        $applicant=Applicant::find($id);
+
+
         return view("pages.users.preview",[
             "images_url"=>$images_url,
-            "applicant"=>Applicant::find($id)
+            "applicant"=>$applicant,
+            "applications"=> LoanApplication::where("user_id","=",$applicant->id)
+                ->get()
+                ->map(function ($application){
+                    $application->user = Applicant::find($application->user_id);
+                    $application->loan_sub_package = LoanSubPackage::find($application->subpackage_id);
+                    $application->loan_package = LoanPackage::find($application->loan_sub_package->loan_package_id);
+                    return $application;
+                })
         ]);
     }
 }
