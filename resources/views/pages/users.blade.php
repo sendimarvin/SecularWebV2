@@ -13,23 +13,18 @@
     <div class="container-fluid px-4">
         <h1 class="mt-4">Users</h1>
         <ol class="breadcrumb mb-4">
-            <li class="breadcrumb-item"><a href="/">Dasboads</a></li>
+            <li class="breadcrumb-item"><a href="/">Dashboard</a></li>
             <li class="breadcrumb-item active">Users</li>
         </ol>
-        <div class="card mb-4">
-            <div class="card-body">
-                This retrieves all application users that are in the system
-            </div>
-        </div>
         <div class="card mb-4">
             <div class="card-header">
                 <i class="fas fa-table me-1"></i>
                 Application users
             </div>
             <div class="card-body">
-                <table id="example" 
+                <table id="example"
                     {{-- class="table table-striped  table-hover table-condensed"  > --}}
-                    class="table table-bordered display nowrap"  >
+                    class="table table-bordered display "  >
                     <thead>
                         <tr>
                             <th>No.</th>
@@ -39,16 +34,7 @@
                             <th>Phone&nbsp;Number</th>
                             <th>Email</th>
                             <th>Gender</th>
-                            <th>Date&nbsp;of&nbsp;Birth</th>
-                            <th>Card&nbsp;Type</th>
-                            <th>Card&nbsp;No.</th>
-                            <th>Marital&nbsp;Status</th>
-                            <th>District</th>
-                            <th>County</th>
-                            <th>Parish</th>
-                            <th>Village</th>
-                            <th>Region</th>
-                            <th>Nationality</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -62,19 +48,10 @@
                                 <td>{{ $user->phoneNumber }}</td>
                                 <td>{{ $user->email }}</td>
                                 <td>{{ $user->gender }}</td>
-                                <td>{{ $user->dob }}</td>
-                                <td>{{ $user->cardType }}</td>
-                                <td>{{ $user->cardNumber }}</td>
-                                <td>{{ $user->maritalStatus }}</td>
-                                <td>{{ $user->district }}</td>
-                                <td>{{ $user->subCounty }}</td>
-                                <td>{{ $user->parish }}</td>
-                                <td>{{ $user->village }}</td>
-                                <td>{{ $user->region }}</td>
-                                <td>{{ $user->nationality }}</td>
+                                <td><a class="btn btn-success" href="{{url("/users/".$user->id)}}">Preview</a></td>
                             </tr>
                         @endforeach
-                        
+
                     </tbody>
                 </table>
             </div>
@@ -89,9 +66,8 @@
     <script src="https://cdn.datatables.net/buttons/1.7.1/js/dataTables.buttons.min.js"></script>
     <script>
         $(function() {
-            $('#example').DataTable({ 
+            $('#example').DataTable({
                 dom: 'Bfrtip',
-                "scrollX": true,
                 "buttons": [
                     {
                         text: 'CSV',
@@ -99,20 +75,8 @@
                             alert( 'Button activated' );
                         }
                     },
-                    {
-                        text: 'Copy',
-                        action: function ( e, dt, node, config ) {
-                            alert( 'Button activated' );
-                        }
-                    },
-                    {
-                        text: 'Excel',
-                        action: function ( e, dt, node, config ) {
-                            alert( 'Button activated' );
-                        }
-                    }
                 ]
             } );
-        } );    
+        } );
     </script>
 @endsection

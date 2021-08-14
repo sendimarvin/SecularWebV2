@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Applicant;
 use Illuminate\Http\Request;
 use DB;
 use Hash;
@@ -99,8 +100,17 @@ class UserController extends Controller
                 'email' => $request->email,
               ]);
         }
-        
+
         return redirect()->route('admins');
+    }
+
+    public function approveUser(Request $request, $id)
+    {
+        $applicant = Applicant::find($id);
+        $applicant->status = $request->input("status");
+        $applicant->save();
+
+        return redirect("/users/{$id}");
     }
 
     /**
@@ -113,5 +123,11 @@ class UserController extends Controller
     {
         DB::table('admins')->delete($id);
         return redirect()->route('admins');
+    }
+
+    public function viewUser($id){
+        return view("pages.users.preview",[
+            "applicant"=>Applicant::find($id)
+        ]);
     }
 }

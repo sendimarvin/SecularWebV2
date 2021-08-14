@@ -10,4 +10,6 @@ class Applicant extends Model
     use HasFactory;
 
     protected $table = "users";
+
+    public $timestamps = false;
 }

@@ -125,6 +125,8 @@ Route::get('/terms', [SettingController::class, 'terms'])->name('/terms');
 Route::put('/update_terms/{id}', [SettingController::class, 'update_terms'])->name('/update_terms');
 
 Route::get('/policy', [SettingController::class, 'policy'])->name('/policy');
+Route::get('/users/{id}', [UserController::class, 'viewUser']);
+Route::post('/users/{id}/approve', [UserController::class, 'approveUser']);
 
 Route::put('/update_policy/{id}', [SettingController::class, 'update_policy'])->name('/update_policy');
 
