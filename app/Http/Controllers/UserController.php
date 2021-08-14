@@ -126,7 +126,9 @@ class UserController extends Controller
     }
 
     public function viewUser($id){
+        $images_url = env("IMAGES_URL");
         return view("pages.users.preview",[
+            "images_url"=>$images_url,
             "applicant"=>Applicant::find($id)
         ]);
     }
