@@ -10,7 +10,7 @@
         <div class="row">
             <div class="col-2">
                 <div class="card mb-4">
-                    <div class="card-body">Easy Pay Balance</div>
+                    <div class="card-body">Easy Pay Account Balance</div>
                     <div class="card-footer d-flex align-items-center justify-content-between">
                         <a class="small stretched-link text-decoration-none">{{$easypay_balance->data}} {{$easypay_balance->currencyCode}}</a>
                     </div>
@@ -18,9 +18,17 @@
             </div>
             <div class="col-2">
                 <div class="card mb-4">
-                    <div class="card-body">Amount Disbursed in Loans</div>
+                    <div class="card-body">Loans : Amount Disbursed</div>
                     <div class="card-footer d-flex align-items-center justify-content-between">
                         <a class="small stretched-link text-decoration-none">{{$loan_amount_disbursed}} UGX</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-2">
+                <div class="card mb-4">
+                    <div class="card-body">Loans : Amount Paid Back</div>
+                    <div class="card-footer d-flex align-items-center justify-content-between">
+                        <a class="small stretched-link text-decoration-none">{{$loan_amount_paid_back}} UGX</a>
                     </div>
                 </div>
             </div>
@@ -194,9 +202,10 @@
                     <div class="card mb-4">
                         <div class="card-header">
                             <i class="fas fa-chart-bar me-1"></i>
-                            Application users
+                            Application Subscriptions
                         </div>
-                        <div class="card-body"><canvas id="myBarChart" width="100%" height="40"></canvas></div>
+                        <div class="card-body"><canvas id="subscriptionBarChart" width="100%" height="40"></canvas></div>
+                        <div id="subscription_total_amounts" hidden>{{$subscription_total_amounts}}</div>
                     </div>
                 </div>
             </div>
@@ -238,7 +247,6 @@
                 </div>
             </div>
         </div>
-
     </div>
 @endsection
 
@@ -247,4 +255,55 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
     <script src="{{ asset('js/chart-area-demo.js') }}"></script>
     <script src="{{ asset('js/chart-bar-demo.js') }}"></script>
+    <script>
+
+        let subscription_total_amounts = JSON.parse(document.getElementById("subscription_total_amounts").innerText)
+        let list_key = subscription_total_amounts.map(it => it.id)
+        let list_name = subscription_total_amounts.map(it => it.name.replace("Subscription", ""))
+        let list_total_number = subscription_total_amounts.map(it => it.total_number)
+
+        Chart.defaults.global.defaultFontFamily = '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
+        Chart.defaults.global.defaultFontColor = '#292b2c';
+
+        // Bar Chart Example
+        var ctx = document.getElementById("subscriptionBarChart");
+        var myLineChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: list_name,
+                datasets: [{
+                    label: "People",
+                    backgroundColor: "rgba(2,117,216,1)",
+                    borderColor: "rgba(2,117,216,1)",
+                    data: list_total_number,
+                }],
+            },
+            options: {
+                scales: {
+                    xAxes: [{
+                        time: {
+                            unit: 'month'
+                        },
+                        gridLines: {
+                            display: false
+                        },
+                        ticks: {
+                            maxTicksLimit: 6
+                        }
+                    }],
+                    yAxes: [{
+                        ticks: {
+                            min: 0,
+                        },
+                        gridLines: {
+                            display: true
+                        }
+                    }],
+                },
+                legend: {
+                    display: false
+                }
+            }
+        });
+    </script>
 @endsection

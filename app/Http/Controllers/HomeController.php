@@ -8,6 +8,7 @@ use App\Models\LoanApplication;
 use App\Models\LoanApplicationFeePayment;
 use App\Models\Payment;
 use App\Models\Subscription;
+use App\Models\SubscriptionPackage;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -93,7 +94,6 @@ class HomeController extends Controller
 
     public function showDashboard(){
 
-
         if(Auth::check()){
             return view('pages/dashboard',[
                 "easypay_balance"=>json_decode((new EasyPayHelper())->checkbalance()),
@@ -106,6 +106,9 @@ class HomeController extends Controller
                 "kadaama_applications"=>KadaamaApplication::count(),
                 "applicants"=>Applicant::count(),
                 "administrators"=>User::count(),
+                "subscription_total_amounts"=>SubscriptionPackage::select("id","name")->get()->map(function ($sub){
+                    $sub->total_number = Subscription::where("subscriptionId","=",$sub->id)->count();
+                    return $sub; }),
 
                 "events_fees"=>DB::table("events_tickets")
                     ->join('payments', 'payments.id', '=', 'events_tickets.payment_id')
@@ -120,6 +123,11 @@ class HomeController extends Controller
                 "loan_application_disbursed"=>LoanApplication::where("loan_status","=","disbursed")->count(),
                 "loan_amount_disbursed"=>LoanApplication::where("loan_status","=","disbursed")
                     ->orWhere("loan_status","=","paid")
+                    ->sum("amount"),
+
+                "loan_amount_paid_back"=>DB::table("loan_payments")
+                    ->join('payments', 'payments.id', '=', 'loan_payments.payment_id')
+                    ->select('payments.amount')
                     ->sum("amount"),
 
                 "loan_application_paid"=>LoanApplication::where("loan_status","=","paid")->count(),
