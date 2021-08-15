@@ -192,13 +192,16 @@ class LoanApplicationController extends Controller
                         $error = "Payment Number cannot be Empty";
                     }else if(str_starts_with($mobile_number, '0')){
                         $mobile_number = $this->str_replace_first("0","256",$mobile_number);
+                    }else if(str_starts_with($mobile_number, '+')){
+                        $mobile_number = $this->str_replace_first("+","256",$mobile_number);
                     }
 
                     if (str_starts_with($mobile_number,"256")){
 
-                        if($application->amount>2000){
+/*                        if($application->amount>5000){
                             $error = "Amount to much for testing | We have a limit of only 5000";
-                        }else{
+                        }else*/
+                            {
 
                             $response = (new EasyPayHelper())->mmpayout($application->amount,$mobile_number);
                             $error = json_encode($response);
