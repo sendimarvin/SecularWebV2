@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Applicant;
+use App\Models\Event;
+use App\Models\EventTicket;
+use App\Models\Payment;
 use Illuminate\Http\Request;
 use \DB;
 
@@ -33,6 +37,21 @@ class EventController extends Controller
         return view('pages/new_event', compact('event'));
     }
 
+    public function viewEvent($id)
+    {
+        $event = Event::find($id);
+        return view('pages/events/preview', [
+            "event"=>$event,
+            "events_tickets"=>EventTicket::where("event_id","=",$event->id)->get()->map(function ($event){
+
+                $event->applicant = Applicant::find($event->user_id);
+                $event->payment = Payment::find($event->payment_id);
+
+                return $event;
+            })
+        ]);
+    }
+
 
     public function update_event (Request $request, $id)
     {
@@ -49,7 +68,7 @@ class EventController extends Controller
                 'about' => $request->about,
                 'picture' => $request->picture
             ]);
-        
+
         return redirect()->route('/events');
     }
 

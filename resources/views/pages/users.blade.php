@@ -28,9 +28,7 @@
                     <thead>
                         <tr>
                             <th>No.</th>
-                            <th>First&nbsp;Name</th>
-                            <th>Last&nbsp;Name</th>
-                            <th>Middle&nbsp;Name</th>
+                            <th>Name</th>
                             <th>Phone&nbsp;Number</th>
                             <th>Email</th>
                             <th>Gender</th>
@@ -43,9 +41,7 @@
                         @foreach ($users as $user)
                             <tr>
                                 <td>{{ $user->id }}</td>
-                                <td>{{ $user->firstName }}</td>
-                                <td>{{ $user->lastName }}</td>
-                                <td>{{ $user->middleName }}</td>
+                                <td>{{ $user->firstName }} {{ $user->lastName }} {{ $user->middleName }}</td>
                                 <td>{{ $user->phoneNumber }}</td>
                                 <td>{{ $user->email }}</td>
                                 <td>{{ $user->gender }}</td>

@@ -197,6 +197,7 @@ Route::get('/events/new_event', function () {
 Route::post('/events/save_event', [EventController::class, 'create_event']);
 
 Route::get('/events/edit_event/{id}', [EventController::class, 'edit_event']);
+Route::get('/events/{id}', [EventController::class, 'viewEvent']);
 
 Route::put('/events/update_event/{id}', [EventController::class, 'update_event'])->name('/events/update_event');
 

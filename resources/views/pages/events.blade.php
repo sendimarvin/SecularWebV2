@@ -27,22 +27,17 @@
                 Events
             </div>
             <div class="card-body">
-                <table id="example" 
-                    class="table table-bordered display nowrap"  >
+                <table id="example"
+                    class="table table-bordered display"  >
                     <thead>
                         <tr>
                             <th>No.</th>
                             <th>Title</th>
                             <th>Start Date</th>
                             <th>Start Time</th>
-                            <th>End Date</th>
-                            <th>End Time</th>
                             <th>Location</th>
                             <th>Fee</th>
-                            <th>About</th>
-                            <th>Created At</th>
-                            <th>Updated At</th>
-                            <th>Picture</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -53,17 +48,13 @@
                                 <td>{{ $event->title }}</td>
                                 <td>{{ $event->start_date }}</td>
                                 <td>{{ $event->start_time }}</td>
-                                <td>{{ $event->end_date }}</td>
-                                <td>{{ $event->end_time }}</td>
                                 <td>{{ $event->location }}</td>
                                 <td>{{ $event->attendance_fee }}</td>
-                                <td>{{ $event->about }}</td>
-                                <td>{{ $event->created_at }}</td>
-                                <td>{{ $event->updated_at }}</td>
-                                <td>{{ $event->picture }}</td>
+                                <td><a class="btn btn-success" href="{{url("/events/".$event->id)}}">Preview</a></td>
+
                             </tr>
                         @endforeach
-                        
+
                     </tbody>
                 </table>
             </div>
@@ -79,9 +70,8 @@
     <script>
         var table;
         $(function() {
-            table = $('#example').DataTable({ 
+            table = $('#example').DataTable({
                 dom: 'Bfrtip',
-                "scrollX": true,
                 "buttons": [
                     {
                         text: 'New',
@@ -125,12 +115,12 @@
                     $(this).addClass('selected');
                 }
             } );
-        
+
             // $('#button').click( function () {
             //     table.row('.selected').remove().draw( false );
             // } );
 
 
-        } );    
+        } );
     </script>
 @endsection
