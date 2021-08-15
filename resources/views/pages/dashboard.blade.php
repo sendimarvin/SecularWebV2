@@ -217,7 +217,6 @@
                                 <th>Title.</th>
                                 <th>Amount.</th>
                                 <th>Status.</th>
-                                <th>Payment Ref.</th>
                                 <th>Payment Method.</th>
                             </tr>
                             </thead>
@@ -229,7 +228,6 @@
                                     <td>{{ $payment->title }}</td>
                                     <td>{{ $payment->amount }} UGX</td>
                                     <td>{{ $payment->status }}</td>
-                                    <td>{{ $payment->payment_ref }}</td>
                                     <td>{{ $payment->payment_method }}</td>
                                 </tr>
                             @endforeach
