@@ -203,6 +203,41 @@
 
             <div class="col-7">
 
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <i class="fas fa-table me-1"></i>
+                        Payment
+                    </div>
+                    <div class="card-body">
+                        <table id="example"
+                               class="table table-bordered display nowrap"  >
+                            <thead>
+                            <tr>
+                                <th>No.</th>
+                                <th>Title.</th>
+                                <th>Amount.</th>
+                                <th>Status.</th>
+                                <th>Payment Ref.</th>
+                                <th>Payment Method.</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+
+                            @foreach ($payments as $payment)
+                                <tr>
+                                    <td>{{ $payment->id }}</td>
+                                    <td>{{ $payment->title }}</td>
+                                    <td>{{ $payment->amount }} UGX</td>
+                                    <td>{{ $payment->status }}</td>
+                                    <td>{{ $payment->payment_ref }}</td>
+                                    <td>{{ $payment->payment_method }}</td>
+                                </tr>
+                            @endforeach
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
 

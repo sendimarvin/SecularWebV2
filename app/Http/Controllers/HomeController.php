@@ -6,6 +6,7 @@ use App\Models\Applicant;
 use App\Models\KadaamaApplication;
 use App\Models\LoanApplication;
 use App\Models\LoanApplicationFeePayment;
+use App\Models\Payment;
 use App\Models\Subscription;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -111,6 +112,7 @@ class HomeController extends Controller
                     ->select('payments.amount')
                     ->sum("amount"),
 
+                "payments"=>Payment::orderBy("id","DESC")->limit(15)->get(),
                 "subscription_fees"=>Subscription::where("amount","!=","")->sum("amount"),
                 "loan_application_fees"=>LoanApplicationFeePayment::where("amount","!=","")->sum("amount"),
 
