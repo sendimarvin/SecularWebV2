@@ -9,10 +9,10 @@
 
         <div class="row">
             <div class="col-2">
-                <div class="card mb-4">
+                <div class="card bg-success text-white mb-4">
                     <div class="card-body">Easy Pay Account Balance</div>
                     <div class="card-footer d-flex align-items-center justify-content-between">
-                        <a class="small stretched-link text-decoration-none">{{$easypay_balance->data}} {{$easypay_balance->currencyCode}}</a>
+                        <a class="small text-white stretched-link text-decoration-none">{{$easypay_balance->data}} {{$easypay_balance->currencyCode}}</a>
                     </div>
                 </div>
             </div>
