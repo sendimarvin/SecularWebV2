@@ -38,6 +38,17 @@ class EasyPayHelper
         return $this->makeHTTPRequest("https://www.easypay.co.ug/api/", $headers=[], $data,  $httpMethod);
     }
 
+    function checkbalance ()
+    {
+        $httpMethod = "POST";
+        $data = [
+            'username' => "939da26087ba386f",
+            'password' => "f9d7fc7564f19b6a",
+            'action' => "checkbalance"
+        ];
+        return $this->makeHTTPRequest("https://www.easypay.co.ug/api/", $headers=[], $data,  $httpMethod);
+    }
+
     private function makeHTTPRequest ($url = '', $headers = [], $data = [], $httpMethod = "GET")
     {
         $data = json_encode($data);

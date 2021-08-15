@@ -6,6 +6,138 @@
         <ol class="breadcrumb mb-4">
             <li class="breadcrumb-item active">Dashboard</li>
         </ol>
+
+        <div class="row">
+            <div class="col-2">
+                <div class="card mb-4">
+                    <div class="card-body">Easy Pay Balance</div>
+                    <div class="card-footer d-flex align-items-center justify-content-between">
+                        <a class="small stretched-link text-decoration-none">{{$easypay_balance->data}} {{$easypay_balance->currencyCode}}</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-2">
+                <div class="card mb-4">
+                    <div class="card-body">Amount Disbursed in Loans</div>
+                    <div class="card-footer d-flex align-items-center justify-content-between">
+                        <a class="small stretched-link text-decoration-none">{{$loan_amount_disbursed}} UGX</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-2">
+                <div class="card mb-4">
+                    <div class="card-body">Loan Application Fee Paid</div>
+                    <div class="card-footer d-flex align-items-center justify-content-between">
+                        <a class="small stretched-link text-decoration-none">{{$loan_application_fees}} UGX</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-2">
+                <div class="card mb-4">
+                    <div class="card-body">Subscription Fees Paid</div>
+                    <div class="card-footer d-flex align-items-center justify-content-between">
+                        <a class="small stretched-link text-decoration-none">{{$subscription_fees}} UGX</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-2">
+                <div class="card mb-4">
+                    <div class="card-body">Events Fees Paid</div>
+                    <div class="card-footer d-flex align-items-center justify-content-between">
+                        <a class="small stretched-link text-decoration-none">{{$events_fees}} UGX</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+
+            <div class="col-3">
+                <div class="card mb-4">
+                    <div class="card-body">Loan applications</div>
+                    <div class="card-footer d-flex align-items-center justify-content-between">
+                        <a class="small stretched-link text-decoration-none">{{$loan_application_all}}</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="card mb-4">
+                    <div class="card-body">Kadaama Application</div>
+                    <div class="card-footer d-flex align-items-center justify-content-between">
+                        <a class="small stretched-link text-decoration-none">{{$kadaama_applications}}</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="card mb-4">
+                    <div class="card-body">Applicants | App Users</div>
+                    <div class="card-footer d-flex align-items-center justify-content-between">
+                        <a class="small stretched-link text-decoration-none">{{$applicants}}</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="card mb-4">
+                    <div class="card-body">Administrators</div>
+                    <div class="card-footer d-flex align-items-center justify-content-between">
+                        <a class="small stretched-link text-decoration-none">{{$administrators}}</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-2">
+                <div class="card mb-4">
+                    <div class="card-body">Pending Loans</div>
+                    <div class="card-footer d-flex align-items-center justify-content-between">
+                        <a class="small stretched-link text-decoration-none">{{$loan_application_pending}}</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-2">
+                <div class="card mb-4">
+                    <div class="card-body">Processing Loans</div>
+                    <div class="card-footer d-flex align-items-center justify-content-between">
+                        <a class="small stretched-link text-decoration-none">{{$loan_application_processing}}</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-2">
+                <div class="card mb-4">
+                    <div class="card-body">Approved Loans</div>
+                    <div class="card-footer d-flex align-items-center justify-content-between">
+                        <a class="small stretched-link text-decoration-none">{{$loan_application_approved}}</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-2">
+                <div class="card mb-4">
+                    <div class="card-body">Disbursed Loans</div>
+                    <div class="card-footer d-flex align-items-center justify-content-between">
+                        <a class="small stretched-link text-decoration-none">{{$loan_application_disbursed}}</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-2">
+                <div class="card mb-4">
+                    <div class="card-body">Declined Loans</div>
+                    <div class="card-footer d-flex align-items-center justify-content-between">
+                        <a class="small stretched-link text-decoration-none">{{$loan_application_declined}}</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-2">
+                <div class="card mb-4">
+                    <div class="card-body">Paid Loans</div>
+                    <div class="card-footer d-flex align-items-center justify-content-between">
+                        <a class="small stretched-link text-decoration-none">{{$loan_application_paid}}</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        @if(false)
         <div class="row">
             <div class="col-xl-3 col-md-6">
                 <div class="card bg-primary text-white mb-4">
@@ -44,29 +176,39 @@
                 </div>
             </div>
         </div>
+        @endif
+
         <div class="row">
-            <div class="col-xl-6">
-                <div class="card mb-4">
-                    <div class="card-header">
-                        <i class="fas fa-chart-area me-1"></i>
-                        Application downloads
+
+            <div class="col-5">
+                <div class="col-12">
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <i class="fas fa-chart-area me-1"></i>
+                            Application downloads
+                        </div>
+                        <div class="card-body"><canvas id="myAreaChart" width="100%" height="40"></canvas></div>
                     </div>
-                    <div class="card-body"><canvas id="myAreaChart" width="100%" height="40"></canvas></div>
+                </div>
+                <div class="col-12">
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <i class="fas fa-chart-bar me-1"></i>
+                            Application users
+                        </div>
+                        <div class="card-body"><canvas id="myBarChart" width="100%" height="40"></canvas></div>
+                    </div>
                 </div>
             </div>
-            <div class="col-xl-6">
-                <div class="card mb-4">
-                    <div class="card-header">
-                        <i class="fas fa-chart-bar me-1"></i>
-                        Application users
-                    </div>
-                    <div class="card-body"><canvas id="myBarChart" width="100%" height="40"></canvas></div>
-                </div>
+
+            <div class="col-7">
+
             </div>
         </div>
+
     </div>
 @endsection
-                
+
 
 @section('custom_scripts')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>

@@ -3,6 +3,8 @@
 use App\Http\Controllers\AddressController;
 use App\Http\Controllers\ApplicationMeetingController;
 use App\Http\Controllers\CustomAuthController;
+use App\Http\Controllers\EasyPayHelper;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\KadaamaApplicationsController;
 use App\Http\Controllers\KadaamaPaymentsController;
 use App\Http\Controllers\LoanPaymentsController;
@@ -35,12 +37,7 @@ use Illuminate\Support\Facades\Auth;
 // });
 
 
-Route::get('/', function () {
-    if(Auth::check()){
-        return view('pages/dashboard');
-    }
-    return redirect("login")->withSuccess('You are not allowed to access');
-})->name('dashboard');
+Route::get('/',[HomeController::class, 'showDashboard'])->name('dashboard');
 
 Route::get('/nationality', [AddressController::class, 'getNationality']);
 
