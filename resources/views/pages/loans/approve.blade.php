@@ -85,7 +85,7 @@
 
                     <h6 class="text-primary">LOAN INFORMATION</h6>
                     <hr>
-                    <p><b>Amount Needed:</b> {{$application->amount}}</p>
+                    <p><b>Amount Needed:</b> <span id="amountNeededId">{{$application->amount}}</span></p>
                     <p><b>Repayment Plan:</b> {{$application->loanRepaymentPlan}}</p>
                     <p><b>Repayment Days:</b> {{$application->loanRepaymentPlanDays}}</p>
                     <p><b>Reception:</b> {{$application->moneyReceptionOption}}</p>
@@ -141,6 +141,23 @@
                                     value="Declined">Decline</option>
                                 </select>
                             </div>
+
+                            <hr class="mt-4">
+
+                            <div class="form-group mb-2" id="disburseAsCtn">
+                                <label for="disburseAsId">Disburse As</label>
+                                <select name="disburseAs" class="form-control" onchange="OnDisburseAsChanged(this.value);" id="disburseAsId" >
+                                    <option value="parts">In Parts</option>
+                                    <option selected value="whole">As Whole</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group mb-2" id="disbursementAmountCtn">
+                                <label for="disbursementAmountId">First Amount</label>
+                                <input name="disbursementAmount" type="number" readonly value="{{$application->amount}}"  class="form-control" id="disbursementAmountId" >
+                            </div>
+
+
                             <div class="form-group mb-2">
                                 <label for="exampleInputEmail1">Review</label>
                                 <textarea class="form-control" name="review" id="exampleInputEmail1" ></textarea>
@@ -156,6 +173,27 @@
 
         </div>
     </div>
+
+    <script>
+        //DISBURSE AS
+        let disburseAsId = document.getElementById("disburseAsId")
+        let disbursementAmountId = document.getElementById("disbursementAmountId")
+        let amountNeededId = document.getElementById("amountNeededId")
+
+        function OnDisburseAsChanged(value){
+            refreshDisburseAmount(value)
+        }
+        function refreshDisburseAmount(value) {
+            if(value === "parts"){
+                disbursementAmountId.value = 0
+                disbursementAmountId.readOnly = false
+            }else if(value === "whole"){
+                disbursementAmountId.value = amountNeededId.innerText
+                disbursementAmountId.readOnly = true
+            }
+        }
+
+    </script>
 @endsection
 
 

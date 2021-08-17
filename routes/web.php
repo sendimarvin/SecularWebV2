@@ -227,6 +227,8 @@ Route::post('/loans/applications/approve/{id}/submit', [LoanApplicationControlle
 Route::post('/loans/applications/disburse/{id}/submit', [LoanApplicationController::class, 'disburseSubmit']);
 Route::get('/loans/applications/preview/{id}', [LoanApplicationController::class, 'preview']);
 Route::post('/loans/applications/meeting/{id}/submit', [ApplicationMeetingController::class, 'meetingEdit']);
+Route::get('/loans/applications/disburse_more/{id}', [LoanApplicationController::class, 'disburseMore']);
+Route::post('/loans/applications/disburse_more/{id}/submit', [LoanApplicationController::class, 'disburseMoreSubmit']);
 
 Route::get('/loans/payments', [LoanPaymentsController::class, 'index']);
 Route::get('/loans/payments/{id}/edit', [LoanPaymentsController::class, 'edit']);

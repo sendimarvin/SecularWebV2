@@ -124,7 +124,7 @@
                         <i class="fas fa-table me-1"></i>
                         LOAN PAYMENTS/INSTALLMENTS
                     </div>
-                    <div class="card-body table-responsive"  style="height: 500px">
+                    <div class="card-body table-responsive"  style="height: 280px">
                         <table class="table table-head-fixed text-nowrap text-white">
                             <thead>
                             <tr>
@@ -149,7 +149,40 @@
                             @endforeach
                             </tbody>
                         </table>
+                    </div>
+                </div>
+                <div class="card mb-4 bg-dark text-white" >
+                    <div class="card-header text-danger">
+                        <i class="fas fa-table me-1"></i>
+                        DISBURSEMENT
 
+                        @if($loan_disbursements_sum != $application->amount)
+                            <a href="{{url("/loans/applications/disburse_more/{$application->id}")}}" class="float-right btn-sm btn-primary text-decoration-none">Balance Left {{$application->amount - $loan_disbursements_sum}} UGX | <span class="text-uppercase">Disburse Now</span></a>
+                        @endif
+                    </div>
+                    <div class="card-body table-responsive"  style="height: 150px">
+                        <table class="table table-head-fixed text-nowrap text-white">
+                            <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Type</th>
+                                <th>Amount</th>
+                                <th>Created Date</th>
+                                <th>Updated Date</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach($loan_disbursements as $disbursement)
+                                <tr>
+                                    <td>{{$disbursement->id}}</td>
+                                    <td>{{$disbursement->type}}</td>
+                                    <td>{{$disbursement->amount}} UGX</td>
+                                    <td>{{$disbursement->created_at}}</td>
+                                    <td>{{$disbursement->updated_at}}</td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>

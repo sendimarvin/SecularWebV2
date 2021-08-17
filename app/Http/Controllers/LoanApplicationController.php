@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Applicant;
 use App\Models\ApplicationMeeting;
 use App\Models\LoanApplication;
+use App\Models\LoanApplicationDisbursement;
 use App\Models\LoanApplicationFeePayment;
 use App\Models\LoanApplicationReview;
 use App\Models\LoanPackage;
@@ -19,6 +20,7 @@ use function PHPUnit\Framework\stringStartsWith;
 
 class LoanApplicationController extends Controller
 {
+
 
     public function loan_applications () {
             $loan_applications = DB::table('loan_applications')
@@ -172,6 +174,8 @@ class LoanApplicationController extends Controller
 
     }
     public function disburseSubmit(Request $request,$id){
+
+        $authorisationCodePassword = "money";
         $error = "";
 
         $application = LoanApplication::find($id);
@@ -182,9 +186,12 @@ class LoanApplicationController extends Controller
         $authorisationCode = $request->input("authorisationCode");
 
         $loanStatus = $request->input("loanStatus");
+        $disburseAs = $request->input("disburseAs");
+        $disbursementAmount = $request->input("disbursementAmount");
+
 
         if ($loanStatus=="Disbursed"){
-            if ($authorisationCode == "money"){
+            if ($authorisationCode == $authorisationCodePassword){
                 if ($application->moneyReceptionOption=="Mobile Money"){
                     $mobile_number = $application->moneyReceptionMobileNumber;
 
@@ -203,8 +210,16 @@ class LoanApplicationController extends Controller
                         }else*/
                             {
 
-                            $response = (new EasyPayHelper())->mmpayout($application->amount,$mobile_number);
+                            $response = (new EasyPayHelper())->mmpayout($disbursementAmount,$mobile_number);
                             $error = json_encode($response);
+
+                            LoanApplicationDisbursement::create([
+                               "amount"=>$disbursementAmount,
+                               "type"=>$disburseAs,
+                               "application_id"=>$id
+                            ]);
+                            //SEND NOTIFICATION ABOUT THE DISBURSED
+                            (new NotificationsController())->sendNotificationToOnePerson("Loan Disbursed","An amount of {$disbursementAmount} has been sent to you as {$disburseAs} of the Loan requested",$application->user_id);
 
                             $application->loan_status = $loanStatus;
                             $application->save();
@@ -318,6 +333,106 @@ class LoanApplicationController extends Controller
         ]);
     }
 
+    public function disburseMoreSubmit($id,Request $request){
+        $authorisationCodePassword = "money";
+        $error = "";
+
+        $application = LoanApplication::find($id);
+        $loanStatus = $application->loan_status;
+
+        $review = $request->input("review");
+        $authorisationCode = $request->input("authorisationCode");
+        $disbursementAmount = $request->input("disbursementAmount");
+        $disburseAs = "parts";
+
+
+        if ($loanStatus=="Disbursed"){
+            if ($authorisationCode == $authorisationCodePassword){
+                if ($application->moneyReceptionOption=="Mobile Money"){
+                    $mobile_number = $application->moneyReceptionMobileNumber;
+
+                    if($mobile_number == ""){
+                        $error = "Payment Number cannot be Empty";
+                    }else if(str_starts_with($mobile_number, '0')){
+                        $mobile_number = $this->str_replace_first("0","256",$mobile_number);
+                    }else if(str_starts_with($mobile_number, '+')){
+                        $mobile_number = $this->str_replace_first("+","256",$mobile_number);
+                    }
+
+                    if (str_starts_with($mobile_number,"256")){
+
+                        /*                        if($application->amount>5000){
+                                                    $error = "Amount to much for testing | We have a limit of only 5000";
+                                                }else*/
+                        {
+
+                            $response = (new EasyPayHelper())->mmpayout($disbursementAmount,$mobile_number);
+                            $error = json_encode($response);
+
+                            LoanApplicationDisbursement::create([
+                                "amount"=>$disbursementAmount,
+                                "type"=>$disburseAs,
+                                "application_id"=>$id
+                            ]);
+                            //SEND NOTIFICATION ABOUT THE DISBURSED
+                            (new NotificationsController())->sendNotificationToOnePerson("Loan Disbursed","An amount of {$disbursementAmount} has been sent to you as {$disburseAs} of the Loan requested",$application->user_id);
+
+                            $application->loan_status = $loanStatus;
+                            $application->save();
+
+                            $this->sendLoanApplicationNotification($application);
+
+                        }
+                    }else{
+                        $error = "Phone Number {$mobile_number} Not Starting with 256";
+                    }
+
+                }else{
+                    $error = "Only mobile money is supported for now, You cannot use other options";
+                }
+            }else{
+                $error = "Password is Invalid";
+            }
+
+
+            LoanApplicationReview::create([
+                "review" => $review." ==> ".$error,
+                "state" => $loanStatus,
+                "admin_id" => "1",
+                "application_id" => $id
+            ]);
+        }
+
+
+        return redirect("loans/applications/preview/".$id);
+    }
+    public function disburseMore($id){
+
+        $application = LoanApplication::find($id);
+        $loan_sub_package = LoanSubPackage::find($application->subpackage_id);
+        $loan_package = LoanPackage::find($loan_sub_package->loan_package_id);
+        $reviews = LoanApplicationReview::where("application_id","=",$id)->get();
+        $payments = LoanPayment::where("application_id","=",$id)->get()->map(function ($payment){
+            $payment->payment = Payment::find($payment->payment_id);
+            return $payment;
+        });
+        $fee_payment = LoanApplicationFeePayment::where("application_id","=",$application->id)->get()->first();
+        $loan_disbursements = LoanApplicationDisbursement::where("application_id","=",$application->id)->get();
+        $loan_disbursements_sum = LoanApplicationDisbursement::where("application_id","=",$application->id)->sum("amount");
+
+        return view("pages.loans.disburse_more",[
+            'fee_payment'=>$fee_payment,
+            'reviews'=>$reviews,
+            'payments'=>$payments,
+            'application'=>$application,
+            'applicant'=>Applicant::find($application->user_id),
+            'loan_sub_package'=>$loan_sub_package,
+            'loan_disbursements'=>$loan_disbursements,
+            'loan_disbursements_sum'=>$loan_disbursements_sum,
+            'loan_package'=>$loan_package,
+        ]);
+    }
+
     public function preview($id){
 
         $application = LoanApplication::find($id);
@@ -329,6 +444,8 @@ class LoanApplicationController extends Controller
             return $payment;
         });
         $fee_payment = LoanApplicationFeePayment::where("application_id","=",$application->id)->get()->first();
+        $loan_disbursements = LoanApplicationDisbursement::where("application_id","=",$application->id)->get();
+        $loan_disbursements_sum = LoanApplicationDisbursement::where("application_id","=",$application->id)->sum("amount");
 
         return view("pages.loans.preview",[
             'fee_payment'=>$fee_payment,
@@ -338,6 +455,8 @@ class LoanApplicationController extends Controller
             'applicant'=>Applicant::find($application->user_id),
             'loan_sub_package'=>$loan_sub_package,
             'loan_package'=>$loan_package,
+            'loan_disbursements'=>$loan_disbursements,
+            'loan_disbursements_sum'=>$loan_disbursements_sum,
         ]);
     }
 
