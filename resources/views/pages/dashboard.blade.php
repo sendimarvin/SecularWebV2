@@ -12,7 +12,11 @@
                 <div class="card bg-success text-white mb-4">
                     <div class="card-body">Easy Pay Account Balance</div>
                     <div class="card-footer d-flex align-items-center justify-content-between">
-                        <a class="small text-white stretched-link text-decoration-none">{{$easypay_balance->data}} {{$easypay_balance->currencyCode}}</a>
+                        @if($easypay_balance!=null)
+                            <a class="small text-white stretched-link text-decoration-none">{{$easypay_balance->data}} {{$easypay_balance->currencyCode}}</a>
+                        @else
+                            <a class="small text-white stretched-link text-decoration-none">CONNECTION FAILED</a>
+                        @endif
                     </div>
                 </div>
             </div>

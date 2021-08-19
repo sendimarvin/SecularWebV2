@@ -176,8 +176,8 @@
                             <input name="paymentInstallment" value="{{$application->paymentInstallment}}"  type="number" class="form-control" id="exampleInputEmail1" >
                         </div>
                         <div class="form-group mb-2">
-                            <label for="exampleInputEmail1">Loan Status</label>
-                            <select name="loanStatus" type="number" class="form-control" id="exampleInputEmail1" >
+                            <label for="loanStatusId">Loan Status</label>
+                            <select name="loanStatus" type="number" class="form-control" id="loanStatusId" onchange="OnLoanStatusAsChanged(this.value)" >
                                 <option
                                     @if($application->loan_status=="Pending") selected @endif
                                     value="Pending" >Pending</option>
@@ -190,8 +190,12 @@
                             </select>
                         </div>
                         <div class="form-group mb-2">
-                            <label for="exampleInputEmail1">Review</label>
+                            <label for="exampleInputEmail1">Admin Review</label>
                             <textarea class="form-control" name="review" id="exampleInputEmail1" ></textarea>
+                        </div>
+                        <div class="form-group mb-2" id="applicantReviewCtn" hidden>
+                            <label for="applicantReviewId">Review for the Applicant</label>
+                            <textarea class="form-control" name="applicantReview" id="applicantReviewId" ></textarea>
                         </div>
 
                         <input  class="btn btn-success" type="submit" value="Submit"/>
@@ -201,6 +205,23 @@
                 </div>
             </div>
             </div>
+
+            <script>
+                let loanStatusId = document.getElementById("loanStatusId")
+                let applicantReviewCtn = document.getElementById("applicantReviewCtn")
+
+                function OnLoanStatusAsChanged(value){
+                    refreshLoanStatus(value)
+                }
+                function refreshLoanStatus(value) {
+                    if(value === "Declined"){
+                        applicantReviewCtn.hidden = false
+                    }else{
+                        applicantReviewCtn.hidden = true
+                    }
+                }
+
+            </script>
 
         </div>
     </div>

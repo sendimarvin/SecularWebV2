@@ -116,6 +116,14 @@ class LoanApplicationController extends Controller
 
         $this->sendLoanApplicationNotification($application);
 
+        //applicantReview
+        $applicantReview = $request->input("applicantReview");
+        if ($applicantReview != null && $applicantReview != ""){
+            $application->remarks = $applicantReview;
+            $application->save();
+            (new NotificationsController())->sendNotificationToOnePerson("Loan Application {$loanStatus}",$applicantReview,$application->user_id);
+        }
+
         //save Review record
         LoanApplicationReview::create([
             "review" => $review,
