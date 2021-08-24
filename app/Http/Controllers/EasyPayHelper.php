@@ -4,15 +4,19 @@
 namespace App\Http\Controllers;
 
 
+use App\Models\Setting;
+
 class EasyPayHelper
 {
 
     function mmdeposit ($amount,$phone,$reference,$reason)
     {
+        $setting = Setting::find(1);
+
         $httpMethod = "POST";
         $data = [
-            'username' => "939da26087ba386f",
-            'password' => "f9d7fc7564f19b6a",
+            'username' => $setting->payment_username,
+            'password' => $setting->payment_password,
             'action' => "mmdeposit",
             'amount' => $amount,
             'currency' => "UGX",
@@ -26,10 +30,13 @@ class EasyPayHelper
 
     function mmpayout ($amount,$phone)
     {
+
+        $setting = Setting::find(1);
+
         $httpMethod = "POST";
         $data = [
-            'username' => "939da26087ba386f",
-            'password' => "f9d7fc7564f19b6a",
+            'username' => $setting->payment_username,
+            'password' => $setting->payment_password,
             'action' => "mmpayout",
             'amount' => $amount,
             'currency' => "UGX",
@@ -40,10 +47,12 @@ class EasyPayHelper
 
     function checkbalance ()
     {
+        $setting = Setting::find(1);
+
         $httpMethod = "POST";
         $data = [
-            'username' => "939da26087ba386f",
-            'password' => "f9d7fc7564f19b6a",
+            'username' => $setting->payment_username,
+            'password' => $setting->payment_password,
             'action' => "checkbalance"
         ];
         return $this->makeHTTPRequest("https://www.easypay.co.ug/api/", $headers=[], $data,  $httpMethod);
