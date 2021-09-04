@@ -29,7 +29,7 @@
                       <label for="loan_package_id" class="form-label">Loan</label>
                       <select class="form-control" id="loan_package_id" name="loan_package_id">
                         @foreach ($loan_packages as $loans)
-                        <option value="{{ $loans->id }}"  {{ isset($sub_package) && $sub_package->loan_package_id == $loans->id ? 'selected' : ''}}>{{ $loans->loan }}</option>                            
+                        <option value="{{ $loans->id }}"  {{ isset($sub_package) && $sub_package->loan_package_id == $loans->id ? 'selected' : ''}}>{{ $loans->loan }}</option>
                         @endforeach
                       </select>
                     </div>
@@ -42,8 +42,8 @@
                       <input type="text" class="form-control" id="max_amount" name="max_amount" value="{{ $sub_package->max_amount ?? '' }}">
                     </div>
                     <div class="mb-3">
-                      <label for="max_period" class="form-label">Max Period</label>
-                      <input type="text" class="form-control" id="max_period" name="max_period" value="{{ $sub_package->max_period ?? '' }}">
+                      <label for="max_period" class="form-label">Max Period (Days)</label>
+                      <input type="number" class="form-control" id="max_period" required value="356" name="max_period" value="{{ $sub_package->max_period ?? '' }}">
                     </div>
                     <button type="submit" class="btn btn-primary">Submit</button>
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;

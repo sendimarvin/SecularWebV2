@@ -46,10 +46,14 @@
                         Application Fee
                     </div>
                     <div class="card-body">
-                        <p><b>Amount :</b> {{$fee_payment->amount}}</p>
-                        <p><b>Payment Date :</b> {{$fee_payment->payment_date}}</p>
-                        <p><b>Status :</b> {{$fee_payment->status}}</p>
-                        <p><b>Payment Ref :</b> {{$fee_payment->payment_ref}}</p>
+                        @if($fee_payment==null)
+                            <p class="text-danger text-center"><b>NO APPLICATION FEES PAID FOR THIS LOAN</b></p>
+                        @else
+                            <p><b>Amount :</b> {{$fee_payment->amount}}</p>
+                            <p><b>Payment Date :</b> {{$fee_payment->payment_date}}</p>
+                            <p><b>Status :</b> {{$fee_payment->status}}</p>
+                            <p><b>Payment Ref :</b> {{$fee_payment->payment_ref}}</p>
+                        @endif
                     </div>
                 </div>
                 <div class="card mb-4">
