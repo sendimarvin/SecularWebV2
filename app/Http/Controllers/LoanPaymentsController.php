@@ -42,9 +42,15 @@ class LoanPaymentsController extends Controller
         $application = LoanApplication::find($loanPayment->application_id);
         if ($status=="approved"){
             $nextPaymentDate = date('Y-m-d', strtotime($application->nextPaymentDate. ' + '.$application->paymentInterval.' days'));
-            $paymentSofar = $application->paymentInstallment + $application->paymentSofar;
+
+            $paymentSofar = $payment->amount + $application->paymentSofar;
             $application->nextPaymentDate = $nextPaymentDate;
             $application->paymentSofar = $paymentSofar;
+
+            if ($application->paymentSofar == $application->paymentFull){
+                $application->loan_status = "Paid";
+            }
+
             $application->save();
         }
 
