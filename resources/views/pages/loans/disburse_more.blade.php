@@ -58,10 +58,7 @@
                         <p><b>Expected Completion Date:</b> {{$application->expectedCompletionDate}}</p>
                         <p><b>Loan Status:</b> {{$application->loan_status}}</p>
 
-                        <div>
-                            <a class="btn btn-success" href="{{url("/loans/applications/clear/{$application->id}")}}"
-                               style="width: 100%">Clear Loan | Mark as Paid</a>
-                        </div>
+
 
                     </div>
                 </div>
@@ -106,15 +103,15 @@
                             <i class="fas fa-table me-1"></i>
                             DISBURSEMENT
                         </div>
-                        <div class="card-body table-responsive"  style="height: 300px">
+                        <div class="card-body table-responsive"  style="height: 380px">
                             <table class="table table-head-fixed text-nowrap text-white">
                                 <thead>
                                 <tr>
                                     <th>#</th>
                                     <th>Type</th>
                                     <th>Amount</th>
+                                    <th>Transfer Reference</th>
                                     <th>Created Date</th>
-                                    <th>Updated Date</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -123,8 +120,8 @@
                                         <td>{{$disbursement->id}}</td>
                                         <td>{{$disbursement->type}}</td>
                                         <td>{{$disbursement->amount}} UGX</td>
+                                        <td>{{$disbursement->transferReference}}</td>
                                         <td>{{$disbursement->created_at}}</td>
-                                        <td>{{$disbursement->updated_at}}</td>
                                     </tr>
                                 @endforeach
                                 </tbody>
@@ -138,7 +135,7 @@
                             <i class="fas fa-table me-1"></i>
                             Next Disbursement (Balance: {{$application->amount - $loan_disbursements_sum}} UGX)
                         </div>
-                        <div class="card-body" style="height: 300px;">
+                        <div class="card-body" style="height: 380px;">
 
                             <form action="{{url("/loans/applications/disburse_more/".$application->id."/submit")}}" method="post" enctype="multipart/form-data">
                                 @csrf
@@ -152,6 +149,10 @@
                                     <label for="disbursementAmountId">First Amount</label>
                                     <input name="disbursementAmount" type="number"
                                            value="{{$application->amount - $loan_disbursements_sum}}"  class="form-control" id="disbursementAmountId" >
+                                </div>
+                                <div class="form-group mb-2" id="disbursementAmountCtn">
+                                    <label for="transferReference">Transaction Reference/Transfer ID</label>
+                                    <input name="transferReference" type="text" class="form-control" id="disbursementAmountId" >
                                 </div>
 
                                 <div class="form-group mb-2">

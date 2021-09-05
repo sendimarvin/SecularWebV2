@@ -11,5 +11,5 @@ class LoanApplicationDisbursement extends Model
 
     protected $table = "loan_application_disbursement";
 
-    protected $fillable = ["amount","type","application_id"];
+    protected $fillable = ["amount","type","application_id","transferReference"];
 }

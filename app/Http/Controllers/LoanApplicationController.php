@@ -194,54 +194,28 @@ class LoanApplicationController extends Controller
         $authorisationCode = $request->input("authorisationCode");
 
         $loanStatus = $request->input("loanStatus");
+        $transferReference = $request->input("transferReference");
         $disburseAs = $request->input("disburseAs");
         $disbursementAmount = $request->input("disbursementAmount");
 
 
         if ($loanStatus=="Disbursed"){
             if ($authorisationCode == $authorisationCodePassword){
-                if ($application->moneyReceptionOption=="Mobile Money"){
-                    $mobile_number = $application->moneyReceptionMobileNumber;
 
-                    if($mobile_number == ""){
-                        $error = "Payment Number cannot be Empty";
-                    }else if(str_starts_with($mobile_number, '0')){
-                        $mobile_number = $this->str_replace_first("0","256",$mobile_number);
-                    }else if(str_starts_with($mobile_number, '+')){
-                        $mobile_number = $this->str_replace_first("+","256",$mobile_number);
-                    }
+                LoanApplicationDisbursement::create([
+                    "amount"=>$disbursementAmount,
+                    "type"=>$disburseAs,
+                    "transferReference"=>$transferReference,
+                    "application_id"=>$id
+                ]);
+                //SEND NOTIFICATION ABOUT THE DISBURSED
+                (new NotificationsController())->sendNotificationToOnePerson("Loan Disbursed","An amount of {$disbursementAmount} has been sent to you as {$disburseAs} of the Loan requested",$application->user_id);
 
-                    if (str_starts_with($mobile_number,"256")){
+                $application->loan_status = $loanStatus;
+                $application->save();
 
-/*                        if($application->amount>5000){
-                            $error = "Amount to much for testing | We have a limit of only 5000";
-                        }else*/
-                            {
-
-                            $response = (new EasyPayHelper())->mmpayout($disbursementAmount,$mobile_number);
-                            $error = json_encode($response);
-
-                            LoanApplicationDisbursement::create([
-                               "amount"=>$disbursementAmount,
-                               "type"=>$disburseAs,
-                               "application_id"=>$id
-                            ]);
-                            //SEND NOTIFICATION ABOUT THE DISBURSED
-                            (new NotificationsController())->sendNotificationToOnePerson("Loan Disbursed","An amount of {$disbursementAmount} has been sent to you as {$disburseAs} of the Loan requested",$application->user_id);
-
-                            $application->loan_status = $loanStatus;
-                            $application->save();
-
-                            $this->sendLoanApplicationNotification($application);
-
-                        }
-                    }else{
-                        $error = "Phone Number {$mobile_number} Not Starting with 256";
-                    }
-
-                }else{
-                    $error = "Only mobile money is supported for now, You cannot use other options";
-                }
+                $this->sendLoanApplicationNotification($application);
+                $error = "Success";
             }else{
                 $error = "Password is Invalid";
             }
@@ -349,6 +323,7 @@ class LoanApplicationController extends Controller
         $loanStatus = $application->loan_status;
 
         $review = $request->input("review");
+        $transferReference = $request->input("transferReference");
         $authorisationCode = $request->input("authorisationCode");
         $disbursementAmount = $request->input("disbursementAmount");
         $disburseAs = "parts";
@@ -356,48 +331,21 @@ class LoanApplicationController extends Controller
 
         if ($loanStatus=="Disbursed"){
             if ($authorisationCode == $authorisationCodePassword){
-                if ($application->moneyReceptionOption=="Mobile Money"){
-                    $mobile_number = $application->moneyReceptionMobileNumber;
 
-                    if($mobile_number == ""){
-                        $error = "Payment Number cannot be Empty";
-                    }else if(str_starts_with($mobile_number, '0')){
-                        $mobile_number = $this->str_replace_first("0","256",$mobile_number);
-                    }else if(str_starts_with($mobile_number, '+')){
-                        $mobile_number = $this->str_replace_first("+","256",$mobile_number);
-                    }
+                LoanApplicationDisbursement::create([
+                    "amount"=>$disbursementAmount,
+                    "type"=>$disburseAs,
+                    "transferReference"=>$transferReference,
+                    "application_id"=>$id
+                ]);
+                //SEND NOTIFICATION ABOUT THE DISBURSED
+                (new NotificationsController())->sendNotificationToOnePerson("Loan Disbursed","An amount of {$disbursementAmount} has been sent to you as {$disburseAs} of the Loan requested",$application->user_id);
 
-                    if (str_starts_with($mobile_number,"256")){
+                $application->loan_status = $loanStatus;
+                $application->save();
 
-                        /*                        if($application->amount>5000){
-                                                    $error = "Amount to much for testing | We have a limit of only 5000";
-                                                }else*/
-                        {
-
-                            $response = (new EasyPayHelper())->mmpayout($disbursementAmount,$mobile_number);
-                            $error = json_encode($response);
-
-                            LoanApplicationDisbursement::create([
-                                "amount"=>$disbursementAmount,
-                                "type"=>$disburseAs,
-                                "application_id"=>$id
-                            ]);
-                            //SEND NOTIFICATION ABOUT THE DISBURSED
-                            (new NotificationsController())->sendNotificationToOnePerson("Loan Disbursed","An amount of {$disbursementAmount} has been sent to you as {$disburseAs} of the Loan requested",$application->user_id);
-
-                            $application->loan_status = $loanStatus;
-                            $application->save();
-
-                            $this->sendLoanApplicationNotification($application);
-
-                        }
-                    }else{
-                        $error = "Phone Number {$mobile_number} Not Starting with 256";
-                    }
-
-                }else{
-                    $error = "Only mobile money is supported for now, You cannot use other options";
-                }
+                $this->sendLoanApplicationNotification($application);
+                $error = "Success";
             }else{
                 $error = "Password is Invalid";
             }

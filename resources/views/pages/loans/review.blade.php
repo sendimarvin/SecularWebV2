@@ -187,7 +187,7 @@
                                     value="Pending" >Pending</option>
                                 <option
                                     @if($application->loan_status=="Processing") selected @endif
-                                    value="Processing">Process</option>
+                                    value="Processing">Processing</option>
                                 <option
                                     @if($application->loan_status=="Declined") selected @endif
                                     value="Declined">Decline</option>

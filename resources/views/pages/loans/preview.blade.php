@@ -95,7 +95,7 @@
                         <i class="fas fa-table me-1"></i>
                         KEY APPLICATION INFORMATION
                     </div>
-                    <div class="card-body"  style="height: 500px">
+                    <div class="card-body"  style="height: 520px">
                         <p><b>Interest:</b> {{$application->interest}}% which is {{$application->interestAmount}}</p>
                         <p><b>Payment Grace Period:</b> {{$application->paymentGracePeriod}} Days</p>
                         <p><b>Payment Start Date:</b> {{$application->paymentStartDate}}</p>
@@ -160,15 +160,15 @@
                             <a href="{{url("/loans/applications/disburse_more/{$application->id}")}}" class="float-right btn-sm btn-primary text-decoration-none">Balance Left {{$application->amount - $loan_disbursements_sum}} UGX | <span class="text-uppercase">Disburse Now</span></a>
                         @endif
                     </div>
-                    <div class="card-body table-responsive"  style="height: 150px">
+                    <div class="card-body table-responsive"  style="height: 170px">
                         <table class="table table-head-fixed text-nowrap text-white">
                             <thead>
                             <tr>
                                 <th>#</th>
                                 <th>Type</th>
                                 <th>Amount</th>
+                                <th>Transfer Reference</th>
                                 <th>Created Date</th>
-                                <th>Updated Date</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -177,8 +177,8 @@
                                     <td>{{$disbursement->id}}</td>
                                     <td>{{$disbursement->type}}</td>
                                     <td>{{$disbursement->amount}} UGX</td>
+                                    <td>{{$disbursement->transferReference}}</td>
                                     <td>{{$disbursement->created_at}}</td>
-                                    <td>{{$disbursement->updated_at}}</td>
                                 </tr>
                             @endforeach
                             </tbody>

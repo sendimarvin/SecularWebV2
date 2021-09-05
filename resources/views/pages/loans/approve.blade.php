@@ -135,7 +135,7 @@
                                 <select name="loanStatus" type="number" class="form-control" id="exampleInputEmail1" >
                                     <option
                                         @if($application->loan_status=="Disbursed") selected @endif
-                                    value="Disbursed">Disburse</option>
+                                    value="Disbursed">Disbursed</option>
                                     <option
                                         @if($application->loan_status=="Declined") selected @endif
                                     value="Declined">Decline</option>
@@ -155,6 +155,11 @@
                             <div class="form-group mb-2" id="disbursementAmountCtn">
                                 <label for="disbursementAmountId">First Amount</label>
                                 <input name="disbursementAmount" type="number" readonly value="{{$application->amount}}"  class="form-control" id="disbursementAmountId" >
+                            </div>
+
+                            <div class="form-group mb-2" id="disbursementAmountCtn">
+                                <label for="transferReference">Transaction Reference/Transfer ID</label>
+                                <input name="transferReference" type="text" class="form-control" id="disbursementAmountId" >
                             </div>
 
 
