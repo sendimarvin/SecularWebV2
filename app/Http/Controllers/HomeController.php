@@ -96,7 +96,7 @@ class HomeController extends Controller
 
         if(Auth::check()){
             return view('pages/dashboard',[
-                "easypay_balance"=>json_decode((new EasyPayHelper())->checkbalance()),
+                //"easypay_balance"=>json_decode((new EasyPayHelper())->checkbalance()),
                 "loan_application_pending"=>LoanApplication::where("loan_status","=","pending")->count(),
                 "loan_application_declined"=>LoanApplication::where("loan_status","=","declined")->count(),
                 "loan_application_processing"=>LoanApplication::where("loan_status","=","processing")->count(),
