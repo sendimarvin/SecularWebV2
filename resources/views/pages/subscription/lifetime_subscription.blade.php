@@ -11,43 +11,52 @@
 
 @section('content')
     <div class="container-fluid px-4">
-        <h1 class="mt-4">Kadaama Rescue Requests</h1>
+        <h1 class="mt-4">Subscriptions</h1>
         <ol class="breadcrumb mb-4">
-            <li class="breadcrumb-item"><a href="/">Kadaama</a></li>
-            <li class="breadcrumb-item active">Rescue Requests</li>
+            <li class="breadcrumb-item"><a href="/">Subscriptions</a></li>
+            <li class="breadcrumb-item active">Subscriptions</li>
         </ol>
+        <div class="card mb-4">
+            <div class="card-body">
+                List of all Subscriptions
+            </div>
+        </div>
         <div class="card mb-4">
             <div class="card-header">
                 <i class="fas fa-table me-1"></i>
-                Kadaama Rescue Requests
+                Subscriptions
             </div>
             <div class="card-body">
                 <table id="example"
                     class="table table-bordered display nowrap"  >
                     <thead>
                         <tr>
-                            <th>#.</th>
-                            <th>Applicant Names.</th>
-                            <th>Reason</th>
-                            <th>Narration</th>
-                            <th>Entry Date</th>
+                            <th>No.</th>
+                            <th>Subscription</th>
 
-                            <th>Created At</th>
+                            <th>Date</th>
+
+                            <th>Amount</th>
+
+                            <th>Names</th>
+                            <th>Contact</th>
                             <th>Status</th>
                         </tr>
                     </thead>
                     <tbody>
 
-                        @foreach ($requests as $request)
+                        @foreach ($subscriptions as $subscription)
                             <tr>
-                                <td>{{ $request->id }}</td>
-                                <td>{{$request->applicant->firstName}} {{$request->applicant->middleName}} {{$request->applicant->lastName}}</td>
+                                <td>{{ $subscription->id }}</td>
+                                <td>{{ $subscription->name }}</td>
 
-                                <td>{{ $request->reason }}</td>
-                                <td>{{ $request->narration }}</td>
-                                <td>{{ $request->entry_date }}</td>
-                                <td>{{ $request->created_at }}</td>
-                                <td><span class="btn btn-secondary">{{ $request->status }}</span></td>
+                                <td>{{ $subscription->payment_date }}</td>
+
+                                <td>{{ $subscription->amount }} UGX</td>
+
+                                <td>{{ $subscription->firstName }} {{ $subscription->middleName }} {{ $subscription->lastName }}</td>
+                                <td>{{ $subscription->phoneNumber }}</td>
+                                <td>{{ $subscription->payment_status }}</td>
                             </tr>
                         @endforeach
 
@@ -70,13 +79,13 @@
                 dom: 'Bfrtip',
                 "buttons": [
                     {
-                        text: 'Review Record',
+                        text: 'Preview (See Beneficiaries)',
                         action: function ( e, dt, node, config ) {
                             let row = $('#example').DataTable().row('.selected').data();
                             let idtodelete = row[0];
-                            window.location.href='/kadaama/rescue_requests/'+row[0]
+                            window.location.href='/subscriptions/lifetime/'+row[0]
                         }
-                    }
+                    },
                 ]
             } );
 
@@ -90,7 +99,6 @@
                     $(this).addClass('selected');
                 }
             } );
-
 
 
         } );

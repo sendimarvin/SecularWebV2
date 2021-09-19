@@ -184,19 +184,12 @@
                 <div class="col-12">
                     <div class="card mb-4">
                         <div class="card-header">
-                            <i class="fas fa-chart-area me-1"></i>
-                            Application downloads
-                        </div>
-                        <div class="card-body"><canvas id="myAreaChart" width="100%" height="40"></canvas></div>
-                    </div>
-                </div>
-                <div class="col-12">
-                    <div class="card mb-4">
-                        <div class="card-header">
                             <i class="fas fa-chart-bar me-1"></i>
                             Application Subscriptions
                         </div>
-                        <div class="card-body"><canvas id="subscriptionBarChart" width="100%" height="40"></canvas></div>
+                        <div class="card-body" style="height: 400px; ">
+                            <canvas id="subscriptionBarChart" width="100%" height="95"></canvas>
+                        </div>
                         <div id="subscription_total_amounts" hidden>{{$subscription_total_amounts}}</div>
                     </div>
                 </div>
@@ -209,7 +202,7 @@
                         <i class="fas fa-table me-1"></i>
                         Payment
                     </div>
-                    <div class="card-body">
+                    <div class="card-body" style="height: 400px; overflow-y: auto">
                         <table id="example"
                                class="table table-bordered display nowrap"  >
                             <thead>

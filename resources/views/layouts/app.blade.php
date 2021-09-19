@@ -102,7 +102,8 @@
                                 </nav>
                             </div>
 
-                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseKadaama" aria-expanded="false" aria-controls="collapseKadaama">
+                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseKadaama"
+                               aria-expanded="false" aria-controls="collapseKadaama">
                                 <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
                                 Kadaama
                                 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
@@ -112,6 +113,19 @@
                                     <a class="nav-link" href="{{url("/kadaama/applications")}}">Applications</a>
                                     <a class="nav-link" href="{{url("/kadaama/payments")}}">Payment</a>
                                     <a class="nav-link" href="{{url("/kadaama/rescue_requests")}}">Rescue Requests</a>
+                                </nav>
+                            </div>
+
+                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseSubscriptions"
+                               aria-expanded="false" aria-controls="collapseSubscriptions">
+                                <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                                Subscriptions
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                            </a>
+                            <div class="collapse" id="collapseSubscriptions" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav">
+                                    <a class="nav-link" href="{{url("/subscriptions/payments")}}">All</a>
+                                    <a class="nav-link" href="{{url("/subscriptions/lifetime")}}">Lifetime</a>
                                 </nav>
                             </div>
 

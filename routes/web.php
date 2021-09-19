@@ -8,6 +8,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\KadaamaApplicationsController;
 use App\Http\Controllers\KadaamaPaymentsController;
 use App\Http\Controllers\KadaamaRescueRequestsController;
+use App\Http\Controllers\LifetimeSubscriptionsController;
 use App\Http\Controllers\LoanPaymentsController;
 use App\Http\Controllers\LoanQuestionsOptionsController;
 use App\Http\Controllers\UserController;
@@ -271,6 +272,12 @@ Route::get('/payments/loan_payments', [PaymentController::class, 'loan_payments'
 
 Route::get('/payments/subscriptions', [PaymentController::class, 'subscriptions'])->name('/payments/subscriptions');
 Route::get('/subscriptions/payments', [PaymentController::class, 'indexSubscription']);
+
+Route::get('/subscriptions/lifetime', [LifetimeSubscriptionsController::class, 'index']);
+Route::get('/subscriptions/lifetime/{id}', [LifetimeSubscriptionsController::class, 'preview']);
+Route::get('/subscriptions/lifetime_beneficiary/{id}/add_examination', [LifetimeSubscriptionsController::class, 'add_beneficiary_examination']);
+Route::post('/subscriptions/lifetime_beneficiary/{id}/save_examination', [LifetimeSubscriptionsController::class, 'save_beneficiary_examination']);
+
 Route::get('/subscriptions/payments/{id}/edit', [PaymentController::class, 'indexSubscriptionEdit']);
 Route::post('/subscriptions/payments/{id}/editSubmit', [PaymentController::class, 'indexSubscriptionSubmitEdit']);
 
