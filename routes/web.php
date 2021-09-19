@@ -7,6 +7,7 @@ use App\Http\Controllers\EasyPayHelper;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\KadaamaApplicationsController;
 use App\Http\Controllers\KadaamaPaymentsController;
+use App\Http\Controllers\KadaamaRescueRequestsController;
 use App\Http\Controllers\LoanPaymentsController;
 use App\Http\Controllers\LoanQuestionsOptionsController;
 use App\Http\Controllers\UserController;
@@ -247,6 +248,10 @@ Route::post('/kadaama/applications/approve/{id}/save', [KadaamaApplicationsContr
 Route::get('/kadaama/applications/decline/{id}', [KadaamaApplicationsController::class, 'decline']);
 Route::post('/kadaama/applications/decline/{id}/save', [KadaamaApplicationsController::class, 'declineStore']);
 Route::get('/kadaama/applications/preview/{id}', [KadaamaApplicationsController::class, 'preview']);
+
+Route::get('/kadaama/rescue_requests', [KadaamaRescueRequestsController::class, 'index']);
+Route::get('/kadaama/rescue_requests/{id}', [KadaamaRescueRequestsController::class, 'preview']);
+Route::post('/kadaama/rescue_requests/{id}/update', [KadaamaRescueRequestsController::class, 'update']);
 
 Route::get('/kadaama/payments', [KadaamaPaymentsController::class, 'index'])->name('/kadaama_payments');
 Route::get('/kadaama/payments/review/{id}', [KadaamaPaymentsController::class, 'review']);

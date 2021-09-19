@@ -111,6 +111,7 @@
                                 <nav class="sb-sidenav-menu-nested nav">
                                     <a class="nav-link" href="{{url("/kadaama/applications")}}">Applications</a>
                                     <a class="nav-link" href="{{url("/kadaama/payments")}}">Payment</a>
+                                    <a class="nav-link" href="{{url("/kadaama/rescue_requests")}}">Rescue Requests</a>
                                 </nav>
                             </div>
 
