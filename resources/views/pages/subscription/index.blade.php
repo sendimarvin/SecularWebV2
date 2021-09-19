@@ -48,9 +48,10 @@
 
                                 <td>
                                     @if($subscription->package != null)
-                                        {{ $subscription->package->name }}
+                                        {{ $subscription->package->name }}<br>
                                     @endif
-                                    <br>{{ $subscription->payment->amount }} UGX</td>
+                                    {{ $subscription->payment->amount }} UGX
+                                </td>
                                 <td>{{ $subscription->payment->created_at }}</td>
                                 <td>{{ $subscription->expiry_date }}</td>
                                 <td>{{ $subscription->payment->status }}</td>

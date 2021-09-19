@@ -31,8 +31,8 @@
                         <p><b>Email Address :</b> {{$applicant->email}}</p>
                         <p><b>Phone Number :</b> {{$applicant->phoneNumber}}</p>
                         <p><b>Gender :</b> {{$applicant->gender}}</p>
-                        <a href="{{url("/kadaama/applications/preview/1")}}"
-                        class="btn btn-primary">View Full Details</a>
+                        {{--<a href="{{url("/kadaama/applications/preview/1")}}"
+                        class="btn btn-primary">View Full Details</a>--}}
                     </div>
                 </div>
             </div>
