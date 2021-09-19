@@ -33,7 +33,6 @@
                             <th>Entry Date</th>
 
                             <th>Created At</th>
-                            <th>Updated At</th>
                             <th>Status</th>
                         </tr>
                     </thead>
@@ -47,8 +46,7 @@
                                 <td>{{ $request->reason }}</td>
                                 <td>{{ $request->narration }}</td>
                                 <td>{{ $request->entry_date }}</td>
-                                <td>{{ $request->created_at }} UGX</td>
-                                <td>{{ $request->updated_at }}</td>
+                                <td>{{ $request->created_at }}</td>
                                 <td>{{ $request->status }}</td>
                             </tr>
                         @endforeach
@@ -70,7 +68,6 @@
         $(function() {
             table = $('#example').DataTable({
                 dom: 'Bfrtip',
-                "scrollX": true,
                 "buttons": [
                     {
                         text: 'Review Record',
