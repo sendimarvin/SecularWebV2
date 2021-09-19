@@ -46,7 +46,11 @@
 
 
 
-                                <td>{{ $subscription->package->name }}<br>{{ $subscription->payment->amount }} UGX</td>
+                                <td>
+                                    @if($subscription->package != null)
+                                        {{ $subscription->package->name }}
+                                    @endif
+                                    <br>{{ $subscription->payment->amount }} UGX</td>
                                 <td>{{ $subscription->payment->created_at }}</td>
                                 <td>{{ $subscription->expiry_date }}</td>
                                 <td>{{ $subscription->payment->status }}</td>
