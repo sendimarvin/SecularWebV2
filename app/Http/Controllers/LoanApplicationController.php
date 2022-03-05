@@ -22,6 +22,45 @@ class LoanApplicationController extends Controller
 {
 
 
+    public function loan_applications_fees_payment(Request $request, $id)
+    {
+        $amount = $request->input("amount_paid");
+        $receipt_number = $request->input("receipt_number");
+
+        $application = LoanApplication::find($id);
+        $application_id = $application->id;
+        $user_id = $application->user_id;
+
+        $payment = Payment::create([
+            "title"=>"Loan application fees payment",
+            "amount"=>$amount,
+            "payment_method"=>"Cash",
+            "payment_ref"=>$receipt_number,
+            "data"=>$receipt_number,
+            "user_id"=>$user_id,
+            "status"=>"approved",
+        ]);
+
+        LoanApplicationFeePayment::create([
+            "application_id"=>$application_id,
+            "amount"=>$amount,
+            "payment_method"=>"Cash",
+            "payment_date"=>Carbon::now()->toDateString(),
+            "payment_ref"=>$receipt_number,
+            "status"=>"approved",
+            "payment_id"=>$payment->id,
+        ]);
+
+        //update loan status
+        /*
+        $application->status = "Processing";
+        $application->save();
+        */
+
+        return redirect("/loans/applications/preview/".$application_id);
+
+    }
+
     public function loan_applications () {
             $loan_applications = DB::table('loan_applications')
                 ->select('loan_applications.id', 'loan_applications.application_id', 'loan_applications.questions',

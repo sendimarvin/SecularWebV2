@@ -194,7 +194,42 @@
                 </div>
                 <div class="card-body" style="height: 300px;">
                     @if($fee_payment==null)
-                        <p class="text-danger text-center"><b>NO APPLICATION FEES PAID FOR THIS LOAN</b></p>
+                        <p class="text-danger text-center">
+                            <b>NO APPLICATION FEES PAID FOR THIS LOAN</b>
+                            <br>
+
+                            <div id="loan_applications_fees_payment">
+                                <form action="{{url("/loan_applications_fees/{$application->id}/payment")}}"
+                                      method="post" enctype="multipart/form-data">
+                                    @csrf
+                                    <div class="form-group mb-2">
+                                        <label for="exampleInputEmail1">Amount Paid</label>
+                                        <input name="amount_paid" type="number" class="form-control" id="exampleInputEmail1" />
+                                    </div>
+                                    <div class="form-group mb-2">
+                                        <label for="exampleInputEmail1">Receipt Number (optional)</label>
+                                        <input name="receipt_number" type="text" class="form-control" id="exampleInputEmail1" />
+                                    </div>
+                                    <input  class="btn btn-success" type="submit" value="Save Payment"/>
+                                </form>
+                            </div>
+
+                            <div class="text-center" id="loan_applications_fees_payment_button">
+                                <button class="btn btn-success mt-5" id="loan_applications_fees_payment_button_itself">Add Application Fees Record</button>
+                            </div>
+
+                            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+                            <script>
+                                $(document).ready(function(){
+                                    $("#loan_applications_fees_payment").hide()
+                                    $("#loan_applications_fees_payment_button").show()
+                                    $("#loan_applications_fees_payment_button_itself").click(function () {
+                                        $("#loan_applications_fees_payment").show()
+                                        $("#loan_applications_fees_payment_button").hide()
+                                    })
+                                });
+                            </script>
+                        </p>
                     @else
                         <p><b>Amount :</b> {{$fee_payment->amount}}</p>
                         <p><b>Payment Date :</b> {{$fee_payment->payment_date}}</p>

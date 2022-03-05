@@ -214,6 +214,7 @@ Route::get('/loan_applications', [LoanApplicationController::class, 'loan_applic
 Route::get('/loan_applications/review_loan/{id}', [LoanApplicationController::class, 'review_loan']);
 
 Route::put('/loan_applications/update_loan_application/{id}', [LoanApplicationController::class, 'update_loan_application'])->name('/loan_applications/update_loan_application');
+Route::post('/loan_applications_fees/{id}/payment', [LoanApplicationController::class, 'loan_applications_fees_payment'])->name('/loan_applications/update_loan_application');
 
 //////////////////
 
