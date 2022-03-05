@@ -109,9 +109,31 @@ class UserController extends Controller
 
     public function approveUser(Request $request, $id)
     {
+        $status = $request->input("status");
+
         $applicant = Applicant::find($id);
-        $applicant->status = $request->input("status");
+        $applicant->status = $status;
         $applicant->save();
+
+        //send notification to user for what has happened
+
+        if($applicant!=null  && $applicant->playerId!=""){
+            $title = "";
+            $content = "";
+
+            if($status == "pending"){
+                $title = "Account Is Pending";
+                $content = "Please wait until your account has been verified";
+            }else if($status == "approved"){
+                $title = "Account is Approved";
+                $content = "You can now go ahead and request a loan";
+            }else if($status == "declined"){
+                $title = "Account is Declined";
+                $content = "Please check your information";
+            }
+
+            (new OneSignalController())->sendOneSignalNotificationToOne($title,$content,$applicant->playerId);
+        }
 
         return redirect("/users/{$id}");
     }
