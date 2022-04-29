@@ -42,7 +42,13 @@
                         @foreach ($applications as $application)
                             <tr>
                                 <td>{{ $application->id }}</td>
-                                <td>{{ $application->user->firstName }} {{ $application->user->middleName }} {{ $application->user->lastName }}</td>
+                                <td>
+                                    @if( is_null($application->user))
+                                        <p class="text-danger">No User</p>
+                                    @else
+                                        <p>{{ $application->user->firstName }} {{ $application->user->middleName }} {{ $application->user->lastName }}</p>
+                                    @endif
+                                </td>
                                 <td>{{ $application->loan_package->loan }}<br>{{ $application->loan_sub_package->sub_loan }}</td>
                                 <td>{{ $application->amount }}</td>
                                 <td>{{ $application->loanRepaymentPlan }}</td>
