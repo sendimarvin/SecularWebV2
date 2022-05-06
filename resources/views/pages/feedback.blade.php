@@ -27,33 +27,31 @@
                 Feedbacks
             </div>
             <div class="card-body">
-                <table id="example" 
+                <table id="example"
                     class="table table-bordered display nowrap"  >
                     <thead>
                         <tr>
-                            <th>No.</th>
-                            <th>Rating Title</th>
+                            <th>Posted At</th>
                             <th>Rating</th>
                             <th>Comment</th>
                             <th>Name</th>
                             <th>Contact</th>
-                            <th>Posted At</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
 
                         @foreach ($feedbacks as $feedback)
                             <tr>
-                                <td>{{ $feedback->id }}</td>
-                                <td>{{ $feedback->rating_title }}</td>
-                                <td>{{ $feedback->rating }}</td>
+                                <td>{{ $feedback->created_at }}</td>
+                                <td>{{ $feedback->rating }} | {{ $feedback->rating_title }}</td>
                                 <td>{{ $feedback->comment }}</td>
                                 <td>{{ $feedback->firstName }} {{ $feedback->middleName }} {{ $feedback->lastName }}</td>
                                 <td>{{ $feedback->phoneNumber }}</td>
-                                <td>{{ $feedback->created_at }}</td>
+                                <td><a href="{{url("feedback/".$feedback->id."/delete")}}" class="btn btn-sm btn-danger">Delete</a></td>
                             </tr>
                         @endforeach
-                        
+
                     </tbody>
                 </table>
             </div>
@@ -69,7 +67,7 @@
     <script>
         var table;
         $(function() {
-            table = $('#example').DataTable({ 
+            table = $('#example').DataTable({
                 dom: 'Bfrtip',
                 // "scrollX": true,
                 "buttons": [
@@ -106,21 +104,12 @@
             } );
 
 
-            $('#example tbody').on( 'click', 'tr', function () {
-                if ( $(this).hasClass('selected') ) {
-                    $(this).removeClass('selected');
-                }
-                else {
-                    table.$('tr.selected').removeClass('selected');
-                    $(this).addClass('selected');
-                }
-            } );
-        
+
             // $('#button').click( function () {
             //     table.row('.selected').remove().draw( false );
             // } );
 
 
-        } );    
+        } );
     </script>
 @endsection

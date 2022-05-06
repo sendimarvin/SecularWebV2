@@ -134,6 +134,11 @@
                                 Feedback
                             </a>
 
+                            <a class="nav-link" href="{{url("notifications/send")}}">
+                                <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
+                                Send Notification
+                            </a>
+
 
                             <div class="sb-sidenav-menu-heading">Settings</div>
                             <a class="nav-link" href="/subscription/subscription_packages">

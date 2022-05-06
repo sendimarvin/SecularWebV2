@@ -206,6 +206,7 @@ Route::get('/events/delete_event/{id}', [EventController::class, 'delete_event']
 
 //////////////FEEDBACK/////////////
 Route::get('/feedback', [FeedbackController::class, 'feedback'])->name('/feedback');
+Route::get('/feedback/{id}/delete', [FeedbackController::class, 'deleteFeedback']);
 //////////////////
 
 //////////////Loan Applications/////////////
@@ -292,3 +293,8 @@ Route::get('/login', [CustomAuthController::class, 'login'])->name('login');
 Route::post('/authenticate', [CustomAuthController::class, 'authenticate'])->name('authenticate');
 Route::get('/logout', [CustomAuthController::class, 'signOut'])->name('logout');
 ////////////////////////////////////////////////
+
+/*Loan Notification */
+Route::get('/notifications/send', [\App\Http\Controllers\NotificationsController::class, 'send_notification_to_person']);
+Route::post('/notifications/send', [\App\Http\Controllers\NotificationsController::class, 'send_notification_to_person']);
+

@@ -31,4 +31,32 @@ class NotificationsController extends Controller
         }
 
     }
+
+    public function send_notification_to_person(Request $request){
+
+        $title = null;
+        $message = null;
+
+        if ($request->method() == "POST"){
+
+            $applicant_id = $request->input("applicant_id");
+            $notification_title = $request->input("notification_title");
+            $notification_message = $request->input("notification_message");
+
+            $this->sendNotificationToOnePerson($notification_title,$notification_message,$applicant_id);
+
+            $applicant = Applicant::find($applicant_id);
+            $name = $applicant->firstName." ".$applicant->lastName;
+
+            $title = "Notification has been sent Successfully !";
+            $message = "Person Name: $name | Notification Title : $title, Notification Message : $message";
+        }
+
+        return view('pages/notification_to_user', [
+            "applicants"=>Applicant::orderBy("id","DESC")->get(),
+            "info_title"=>$title,
+            "info_message"=>$message
+        ]);
+    }
+
 }
