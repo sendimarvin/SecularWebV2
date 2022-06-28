@@ -27,12 +27,13 @@
                 Packages
             </div>
             <div class="card-body">
-                <table id="example" 
+                <table id="example"
                     class="table table-bordered display nowrap"  >
                     <thead>
                         <tr>
                             <th>No.</th>
                             <th>Loan Package</th>
+                            <th>Content</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -41,9 +42,10 @@
                             <tr>
                                 <td>{{ $package->id }}</td>
                                 <td>{{ $package->loan }}</td>
+                                <td>{!! base64_decode($package->content) !!}</td>
                             </tr>
                         @endforeach
-                        
+
                     </tbody>
                 </table>
             </div>
@@ -59,7 +61,7 @@
     <script>
         var table;
         $(function() {
-            table = $('#example').DataTable({ 
+            table = $('#example').DataTable({
                 dom: 'Bfrtip',
                 // "scrollX": true,
                 "buttons": [
@@ -105,12 +107,12 @@
                     $(this).addClass('selected');
                 }
             } );
-        
+
             // $('#button').click( function () {
             //     table.row('.selected').remove().draw( false );
             // } );
 
 
-        } );    
+        } );
     </script>
 @endsection

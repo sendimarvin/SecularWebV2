@@ -14,7 +14,8 @@ class LoanPackageController extends Controller
 
     public function create_package () {
         DB::table('loan_packages')->insert([
-            'loan' => request('loan')
+            'loan' => request('loan'),
+            'content' => base64_encode(request("content")),
         ]);
         return redirect()->route('/loans/packages');
     }
@@ -31,9 +32,10 @@ class LoanPackageController extends Controller
         DB::table('loan_packages')
             ->where('id', $id)
             ->update([
-                'loan' => $request->loan
+                'loan' => $request->loan,
+                'content' => base64_encode($request->input("content")),
             ]);
-        
+
         return redirect()->route('/loans/packages');
     }
 
@@ -49,7 +51,7 @@ class LoanPackageController extends Controller
     public function sub_packages () {
         $sub_packages = DB::table('loan_sub_packages')
             ->select('loan_sub_packages.id', 'loan_packages.loan', 'loan_sub_packages.sub_loan', 'max_amount',
-                'interest', 'max_period')
+                'interest', 'max_period','loan_sub_packages.content')
             ->join('loan_packages', 'loan_packages.id', '=', 'loan_sub_packages.loan_package_id')
             ->get();
         return view('pages/loan_sub_packages', compact('sub_packages'));
@@ -61,7 +63,8 @@ class LoanPackageController extends Controller
             'max_amount' => request('max_amount'),
             'interest' => request('interest'),
             'loan_package_id' => request('loan_package_id'),
-            'max_period' => request('max_period')
+            'max_period' => request('max_period'),
+            'content' => base64_encode(request("content")),
         ]);
         return redirect()->route('/loans/sub_packages');
     }
@@ -89,9 +92,10 @@ class LoanPackageController extends Controller
                 'max_amount' => $request->max_amount,
                 'interest' => $request->interest,
                 'loan_package_id' => $request->loan_package_id,
-                'max_period' => $request->max_period
+                'max_period' => $request->max_period,
+                'content' => base64_encode($request->input("content")),
             ]);
-        
+
         return redirect()->route('/loans/sub_packages');
     }
 

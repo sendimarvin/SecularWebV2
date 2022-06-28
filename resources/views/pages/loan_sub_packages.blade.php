@@ -27,16 +27,15 @@
                 Sub Packages
             </div>
             <div class="card-body">
-                <table id="example" 
+                <table id="example"
                     class="table table-bordered display nowrap"  >
                     <thead>
                         <tr>
                             <th>No.</th>
                             <th>Sub package</th>
                             <th>Loan</th>
-                            <th>Max Amount</th>
-                            <th>interest</th>
-                            <th>Max Period</th>
+                            <th>Details</th>
+                            <th>Content</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -46,12 +45,15 @@
                                 <td>{{ $package->id }}</td>
                                 <td>{{ $package->sub_loan }}</td>
                                 <td>{{ $package->loan }}</td>
-                                <td>{{ $package->max_amount }}</td>
-                                <td>{{ $package->interest }}</td>
-                                <td>{{ $package->max_period }}</td>
+                                <td>
+                                    Max Amount: {{ $package->max_amount }}<br>
+                                    Interest: {{ $package->interest }}<br>
+                                    Max Period: {{ $package->max_period }}
+                                </td>
+                                <td>{!! base64_decode( $package->content ) !!}</td>
                             </tr>
                         @endforeach
-                        
+
                     </tbody>
                 </table>
             </div>
@@ -67,7 +69,7 @@
     <script>
         var table;
         $(function() {
-            table = $('#example').DataTable({ 
+            table = $('#example').DataTable({
                 dom: 'Bfrtip',
                 // "scrollX": true,
                 "buttons": [
@@ -113,12 +115,12 @@
                     $(this).addClass('selected');
                 }
             } );
-        
+
             // $('#button').click( function () {
             //     table.row('.selected').remove().draw( false );
             // } );
 
 
-        } );    
+        } );
     </script>
 @endsection

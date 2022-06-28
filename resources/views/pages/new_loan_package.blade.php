@@ -21,10 +21,15 @@
                 @endif
 
                   {{ csrf_field() }}
-                    <div class="mb-3">
-                      <label for="loan" class="form-label">Package Name</label>
-                      <input type="text" class="form-control" id="loan" name="loan" value="{{ $loanpackage->loan ?? '' }}">
-                    </div>
+                        <div class="mb-3">
+                          <label for="loan" class="form-label">Package Name</label>
+                          <input type="text" class="form-control" id="loan" name="loan" value="{{ $loanpackage->loan ?? '' }}">
+                        </div>
+                        <div class="mb-3">
+                            <label for="loan" class="form-label">Content</label>
+                            <textarea class="form-control" id="terms" placeholder="Enter the terms" name="content"
+                              style="margin-top: 0px; margin-bottom: 0px; height: 315px;">{{ base64_decode($loanpackage->content ?? '')}}</textarea>
+                        </div>
                     <button type="submit" class="btn btn-primary">Submit</button>
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <a href="/loans/packages" class="btn btn-default">Cancel</a>
@@ -32,4 +37,11 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('custom_scripts')
+    <script src="https://cdn.ckeditor.com/4.16.1/standard/ckeditor.js"></script>
+    <script>
+        CKEDITOR.replace( 'terms' );
+    </script>
 @endsection
